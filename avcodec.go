@@ -59,7 +59,7 @@ type (
 )
 
 // AVCodecGetID ...
-func (cp *AVCodecParameters) AvCodecGetID() CodecID {
+func (cp *AVCodecParameters) AVCodecGetID() CodecID {
 	return *((*CodecID)(unsafe.Pointer(&cp.codec_id)))
 }
 
@@ -113,13 +113,13 @@ func (c *Codec) AvcodecAllocContext3() *AVCodecContext {
 	return (*AVCodecContext)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
 }
 
-// AvCodecIsEncoder ...
-func (c *Codec) AvCodecIsEncoder() int {
+// AVCodecIsEncoder ...
+func (c *Codec) AVCodecIsEncoder() int {
 	return int(C.av_codec_is_encoder((*C.struct_AVCodec)(c)))
 }
 
-// AvCodecIsDecoder ...
-func (c *Codec) AvCodecIsDecoder() int {
+// AVCodecIsDecoder ...
+func (c *Codec) AVCodecIsDecoder() int {
 	return int(C.av_codec_is_decoder((*C.struct_AVCodec)(c)))
 }
 
@@ -191,8 +191,8 @@ func AvcodecFindDecoder(id CodecID) *Codec {
 	return (*Codec)(C.avcodec_find_decoder((C.enum_AVCodecID)(id)))
 }
 
-// AvCodecIterate ...
-func AvCodecIterate(p *unsafe.Pointer) *Codec {
+// AVCodecIterate ...
+func AVCodecIterate(p *unsafe.Pointer) *Codec {
 	return (*Codec)(C.av_codec_iterate(p))
 }
 

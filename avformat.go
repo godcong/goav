@@ -37,8 +37,8 @@ type (
 	AvPacketList       C.struct_AVPacketList
 	CodecParserContext C.struct_AVCodecParserContext
 	AvIOContext        C.struct_AVIOContext
-	AvCodec            C.struct_AVCodec
-	AvCodecTag         C.struct_AVCodecTag
+	AVCodec            C.struct_AVCodec
+	AVCodecTag         C.struct_AVCodecTag
 	//Class                      C.struct_AVClass
 	AvFormatInternal C.struct_AVFormatInternal
 	AvIOInterruptCB  C.struct_AVIOInterruptCB
@@ -238,19 +238,19 @@ func AvPktDumpLog2(a int, l int, pkt *Packet, dp int, st *Stream) {
 	C.av_pkt_dump_log2(unsafe.Pointer(&a), C.int(l), toCPacket(pkt), C.int(dp), (*C.struct_AVStream)(st))
 }
 
-//AvCodecGetID enum CodecID av_codec_get_id (const struct AvCodecTag *const *tags, unsigned int tag)
+//AVCodecGetID enum CodecID av_codec_get_id (const struct AVCodecTag *const *tags, unsigned int tag)
 //Get the CodecID for the given codec tag tag.
-func AvCodecGetID(t **AvCodecTag, tag uint) CodecID {
+func AVCodecGetID(t **AVCodecTag, tag uint) CodecID {
 	return (CodecID)(C.av_codec_get_id((**C.struct_AVCodecTag)(unsafe.Pointer(t)), C.uint(tag)))
 }
 
 //Get the codec tag for the given codec id id.
-func AvCodecGetTag(t **AvCodecTag, id CodecID) uint {
+func AVCodecGetTag(t **AVCodecTag, id CodecID) uint {
 	return uint(C.av_codec_get_tag((**C.struct_AVCodecTag)(unsafe.Pointer(t)), (C.enum_AVCodecID)(id)))
 }
 
 //AVCodecGetTag2 Get the codec tag for the given codec id.
-func AvCodecGetTag2(t **AvCodecTag, id CodecID, tag *uint) int {
+func AVCodecGetTag2(t **AVCodecTag, id CodecID, tag *uint) int {
 	return int(C.av_codec_get_tag2((**C.struct_AVCodecTag)(unsafe.Pointer(t)), (C.enum_AVCodecID)(id), (*C.uint)(unsafe.Pointer(tag))))
 }
 
@@ -343,23 +343,23 @@ func AvformatQueryCodec(o *OutputFormat, cd CodecID, sc int) int {
 }
 
 // AvformatGetRiffVideoTags ...
-func AvformatGetRiffVideoTags() *AvCodecTag {
-	return (*AvCodecTag)(C.avformat_get_riff_video_tags())
+func AvformatGetRiffVideoTags() *AVCodecTag {
+	return (*AVCodecTag)(C.avformat_get_riff_video_tags())
 }
 
-//AvformatGetRiffAudioTags struct AvCodecTag * avformat_get_riff_audio_tags (void)
-func AvformatGetRiffAudioTags() *AvCodecTag {
-	return (*AvCodecTag)(C.avformat_get_riff_audio_tags())
+//AvformatGetRiffAudioTags struct AVCodecTag * avformat_get_riff_audio_tags (void)
+func AvformatGetRiffAudioTags() *AVCodecTag {
+	return (*AVCodecTag)(C.avformat_get_riff_audio_tags())
 }
 
 // AvformatGetMovVideoTags ...
-func AvformatGetMovVideoTags() *AvCodecTag {
-	return (*AvCodecTag)(C.avformat_get_mov_video_tags())
+func AvformatGetMovVideoTags() *AVCodecTag {
+	return (*AVCodecTag)(C.avformat_get_mov_video_tags())
 }
 
 // AvformatGetMovAudioTags ...
-func AvformatGetMovAudioTags() *AvCodecTag {
-	return (*AvCodecTag)(C.avformat_get_mov_audio_tags())
+func AvformatGetMovAudioTags() *AVCodecTag {
+	return (*AVCodecTag)(C.avformat_get_mov_audio_tags())
 }
 
 // AvIOOpen ...

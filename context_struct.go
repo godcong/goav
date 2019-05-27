@@ -708,7 +708,7 @@ func (ctx *AVFormatContext) SubtitleCodec() *AVCodec {
 
 // VideoCodec ...
 func (ctx *AVFormatContext) VideoCodec() *AVCodec {
-	return (*AvCodec)(unsafe.Pointer(ctx.video_codec))
+	return (*AVCodec)(unsafe.Pointer(ctx.video_codec))
 }
 
 // Metadata ...
