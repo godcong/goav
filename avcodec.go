@@ -1,7 +1,7 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-//Package avcodec contains the codecs (decoders and encoders) provided by the libavcodec library
+//Package goav contains the codecs (decoders and encoders) provided by the libavcodec library
 //Provides some generic global options, which can be set on all the encoders and decoders.
 package goav
 
@@ -46,7 +46,7 @@ type (
 	//AvBufferRef                   C.struct_AVBufferRef
 	AvAudioServiceType            C.enum_AVAudioServiceType
 	AvChromaLocation              C.enum_AVChromaLocation
-	CodecId                       C.enum_AVCodecID
+	CodecID                       C.enum_AVCodecID
 	AvColorPrimaries              C.enum_AVColorPrimaries
 	AvColorRange                  C.enum_AVColorRange
 	AvColorSpace                  C.enum_AVColorSpace
@@ -58,9 +58,9 @@ type (
 	AvSampleFormat C.enum_AVSampleFormat
 )
 
-// AvCodecGetId ...
-func (cp *AvCodecParameters) AvCodecGetId() CodecId {
-	return *((*CodecId)(unsafe.Pointer(&cp.codec_id)))
+// AvCodecGetID ...
+func (cp *AvCodecParameters) AvCodecGetID() CodecID {
+	return *((*CodecID)(unsafe.Pointer(&cp.codec_id)))
 }
 
 // AvCodecGetType ...

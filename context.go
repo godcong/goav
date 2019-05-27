@@ -453,7 +453,7 @@ func (ctx *AVFormatContext) AvformatQueueAttachedPictures() int {
 // AvformatNewStream2 ...
 func (ctx *AVFormatContext) AvformatNewStream2(c *AvCodec) *Stream {
 	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
-	stream.codec.pix_fmt = int32(AV_PIX_FMT_YUV)
+	stream.codec.pix_fmt = int32(AvPixFmtYuv)
 	stream.codec.width = 640
 	stream.codec.height = 480
 	stream.time_base.num = 1
@@ -533,7 +533,7 @@ func (s *SwrContext) SwrSetChannelMapping(cm *int) int {
 	return int(C.swr_set_channel_mapping((*C.struct_SwrContext)(s), (*C.int)(unsafe.Pointer(cm))))
 }
 
-//Set a customized remix matrix.
+//SwrSetMatrix Set a customized remix matrix.
 func (s *SwrContext) SwrSetMatrix(m *int, t int) int {
 	return int(C.swr_set_matrix((*C.struct_SwrContext)(s), (*C.double)(unsafe.Pointer(m)), C.int(t)))
 }
@@ -548,17 +548,17 @@ func (s *SwrContext) SwrInjectSilence(c int) int {
 	return int(C.swr_inject_silence((*C.struct_SwrContext)(s), C.int(c)))
 }
 
-//Gets the delay the next input sample will experience relative to the next output sample.
+//SwrGetDelay Gets the delay the next input sample will experience relative to the next output sample.
 func (s *SwrContext) SwrGetDelay(b int64) int64 {
 	return int64(C.swr_get_delay((*C.struct_SwrContext)(s), C.int64_t(b)))
 }
 
-//SwrConvertFrame Frame based API. Convert the samples in the input Frame and write them to the output Frame.
+//SwrConvertFrame SwrConvertFrame Frame based API. Convert the samples in the input Frame and write them to the output Frame.
 func (s *SwrContext) SwrConvertFrame(o, i *Frame) int {
 	return int(C.swr_convert_frame((*C.struct_SwrContext)(s), (*C.struct_AVFrame)(o), (*C.struct_AVFrame)(i)))
 }
 
-//Configure or reconfigure the SwrContext using the information provided by the AvFrames.
+//SwrConfigFrame Configure or reconfigure the SwrContext using the information provided by the AvFrames.
 func (s *SwrContext) SwrConfigFrame(o, i *Frame) int {
 	return int(C.swr_config_frame((*C.struct_SwrContext)(s), (*C.struct_AVFrame)(o), (*C.struct_AVFrame)(i)))
 }

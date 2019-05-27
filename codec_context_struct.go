@@ -20,129 +20,158 @@ import (
 	"unsafe"
 )
 
-func (cctxt *CodecContext) Type() MediaType {
-	return MediaType(cctxt.codec_type)
+// Type ...
+func (ctx *CodecContext) Type() MediaType {
+	return MediaType(ctx.codec_type)
 }
 
-func (cctxt *CodecContext) SetBitRate(br int64) {
-	cctxt.bit_rate = C.int64_t(br)
+// SetBitRate ...
+func (ctx *CodecContext) SetBitRate(br int64) {
+	ctx.bit_rate = C.int64_t(br)
 }
 
-func (cctxt *CodecContext) GetCodecId() CodecId {
-	return CodecId(cctxt.codec_id)
+// GetCodecId ...
+func (ctx *CodecContext) GetCodecId() CodecId {
+	return CodecId(ctx.codec_id)
 }
 
-func (cctxt *CodecContext) SetCodecId(codecId CodecId) {
-	cctxt.codec_id = C.enum_AVCodecID(codecId)
+// SetCodecId ...
+func (ctx *CodecContext) SetCodecId(codecId CodecId) {
+	ctx.codec_id = C.enum_AVCodecID(codecId)
 }
 
-func (cctxt *CodecContext) GetCodecType() MediaType {
-	return MediaType(cctxt.codec_type)
+// GetCodecType ...
+func (ctx *CodecContext) GetCodecType() MediaType {
+	return MediaType(ctx.codec_type)
 }
 
-func (cctxt *CodecContext) SetCodecType(ctype MediaType) {
-	cctxt.codec_type = C.enum_AVMediaType(ctype)
+// SetCodecType ...
+func (ctx *CodecContext) SetCodecType(ctype MediaType) {
+	ctx.codec_type = C.enum_AVMediaType(ctype)
 }
 
-func (cctxt *CodecContext) GetTimeBase() Rational {
-	return newRational(cctxt.time_base)
+// GetTimeBase ...
+func (ctx *CodecContext) GetTimeBase() Rational {
+	return newRational(ctx.time_base)
 }
 
-func (cctxt *CodecContext) SetTimeBase(timeBase Rational) {
-	cctxt.time_base.num = C.int(timeBase.Num())
-	cctxt.time_base.den = C.int(timeBase.Den())
+// SetTimeBase ...
+func (ctx *CodecContext) SetTimeBase(timeBase Rational) {
+	ctx.time_base.num = C.int(timeBase.Num())
+	ctx.time_base.den = C.int(timeBase.Den())
 }
 
-func (cctx *CodecContext) GetWidth() int {
-	return int(cctx.width)
+// GetWidth ...
+func (ctx *CodecContext) GetWidth() int {
+	return int(ctx.width)
 }
 
-func (cctx *CodecContext) SetWidth(w int) {
-	cctx.width = C.int(w)
+// SetWidth ...
+func (ctx *CodecContext) SetWidth(w int) {
+	ctx.width = C.int(w)
 }
 
-func (cctx *CodecContext) GetHeight() int {
-	return int(cctx.height)
+// GetHeight ...
+func (ctx *CodecContext) GetHeight() int {
+	return int(ctx.height)
 }
 
-func (cctx *CodecContext) SetHeight(h int) {
-	cctx.height = C.int(h)
+// SetHeight ...
+func (ctx *CodecContext) SetHeight(h int) {
+	ctx.height = C.int(h)
 }
 
-func (cctx *CodecContext) GetPixelFormat() PixelFormat {
-	return PixelFormat(C.int(cctx.pix_fmt))
+// GetPixelFormat ...
+func (ctx *CodecContext) GetPixelFormat() PixelFormat {
+	return PixelFormat(C.int(ctx.pix_fmt))
 }
 
-func (cctx *CodecContext) SetPixelFormat(fmt PixelFormat) {
-	cctx.pix_fmt = C.enum_AVPixelFormat(C.int(fmt))
+// SetPixelFormat ...
+func (ctx *CodecContext) SetPixelFormat(fmt PixelFormat) {
+	ctx.pix_fmt = C.enum_AVPixelFormat(C.int(fmt))
 }
 
-func (cctx *CodecContext) GetFlags() int {
-	return int(cctx.flags)
+// GetFlags ...
+func (ctx *CodecContext) GetFlags() int {
+	return int(ctx.flags)
 }
 
-func (cctx *CodecContext) SetFlags(flags int) {
-	cctx.flags = C.int(flags)
+// SetFlags ...
+func (ctx *CodecContext) SetFlags(flags int) {
+	ctx.flags = C.int(flags)
 }
 
-func (cctx *CodecContext) GetMeRange() int {
-	return int(cctx.me_range)
+// GetMeRange ...
+func (ctx *CodecContext) GetMeRange() int {
+	return int(ctx.me_range)
 }
 
-func (cctx *CodecContext) SetMeRange(r int) {
-	cctx.me_range = C.int(r)
+// SetMeRange ...
+func (ctx *CodecContext) SetMeRange(r int) {
+	ctx.me_range = C.int(r)
 }
 
-func (cctx *CodecContext) GetMaxQDiff() int {
-	return int(cctx.max_qdiff)
+// GetMaxQDiff ...
+func (ctx *CodecContext) GetMaxQDiff() int {
+	return int(ctx.max_qdiff)
 }
 
-func (cctx *CodecContext) SetMaxQDiff(v int) {
-	cctx.max_qdiff = C.int(v)
+// SetMaxQDiff ...
+func (ctx *CodecContext) SetMaxQDiff(v int) {
+	ctx.max_qdiff = C.int(v)
 }
 
-func (cctx *CodecContext) GetQMin() int {
-	return int(cctx.qmin)
+// GetQMin ...
+func (ctx *CodecContext) GetQMin() int {
+	return int(ctx.qmin)
 }
 
-func (cctx *CodecContext) SetQMin(v int) {
-	cctx.qmin = C.int(v)
+// SetQMin ...
+func (ctx *CodecContext) SetQMin(v int) {
+	ctx.qmin = C.int(v)
 }
 
-func (cctx *CodecContext) GetQMax() int {
-	return int(cctx.qmax)
+// GetQMax ...
+func (ctx *CodecContext) GetQMax() int {
+	return int(ctx.qmax)
 }
 
-func (cctx *CodecContext) SetQMax(v int) {
-	cctx.qmax = C.int(v)
+// SetQMax ...
+func (ctx *CodecContext) SetQMax(v int) {
+	ctx.qmax = C.int(v)
 }
 
-func (cctx *CodecContext) GetQCompress() float32 {
-	return float32(cctx.qcompress)
+// GetQCompress ...
+func (ctx *CodecContext) GetQCompress() float32 {
+	return float32(ctx.qcompress)
 }
 
-func (cctx *CodecContext) SetQCompress(v float32) {
-	cctx.qcompress = C.float(v)
+// SetQCompress ...
+func (ctx *CodecContext) SetQCompress(v float32) {
+	ctx.qcompress = C.float(v)
 }
 
-func (cctx *CodecContext) GetExtraData() []byte {
+// GetExtraData ...
+func (ctx *CodecContext) GetExtraData() []byte {
 	header := reflect.SliceHeader{
-		Data: uintptr(unsafe.Pointer(cctx.extradata)),
-		Len:  int(cctx.extradata_size),
-		Cap:  int(cctx.extradata_size),
+		Data: uintptr(unsafe.Pointer(ctx.extradata)),
+		Len:  int(ctx.extradata_size),
+		Cap:  int(ctx.extradata_size),
 	}
 
 	return *((*[]byte)(unsafe.Pointer(&header)))
 }
 
-func (cctx *CodecContext) SetExtraData(data []byte) {
+// SetExtraData ...
+func (ctx *CodecContext) SetExtraData(data []byte) {
 	header := (*reflect.SliceHeader)(unsafe.Pointer(&data))
 
-	cctx.extradata = (*C.uint8_t)(unsafe.Pointer(header.Data))
-	cctx.extradata_size = C.int(header.Len)
+	ctx.extradata = (*C.uint8_t)(unsafe.Pointer(header.Data))
+	ctx.extradata_size = C.int(header.Len)
 }
 
-func (cctx *CodecContext) Release() {
-	C.avcodec_close((*C.struct_AVCodecContext)(unsafe.Pointer(cctx)))
-	C.av_freep(unsafe.Pointer(cctx))
+// Release ...
+func (ctx *CodecContext) Release() {
+	C.avcodec_close((*C.struct_AVCodecContext)(unsafe.Pointer(ctx)))
+	C.av_freep(unsafe.Pointer(ctx))
 }

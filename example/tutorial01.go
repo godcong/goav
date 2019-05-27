@@ -62,7 +62,7 @@ func main() {
 	}
 
 	// Open video file
-	pFormatContext :=goav.AvformatAllocContext()
+	pFormatContext := goav.AvformatAllocContext()
 	if goav.AvformatOpenInput(&pFormatContext, os.Args[1], nil, nil) != 0 {
 		fmt.Printf("Unable to open file %s\n", os.Args[1])
 		os.Exit(1)
@@ -114,7 +114,7 @@ func main() {
 			}
 
 			// Determine required buffer size and allocate buffer
-			numBytes := uintptr(goav.AvpictureGetSize(goav.AV_PIX_FMT_RGB24, pCodecCtx.Width(),
+			numBytes := uintptr(goav.AvpictureGetSize(goav.AvPixFmtRgb24, pCodecCtx.Width(),
 				pCodecCtx.Height()))
 			buffer := goav.AvMalloc(numBytes)
 
@@ -122,7 +122,7 @@ func main() {
 			// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
 			// of AVPicture
 			avp := (*goav.Picture)(unsafe.Pointer(pFrameRGB))
-			avp.AvpictureFill((*uint8)(buffer), goav.AV_PIX_FMT_RGB24, pCodecCtx.Width(), pCodecCtx.Height())
+			avp.AvpictureFill((*uint8)(buffer), goav.AvPixFmtRgb24, pCodecCtx.Width(), pCodecCtx.Height())
 
 			// initialize SWS context for software scaling
 			swsCtx := swscale.SwsGetcontext(
@@ -131,8 +131,8 @@ func main() {
 				(swscale.PixelFormat)(pCodecCtx.PixFmt()),
 				pCodecCtx.Width(),
 				pCodecCtx.Height(),
-				goav.AV_PIX_FMT_RGB24,
-				goav.SWS_BILINEAR,
+				goav.AvPixFmtRgb24,
+				goav.SwsBilinear,
 				nil,
 				nil,
 				nil,
