@@ -10,22 +10,25 @@ package goav
 */
 import "C"
 
+// AVLogQuiet ...
 const (
-	AV_LOG_QUIET   = -8
-	AV_LOG_PANIC   = 0
-	AV_LOG_FATAL   = 8
-	AV_LOG_ERROR   = 16
-	AV_LOG_WARNING = 24
-	AV_LOG_INFO    = 32
-	AV_LOG_VERBOSE = 40
-	AV_LOG_DEBUG   = 48
-	AV_LOG_TRACE   = 56
+	AVLogQuiet   = -8
+	AVLogPanic   = 0
+	AVLogFatal   = 8
+	AVLogError   = 16
+	AVLogWarning = 24
+	AVLogInfo    = 32
+	AVLogVerbose = 40
+	AVLogDebug   = 48
+	AVLogTrace   = 56
 )
 
+// AvLogSetLevel ...
 func AvLogSetLevel(level int) {
 	C.av_log_set_level(C.int(level))
 }
 
+// AvLogGetLevel ...
 func AvLogGetLevel() int {
 	return int(C.av_log_get_level())
 }

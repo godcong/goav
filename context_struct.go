@@ -717,8 +717,8 @@ func (ctx *AVFormatContext) Metadata() *Dictionary {
 }
 
 // Internal ...
-func (ctx *AVFormatContext) Internal() *AvFormatInternal {
-	return (*AvFormatInternal)(unsafe.Pointer(ctx.internal))
+func (ctx *AVFormatContext) Internal() *AVFormatInternal {
+	return (*AVFormatInternal)(unsafe.Pointer(ctx.internal))
 }
 
 // Pb ...
@@ -727,8 +727,8 @@ func (ctx *AVFormatContext) Pb() *AvIOContext {
 }
 
 // InterruptCallback ...
-func (ctx *AVFormatContext) InterruptCallback() AvIOInterruptCB {
-	return AvIOInterruptCB(ctx.interrupt_callback)
+func (ctx *AVFormatContext) InterruptCallback() AVIOInterruptCB {
+	return AVIOInterruptCB(ctx.interrupt_callback)
 }
 
 // Programs ...
@@ -774,8 +774,8 @@ func (ctx *AVFormatContext) VideoCodecID() AVCodecID {
 }
 
 // DurationEstimationMethod ...
-func (ctx *AVFormatContext) DurationEstimationMethod() AvDurationEstimationMethod {
-	return AvDurationEstimationMethod(ctx.duration_estimation_method)
+func (ctx *AVFormatContext) DurationEstimationMethod() AVDurationEstimationMethod {
+	return AVDurationEstimationMethod(ctx.duration_estimation_method)
 }
 
 // AudioPreload ...

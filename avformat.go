@@ -37,28 +37,21 @@ type (
 	AvPacketList       C.struct_AVPacketList
 	CodecParserContext C.struct_AVCodecParserContext
 	AvIOContext        C.struct_AVIOContext
-	AVCodec            C.struct_AVCodec
-	AVCodecTag         C.struct_AVCodecTag
-	//Class                      C.struct_AVClass
-	AvFormatInternal C.struct_AVFormatInternal
-	AvIOInterruptCB  C.struct_AVIOInterruptCB
-	//AvPacketSideData           C.struct_AVPacketSideData
-	FFFrac            C.struct_FFFrac
-	AvStreamParseType C.enum_AVStreamParseType
-	//AVDiscard                  C.enum_AVDiscard
-	//MediaType                  C.enum_AVMediaType
-	AvDurationEstimationMethod C.enum_AVDurationEstimationMethod
-	//AVPacketSideDataType       C.enum_AVPacketSideDataType
-	//AVCodecID                    C.enum_AVCodecID
+
+	AVFormatInternal           C.struct_AVFormatInternal
+	AVIOInterruptCB            C.struct_AVIOInterruptCB
+	FFFrac                     C.struct_FFFrac
+	AVStreamParseType          C.enum_AVStreamParseType
+	AVDurationEstimationMethod C.enum_AVDurationEstimationMethod
 )
 
-//Allocate and read the payload of a packet and initialize its fields with default values.
-func (ctxt *AvIOContext) AvGetPacket(pkt *AVPacket, s int) int {
+//AVGetPacket Allocate and read the payload of a packet and initialize its fields with default values.
+func (ctxt *AvIOContext) AVGetPacket(pkt *AVPacket, s int) int {
 	return int(C.av_get_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
 }
 
-//Read data and append it to the current content of the AVPacket.
-func (ctxt *AvIOContext) AvAppendPacket(pkt *AVPacket, s int) int {
+//AVAppendPacket Read data and append it to the current content of the AVPacket.
+func (ctxt *AvIOContext) AVAppendPacket(pkt *AVPacket, s int) int {
 	return int(C.av_append_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
 }
 

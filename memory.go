@@ -19,6 +19,7 @@ func AvMalloc(s uintptr) unsafe.Pointer {
 	return unsafe.Pointer(C.av_malloc(C.size_t(s)))
 }
 
+// AvMallocArray ...
 func AvMallocArray(n, s uintptr) unsafe.Pointer {
 	return C.av_malloc_array(C.size_t(n), C.size_t(s))
 }
@@ -38,10 +39,12 @@ func AvReallocp(p int, s uintptr) int {
 	return int(C.av_reallocp(unsafe.Pointer(&p), C.size_t(s)))
 }
 
+// AvReallocArray ...
 func AvReallocArray(p int, n, s uintptr) unsafe.Pointer {
 	return C.av_realloc_array(unsafe.Pointer(&p), C.size_t(n), C.size_t(s))
 }
 
+// AvReallocpArray ...
 func AvReallocpArray(p int, n, s uintptr) int {
 	return int(C.av_reallocp_array(unsafe.Pointer(&p), C.size_t(n), C.size_t(s)))
 }
@@ -61,6 +64,7 @@ func AvCalloc(n, s uintptr) unsafe.Pointer {
 	return C.av_calloc(C.size_t(n), C.size_t(s))
 }
 
+// AvMalloczArray ...
 func AvMalloczArray(n, s uintptr) unsafe.Pointer {
 	return C.av_mallocz_array(C.size_t(n), C.size_t(s))
 }
@@ -111,17 +115,17 @@ func AvMaxAlloc(m uintptr) {
 	C.av_max_alloc(C.size_t(m))
 }
 
-//deliberately overlapping memcpy implementation
-func AvMemcpyBackptr(d *uintptr, b, c int) {
+//AVMemcpyBackptr deliberately overlapping memcpy implementation
+func AVMemcpyBackptr(d *uintptr, b, c int) {
 	C.av_memcpy_backptr((*C.uint8_t)(unsafe.Pointer(d)), C.int(b), C.int(c))
 }
 
-//Reallocate the given block if it is not large enough, otherwise do nothing.
-func AvFastRealloc(p unsafe.Pointer, s *uint, m uintptr) unsafe.Pointer {
+//AVFastRealloc Reallocate the given block if it is not large enough, otherwise do nothing.
+func AVFastRealloc(p unsafe.Pointer, s *uint, m uintptr) unsafe.Pointer {
 	return C.av_fast_realloc(p, (*C.uint)(unsafe.Pointer(s)), (C.size_t)(m))
 }
 
-//Allocate a buffer, reusing the given one if large enough.
-func AvFastMalloc(p unsafe.Pointer, s *uint, m uintptr) {
+//AVFastMalloc Allocate a buffer, reusing the given one if large enough.
+func AVFastMalloc(p unsafe.Pointer, s *uint, m uintptr) {
 	C.av_fast_malloc(p, (*C.uint)(unsafe.Pointer(s)), (C.size_t)(m))
 }

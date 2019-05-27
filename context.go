@@ -296,14 +296,14 @@ func (ctx *AVFormatContext) AvFormatSetOpaque(o int) {
 	C.av_format_set_opaque((*C.struct_AVFormatContext)(ctx), unsafe.Pointer(&o))
 }
 
-//This function will cause global side data to be injected in the next packet of each stream as well as after any subsequent seek.
-func (ctx *AVFormatContext) AvFormatInjectGlobalSideData() {
+//AVFormatInjectGlobalSideData This function will cause global side data to be injected in the next packet of each stream as well as after any subsequent seek.
+func (ctx *AVFormatContext) AVFormatInjectGlobalSideData() {
 	C.av_format_inject_global_side_data((*C.struct_AVFormatContext)(ctx))
 }
 
-//Returns the method used to set ctx->duration.
-func (ctx *AVFormatContext) AvFmtCtxGetDurationEstimationMethod() AvDurationEstimationMethod {
-	return (AvDurationEstimationMethod)(C.av_fmt_ctx_get_duration_estimation_method((*C.struct_AVFormatContext)(ctx)))
+//AVFmtCtxGetDurationEstimationMethod Returns the method used to set ctx->duration.
+func (ctx *AVFormatContext) AVFmtCtxGetDurationEstimationMethod() AVDurationEstimationMethod {
+	return (AVDurationEstimationMethod)(C.av_fmt_ctx_get_duration_estimation_method((*C.struct_AVFormatContext)(ctx)))
 }
 
 //AVFormatFreeContext Free an Context and all its streams.

@@ -71,8 +71,8 @@ func (s *Stream) Discard() AVDiscard {
 }
 
 // NeedParsing ...
-func (s *Stream) NeedParsing() AvStreamParseType {
-	return AvStreamParseType(s.need_parsing)
+func (s *Stream) NeedParsing() AVStreamParseType {
+	return AVStreamParseType(s.need_parsing)
 }
 
 // CodecInfoNbFrames ...
@@ -105,8 +105,8 @@ func (s *Stream) InjectGlobalSideData() int {
 	return int(s.inject_global_side_data)
 }
 
-// LastIpDuration ...
-func (s *Stream) LastIpDuration() int {
+// LastIPDuration ...
+func (s *Stream) LastIPDuration() int {
 	return int(s.last_IP_duration)
 }
 

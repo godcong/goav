@@ -113,7 +113,7 @@ func AVFilterInsertFilter(l *Link, f *AVFilterContext, fsi, fdi uint) int {
 	return int(C.avfilter_insert_filter((*C.struct_AVFilterLink)(l), (*C.struct_AVFilterContext)(f), C.uint(fsi), C.uint(fdi)))
 }
 
-//avfilter_get_class
+// AVFilterGetClass ...
 func AVFilterGetClass() *Class {
 	return (*Class)(C.avfilter_get_class())
 }
