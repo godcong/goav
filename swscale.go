@@ -4,7 +4,7 @@
 //Package swscale performs highly optimized image scaling and colorspace and pixel format conversion operations.
 //Rescaling: is the process of changing the video size. Several rescaling options and algorithms are available.
 //Pixel format conversion: is the process of converting the image format and colorspace of the image.
-package swscale
+package goav
 
 //#cgo pkg-config: libswscale libavutil
 //#include <stdio.h>

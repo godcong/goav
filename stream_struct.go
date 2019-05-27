@@ -8,28 +8,25 @@ package goav
 import "C"
 import (
 	"unsafe"
-
-	"github.com/giorgisio/goav/avcodec"
-	"github.com/giorgisio/goav/avutil"
 )
 
-func (avs *Stream) CodecParameters() *avcodec.AvCodecParameters {
-	return (*avcodec.AvCodecParameters)(unsafe.Pointer(avs.codecpar))
+func (avs *Stream) CodecParameters() *AvCodecParameters {
+	return (*AvCodecParameters)(unsafe.Pointer(avs.codecpar))
 }
 
 func (avs *Stream) Codec() *CodecContext {
 	return (*CodecContext)(unsafe.Pointer(avs.codec))
 }
 
-func (avs *Stream) Metadata() *avutil.Dictionary {
-	return (*avutil.Dictionary)(unsafe.Pointer(avs.metadata))
+func (avs *Stream) Metadata() *Dictionary {
+	return (*Dictionary)(unsafe.Pointer(avs.metadata))
 }
 
 func (avs *Stream) IndexEntries() *AvIndexEntry {
 	return (*AvIndexEntry)(unsafe.Pointer(avs.index_entries))
 }
 
-func (avs *Stream) AttachedPic() avcodec.Packet {
+func (avs *Stream) AttachedPic() Packet {
 	return *fromCPacket(&avs.attached_pic)
 }
 
@@ -41,7 +38,7 @@ func (avs *Stream) ProbeData() AvProbeData {
 	return AvProbeData(avs.probe_data)
 }
 
-func (avs *Stream) AvgFrameRate() avcodec.Rational {
+func (avs *Stream) AvgFrameRate() Rational {
 	return newRational(avs.avg_frame_rate)
 }
 
@@ -49,15 +46,15 @@ func (avs *Stream) AvgFrameRate() avcodec.Rational {
 // 	return (*Rational)(unsafe.Pointer(avs.display_aspect_ratio))
 // }
 
-func (avs *Stream) RFrameRate() avcodec.Rational {
+func (avs *Stream) RFrameRate() Rational {
 	return newRational(avs.r_frame_rate)
 }
 
-func (avs *Stream) SampleAspectRatio() avcodec.Rational {
+func (avs *Stream) SampleAspectRatio() Rational {
 	return newRational(avs.sample_aspect_ratio)
 }
 
-func (avs *Stream) TimeBase() avcodec.Rational {
+func (avs *Stream) TimeBase() Rational {
 	return newRational(avs.time_base)
 }
 

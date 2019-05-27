@@ -5,7 +5,7 @@
 // It contains safe portable string functions, random number generators, data structures,
 // additional mathematics functions, cryptography and multimedia related functionality.
 // Some generic features and utilities provided by the libavutil library
-package avutil
+package goav
 
 //#cgo pkg-config: libavutil
 //#include <libavutil/error.h>

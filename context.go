@@ -3,9 +3,10 @@
 
 package goav
 
-//#cgo pkg-config: libavformat libavcodec
+//#cgo pkg-config: libavformat libavcodec libswscale libavutil
 //#include <libavformat/avformat.h>
 //#include <libavcodec/avcodec.h>
+//#include <libswscale/swscale.h>
 import "C"
 import (
 	"time"
@@ -295,7 +296,7 @@ func AvFindBestStream(ic *Context, t MediaType, ws, rs int, c **AvCodec, f int) 
 }
 
 //Return the next frame of a stream.
-func (s *Context) AvReadFrame(pkt *avcodec.Packet) int {
+func (s *Context) AvReadFrame(pkt *Packet) int {
 	return int(C.av_read_frame((*C.struct_AVFormatContext)(unsafe.Pointer(s)), toCPacket(pkt)))
 }
 
@@ -306,7 +307,7 @@ func (s *Context) AvSeekFrame(st int, t int64, f int) int {
 
 // AvSeekFrameTime seeks to a specified time location.
 // |timebase| is codec specific and can be obtained by calling AvCodecGetPktTimebase2
-func (s *Context) AvSeekFrameTime(st int, at time.Duration, timebase avcodec.Rational) int {
+func (s *Context) AvSeekFrameTime(st int, at time.Duration, timebase Rational) int {
 	t2 := C.double(C.double(at.Seconds())*C.double(timebase.Den())) / (C.double(timebase.Num()))
 	// log.Printf("Seeking to time :%v TimebaseTime:%v ActualTimebase:%v", at, t2, timebase)
 	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagBackward))
@@ -338,12 +339,12 @@ func (s *Context) AvformatWriteHeader(o **avutil.Dictionary) int {
 }
 
 //Write a packet to an output media file.
-func (s *Context) AvWriteFrame(pkt *avcodec.Packet) int {
+func (s *Context) AvWriteFrame(pkt *Packet) int {
 	return int(C.av_write_frame((*C.struct_AVFormatContext)(s), toCPacket(pkt)))
 }
 
 //Write a packet to an output media file ensuring correct interleaving.
-func (s *Context) AvInterleavedWriteFrame(pkt *avcodec.Packet) int {
+func (s *Context) AvInterleavedWriteFrame(pkt *Packet) int {
 	return int(C.av_interleaved_write_frame((*C.struct_AVFormatContext)(s), toCPacket(pkt)))
 }
 
@@ -385,12 +386,12 @@ func (s *Context) AvDumpFormat(i int, url string, io int) {
 }
 
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *Frame) avcodec.Rational {
+func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *Frame) Rational {
 	return newRational(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
 }
 
 //Guess the frame rate, based on both the container and codec information.
-func (s *Context) AvGuessFrameRate(st *Stream, fr *Frame) avcodec.Rational {
+func (s *Context) AvGuessFrameRate(st *Stream, fr *Frame) Rational {
 	return newRational(C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
 }
 
@@ -408,7 +409,7 @@ func (s *Context) AvformatQueueAttachedPictures() int {
 
 func (s *Context) AvformatNewStream2(c *AvCodec) *Stream {
 	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c)))
-	stream.codec.pix_fmt = int32(avcodec.AV_PIX_FMT_YUV)
+	stream.codec.pix_fmt = int32(AV_PIX_FMT_YUV)
 	stream.codec.width = 640
 	stream.codec.height = 480
 	stream.time_base.num = 1
@@ -435,3 +436,28 @@ func (s *Context) AvformatNewStream2(c *AvCodec) *Stream {
 // func (s *Context)AvFormatSetDataCodec( c *AvCodec) {
 // 	C.av_format_set_data_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
 // }
+
+//Allocate an empty Context.
+func SwsAllocContext() *Context {
+	return (*Context)(C.sws_alloc_context())
+}
+
+//Initialize the swscaler context sws_context.
+func SwsInitContext(ctxt *Context, sf, df *Filter) int {
+	return int(C.sws_init_context((*C.struct_SwsContext)(ctxt), (*C.struct_SwsFilter)(sf), (*C.struct_SwsFilter)(df)))
+}
+
+//Free the swscaler context swsContext.
+func SwsFreecontext(ctxt *Context) {
+	C.sws_freeContext((*C.struct_SwsContext)(ctxt))
+}
+
+//Allocate and return an Context.
+func SwsGetcontext(sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *int) *Context {
+	return (*Context)(C.sws_getContext(C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(unsafe.Pointer(p))))
+}
+
+//Check if context can be reused, otherwise reallocate a new one.
+func SwsGetcachedcontext(ctxt *Context, sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *float64) *Context {
+	return (*Context)(C.sws_getCachedContext((*C.struct_SwsContext)(ctxt), C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(p)))
+}

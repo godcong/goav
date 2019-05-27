@@ -20,19 +20,19 @@ import (
 )
 
 type (
-	Codec                         C.struct_AVCodec
-	Context                       C.struct_AVCodecContext
-	Descriptor                    C.struct_AVCodecDescriptor
-	Parser                        C.struct_AVCodecParser
-	ParserContext                 C.struct_AVCodecParserContext
-	Dictionary                    C.struct_AVDictionary
-	Frame                         C.struct_AVFrame
-	MediaType                     C.enum_AVMediaType
-	Packet                        C.struct_AVPacket
-	BitStreamFilter               C.struct_AVBitStreamFilter
-	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
-	Rational                      C.struct_AVRational
-	Class                         C.struct_AVClass
+	Codec                  C.struct_AVCodec
+	Context                C.struct_AVCodecContext
+	Descriptor             C.struct_AVCodecDescriptor
+	Parser                 C.struct_AVCodecParser
+	ParserContext          C.struct_AVCodecParserContext
+	Dictionary             C.struct_AVDictionary
+	Frame                  C.struct_AVFrame
+	MediaType              C.enum_AVMediaType
+	Packet                 C.struct_AVPacket
+	BitStreamFilter        C.struct_AVBitStreamFilter
+	BitStreamFilterContext C.struct_AVBitStreamFilterContext
+	Rational               C.struct_AVRational
+	//Class                         C.struct_AVClass
 	AvCodecParameters             C.struct_AVCodecParameters
 	AvHWAccel                     C.struct_AVHWAccel
 	AvPacketSideData              C.struct_AVPacketSideData

@@ -25,15 +25,11 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/giorgisio/goav/swscale"
-
-	"github.com/giorgisio/goav/avcodec"
-	"github.com/giorgisio/goav/avformat"
-	"github.com/giorgisio/goav/avutil"
+	"github.com/giorgisio/goav"
 )
 
 // SaveFrame writes a single frame to disk as a PPM file
-func SaveFrame(frame *avutil.Frame, width, height, frameNumber int) {
+func SaveFrame(frame *goav.Frame, width, height, frameNumber int) {
 	// Open file
 	fileName := fmt.Sprintf("frame%d.ppm", frameNumber)
 	file, err := os.Create(fileName)
@@ -48,9 +44,9 @@ func SaveFrame(frame *avutil.Frame, width, height, frameNumber int) {
 
 	// Write pixel data
 	for y := 0; y < height; y++ {
-		data0 := avutil.Data(frame)[0]
+		data0 := goav.Data(frame)[0]
 		buf := make([]byte, width*3)
-		startPos := uintptr(unsafe.Pointer(data0)) + uintptr(y)*uintptr(avutil.Linesize(frame)[0])
+		startPos := uintptr(unsafe.Pointer(data0)) + uintptr(y)*uintptr(goav.Linesize(frame)[0])
 		for i := 0; i < width*3; i++ {
 			element := *(*uint8)(unsafe.Pointer(startPos + uintptr(i)))
 			buf[i] = element
@@ -66,8 +62,8 @@ func main() {
 	}
 
 	// Open video file
-	pFormatContext := avformat.AvformatAllocContext()
-	if avformat.AvformatOpenInput(&pFormatContext, os.Args[1], nil, nil) != 0 {
+	pFormatContext :=goav.AvformatAllocContext()
+	if goav.AvformatOpenInput(&pFormatContext, os.Args[1], nil, nil) != 0 {
 		fmt.Printf("Unable to open file %s\n", os.Args[1])
 		os.Exit(1)
 	}
@@ -84,19 +80,19 @@ func main() {
 	// Find the first video stream
 	for i := 0; i < int(pFormatContext.NbStreams()); i++ {
 		switch pFormatContext.Streams()[i].CodecParameters().AvCodecGetType() {
-		case avformat.AVMEDIA_TYPE_VIDEO:
+		case goav.AVMEDIA_TYPE_VIDEO:
 
 			// Get a pointer to the codec context for the video stream
 			pCodecCtxOrig := pFormatContext.Streams()[i].Codec()
 			// Find the decoder for the video stream
-			pCodec := avcodec.AvcodecFindDecoder(avcodec.CodecId(pCodecCtxOrig.GetCodecId()))
+			pCodec := goav.AvcodecFindDecoder(goav.CodecId(pCodecCtxOrig.GetCodecId()))
 			if pCodec == nil {
 				fmt.Println("Unsupported codec!")
 				os.Exit(1)
 			}
 			// Copy context
 			pCodecCtx := pCodec.AvcodecAllocContext3()
-			if pCodecCtx.AvcodecCopyContext((*avcodec.Context)(unsafe.Pointer(pCodecCtxOrig))) != 0 {
+			if pCodecCtx.AvcodecCopyContext((*goav.Context)(unsafe.Pointer(pCodecCtxOrig))) != 0 {
 				fmt.Println("Couldn't copy codec context")
 				os.Exit(1)
 			}
@@ -108,25 +104,25 @@ func main() {
 			}
 
 			// Allocate video frame
-			pFrame := avutil.AvFrameAlloc()
+			pFrame := goav.AvFrameAlloc()
 
 			// Allocate an AVFrame structure
-			pFrameRGB := avutil.AvFrameAlloc()
+			pFrameRGB := goav.AvFrameAlloc()
 			if pFrameRGB == nil {
 				fmt.Println("Unable to allocate RGB Frame")
 				os.Exit(1)
 			}
 
 			// Determine required buffer size and allocate buffer
-			numBytes := uintptr(avcodec.AvpictureGetSize(avcodec.AV_PIX_FMT_RGB24, pCodecCtx.Width(),
+			numBytes := uintptr(goav.AvpictureGetSize(goav.AV_PIX_FMT_RGB24, pCodecCtx.Width(),
 				pCodecCtx.Height()))
-			buffer := avutil.AvMalloc(numBytes)
+			buffer := goav.AvMalloc(numBytes)
 
 			// Assign appropriate parts of buffer to image planes in pFrameRGB
 			// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
 			// of AVPicture
-			avp := (*avcodec.Picture)(unsafe.Pointer(pFrameRGB))
-			avp.AvpictureFill((*uint8)(buffer), avcodec.AV_PIX_FMT_RGB24, pCodecCtx.Width(), pCodecCtx.Height())
+			avp := (*goav.Picture)(unsafe.Pointer(pFrameRGB))
+			avp.AvpictureFill((*uint8)(buffer), goav.AV_PIX_FMT_RGB24, pCodecCtx.Width(), pCodecCtx.Height())
 
 			// initialize SWS context for software scaling
 			swsCtx := swscale.SwsGetcontext(
@@ -135,8 +131,8 @@ func main() {
 				(swscale.PixelFormat)(pCodecCtx.PixFmt()),
 				pCodecCtx.Width(),
 				pCodecCtx.Height(),
-				avcodec.AV_PIX_FMT_RGB24,
-				avcodec.SWS_BILINEAR,
+				goav.AV_PIX_FMT_RGB24,
+				goav.SWS_BILINEAR,
 				nil,
 				nil,
 				nil,
@@ -144,29 +140,29 @@ func main() {
 
 			// Read frames and save first five frames to disk
 			frameNumber := 1
-			packet := avcodec.AvPacketAlloc()
+			packet := goav.AvPacketAlloc()
 			for pFormatContext.AvReadFrame(packet) >= 0 {
 				// Is this a packet from the video stream?
 				if packet.StreamIndex() == i {
 					// Decode video frame
 					response := pCodecCtx.AvcodecSendPacket(packet)
 					if response < 0 {
-						fmt.Printf("Error while sending a packet to the decoder: %s\n", avutil.ErrorFromCode(response))
+						fmt.Printf("Error while sending a packet to the decoder: %s\n", goav.ErrorFromCode(response))
 					}
 					for response >= 0 {
-						response = pCodecCtx.AvcodecReceiveFrame((*avcodec.Frame)(unsafe.Pointer(pFrame)))
-						if response == avutil.AvErrorEAGAIN || response == avutil.AvErrorEOF {
+						response = pCodecCtx.AvcodecReceiveFrame((*goav.Frame)(unsafe.Pointer(pFrame)))
+						if response == goav.AvErrorEAGAIN || response == goav.AvErrorEOF {
 							break
 						} else if response < 0 {
-							fmt.Printf("Error while receiving a frame from the decoder: %s\n", avutil.ErrorFromCode(response))
+							fmt.Printf("Error while receiving a frame from the decoder: %s\n", goav.ErrorFromCode(response))
 							return
 						}
 
 						if frameNumber <= 5 {
 							// Convert the image from its native format to RGB
-							swscale.SwsScale2(swsCtx, avutil.Data(pFrame),
-								avutil.Linesize(pFrame), 0, pCodecCtx.Height(),
-								avutil.Data(pFrameRGB), avutil.Linesize(pFrameRGB))
+							swscale.SwsScale2(swsCtx, goav.Data(pFrame),
+								goav.Linesize(pFrame), 0, pCodecCtx.Height(),
+								goav.Data(pFrameRGB), goav.Linesize(pFrameRGB))
 
 							// Save the frame to disk
 							fmt.Printf("Writing frame %d\n", frameNumber)
@@ -183,15 +179,15 @@ func main() {
 			}
 
 			// Free the RGB image
-			avutil.AvFree(buffer)
-			avutil.AvFrameFree(pFrameRGB)
+			goav.AvFree(buffer)
+			goav.AvFrameFree(pFrameRGB)
 
 			// Free the YUV frame
-			avutil.AvFrameFree(pFrame)
+			goav.AvFrameFree(pFrame)
 
 			// Close the codecs
 			pCodecCtx.AvcodecClose()
-			(*avcodec.Context)(unsafe.Pointer(pCodecCtxOrig)).AvcodecClose()
+			(*goav.Context)(unsafe.Pointer(pCodecCtxOrig)).AvcodecClose()
 
 			// Close the video file
 			pFormatContext.AvformatCloseInput()

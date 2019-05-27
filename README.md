@@ -16,12 +16,12 @@ func main() {
 	filename := "sample.mp4"
 
 	// Register all formats and codecs
-	avformat.AvRegisterAll()
+	AvRegisterAll()
 
-	ctx := avformat.AvformatAllocContext()
+	ctx := AvformatAllocContext()
 
 	// Open video file
-	if avformat.AvformatOpenInput(&ctx, filename, nil, nil) != 0 {
+	if AvformatOpenInput(&ctx, filename, nil, nil) != 0 {
 		log.Println("Error: Couldn't open file.")
 		return
 	}

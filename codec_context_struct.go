@@ -18,8 +18,6 @@ import "C"
 import (
 	"reflect"
 	"unsafe"
-
-	"github.com/giorgisio/goav/avcodec"
 )
 
 func (cctxt *CodecContext) Type() MediaType {
@@ -46,11 +44,11 @@ func (cctxt *CodecContext) SetCodecType(ctype MediaType) {
 	cctxt.codec_type = C.enum_AVMediaType(ctype)
 }
 
-func (cctxt *CodecContext) GetTimeBase() avcodec.Rational {
+func (cctxt *CodecContext) GetTimeBase() Rational {
 	return newRational(cctxt.time_base)
 }
 
-func (cctxt *CodecContext) SetTimeBase(timeBase avcodec.Rational) {
+func (cctxt *CodecContext) SetTimeBase(timeBase Rational) {
 	cctxt.time_base.num = C.int(timeBase.Num())
 	cctxt.time_base.den = C.int(timeBase.Den())
 }
@@ -71,11 +69,11 @@ func (cctx *CodecContext) SetHeight(h int) {
 	cctx.height = C.int(h)
 }
 
-func (cctx *CodecContext) GetPixelFormat() avcodec.PixelFormat {
-	return avcodec.PixelFormat(C.int(cctx.pix_fmt))
+func (cctx *CodecContext) GetPixelFormat() PixelFormat {
+	return PixelFormat(C.int(cctx.pix_fmt))
 }
 
-func (cctx *CodecContext) SetPixelFormat(fmt avcodec.PixelFormat) {
+func (cctx *CodecContext) SetPixelFormat(fmt PixelFormat) {
 	cctx.pix_fmt = C.enum_AVPixelFormat(C.int(fmt))
 }
 
