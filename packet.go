@@ -11,14 +11,15 @@ import (
 	"unsafe"
 )
 
+// AvPktFlagKey ...
 const (
-	AV_PKT_FLAG_KEY     = int(C.AV_PKT_FLAG_KEY)
-	AV_PKT_FLAG_CORRUPT = int(C.AV_PKT_FLAG_CORRUPT)
-	AV_PKT_FLAG_DISCARD = int(C.AV_PKT_FLAG_DISCARD)
+	AVPktFlagKey     = int(C.AV_PKT_FLAG_KEY)
+	AVPktFlagCorrupt = int(C.AV_PKT_FLAG_CORRUPT)
+	AVPktFlagDiscard = int(C.AV_PKT_FLAG_DISCARD)
 )
 
 //Initialize optional fields of a packet with default values.
-func (p *Packet) AvInitPacket() {
+func (p *Packet) AVInitPacket() {
 	C.av_init_packet((*C.struct_AVPacket)(p))
 	p.size = 0
 	p.data = nil
@@ -45,6 +46,7 @@ func (p *Packet) AvPacketFromData(d *uint8, s int) int {
 
 }
 
+// AvDupPacket ...
 func (p *Packet) AvDupPacket() int {
 	return int(C.av_dup_packet((*C.struct_AVPacket)(p)))
 

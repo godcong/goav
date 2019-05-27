@@ -67,72 +67,72 @@ func (ctxt *AvIOContext) Close() error {
 	return ErrorFromCode(int(C.avio_close((*C.AVIOContext)(unsafe.Pointer(ctxt)))))
 }
 
-// AvRegisterInputFormat ...
-func (f *InputFormat) AvRegisterInputFormat() {
+// AVRegisterInputFormat ...
+func (f *InputFormat) AVRegisterInputFormat() {
 	C.av_register_input_format((*C.struct_AVInputFormat)(f))
 }
 
-// AvRegisterOutputFormat ...
-func (f *OutputFormat) AvRegisterOutputFormat() {
+// AVRegisterOutputFormat ...
+func (f *OutputFormat) AVRegisterOutputFormat() {
 	C.av_register_output_format((*C.struct_AVOutputFormat)(f))
 }
 
-//If f is NULL, returns the first registered input format, if f is non-NULL, returns the next registered input format after f or NULL if f is the last one.
-func (f *InputFormat) AvIformatNext() *InputFormat {
+//AVIFormatNext If f is NULL, returns the first registered input format, if f is non-NULL, returns the next registered input format after f or NULL if f is the last one.
+func (f *InputFormat) AVIFormatNext() *InputFormat {
 	return (*InputFormat)(C.av_iformat_next((*C.struct_AVInputFormat)(f)))
 }
 
-//If f is NULL, returns the first registered output format, if f is non-NULL, returns the next registered output format after f or NULL if f is the last one.
-func (f *OutputFormat) AvOformatNext() *OutputFormat {
+//AVOFormatNext If f is NULL, returns the first registered output format, if f is non-NULL, returns the next registered output format after f or NULL if f is the last one.
+func (f *OutputFormat) AVOFormatNext() *OutputFormat {
 	return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
 }
 
-//Return the LIBAvFORMAT_VERSION_INT constant.
+//AVFormatVersion Return the LIBAvFORMAT_VERSION_INT constant.
 func AVFormatVersion() uint {
 	return uint(C.avformat_version())
 }
 
-//Return the libavformat build-time configuration.
+//AVFormatConfiguration Return the libavformat build-time configuration.
 func AVFormatConfiguration() string {
 	return C.GoString(C.avformat_configuration())
 }
 
-//Return the libavformat license.
+//AVFormatLicense Return the libavformat license.
 func AVFormatLicense() string {
 	return C.GoString(C.avformat_license())
 }
 
-//Initialize libavformat and register all the muxers, demuxers and protocols.
-func AvRegisterAll() {
+//AVRegisterAll Initialize libavformat and register all the muxers, demuxers and protocols.
+func AVRegisterAll() {
 	C.av_register_all()
 }
 
-//Do global initialization of network components.
+//AVFormatNetworkInit Do global initialization of network components.
 func AVFormatNetworkInit() int {
 	return int(C.avformat_network_init())
 }
 
-//Undo the initialization done by avformat_network_init.
+//AVFormatNetworkDeinit Undo the initialization done by avformat_network_init.
 func AVFormatNetworkDeinit() int {
 	return int(C.avformat_network_deinit())
 }
 
-//Allocate an Context.
+//AVFormatAllocContext Allocate an Context.
 func AVFormatAllocContext() *AVFormatContext {
 	return (*AVFormatContext)(C.avformat_alloc_context())
 }
 
-//Get the Class for Context.
+//AVFormatGetClass Get the Class for Context.
 func AVFormatGetClass() *Class {
 	return (*Class)(C.avformat_get_class())
 }
 
-//Get side information from stream.
-func (s *Stream) AvStreamGetSideData(t AvPacketSideDataType, z int) *uint8 {
+//AVStreamGetSideData Get side information from stream.
+func (s *Stream) AVStreamGetSideData(t AvPacketSideDataType, z int) *uint8 {
 	return (*uint8)(C.av_stream_get_side_data((*C.struct_AVStream)(s), (C.enum_AVPacketSideDataType)(t), (*C.int)(unsafe.Pointer(&z))))
 }
 
-//Allocate an Context for an output format.
+//AVFormatAllocOutputContext2 Allocate an Context for an output format.
 func AVFormatAllocOutputContext2(ctx **AVFormatContext, o *OutputFormat, fo, fi string) int {
 	CformatName := C.CString(fo)
 	defer C.free(unsafe.Pointer(CformatName))
@@ -143,46 +143,46 @@ func AVFormatAllocOutputContext2(ctx **AVFormatContext, o *OutputFormat, fo, fi 
 	return int(C.avformat_alloc_output_context2((**C.struct_AVFormatContext)(unsafe.Pointer(ctx)), (*C.struct_AVOutputFormat)(o), CformatName, CfileName))
 }
 
-//Find InputFormat based on the short name of the input format.
-func AvFindInputFormat(s string) *InputFormat {
+//AVFindInputFormat Find InputFormat based on the short name of the input format.
+func AVFindInputFormat(s string) *InputFormat {
 	CshortName := C.CString(s)
 	defer C.free(unsafe.Pointer(CshortName))
 
 	return (*InputFormat)(C.av_find_input_format(CshortName))
 }
 
-//Guess the file format.
-func AvProbeInputFormat(pd *AvProbeData, i int) *InputFormat {
+//AVProbeInputFormat Guess the file format.
+func AVProbeInputFormat(pd *AvProbeData, i int) *InputFormat {
 	return (*InputFormat)(C.av_probe_input_format((*C.struct_AVProbeData)(pd), C.int(i)))
 }
 
-//Guess the file format.
-func AvProbeInputFormat2(pd *AvProbeData, o int, sm *int) *InputFormat {
+//AVProbeInputFormat2 Guess the file format.
+func AVProbeInputFormat2(pd *AvProbeData, o int, sm *int) *InputFormat {
 	return (*InputFormat)(C.av_probe_input_format2((*C.struct_AVProbeData)(pd), C.int(o), (*C.int)(unsafe.Pointer(sm))))
 }
 
-//Guess the file format.
-func AvProbeInputFormat3(pd *AvProbeData, o int, sl *int) *InputFormat {
+//AVProbeInputFormat3 Guess the file format.
+func AVProbeInputFormat3(pd *AvProbeData, o int, sl *int) *InputFormat {
 	return (*InputFormat)(C.av_probe_input_format3((*C.struct_AVProbeData)(pd), C.int(o), (*C.int)(unsafe.Pointer(sl))))
 }
 
-//Probe a bytestream to determine the input format.
-func AvProbeInputBuffer2(pb *AvIOContext, f **InputFormat, fi string, l int, o, m uint) int {
+//AVProbeInputBuffer2 Probe a bytestream to determine the input format.
+func AVProbeInputBuffer2(pb *AvIOContext, f **InputFormat, fi string, l int, o, m uint) int {
 	Curl := C.CString(fi)
 	defer C.free(unsafe.Pointer(Curl))
 
 	return int(C.av_probe_input_buffer2((*C.struct_AVIOContext)(pb), (**C.struct_AVInputFormat)(unsafe.Pointer(f)), Curl, unsafe.Pointer(&l), C.uint(o), C.uint(m)))
 }
 
-//Like av_probe_input_buffer2() but returns 0 on success.
-func AvProbeInputBuffer(pb *AvIOContext, f **InputFormat, fi string, l int, o, m uint) int {
+//AVProbeInputBuffer Like av_probe_input_buffer2() but returns 0 on success.
+func AVProbeInputBuffer(pb *AvIOContext, f **InputFormat, fi string, l int, o, m uint) int {
 	Curl := C.CString(fi)
 	defer C.free(unsafe.Pointer(Curl))
 
 	return int(C.av_probe_input_buffer((*C.struct_AVIOContext)(pb), (**C.struct_AVInputFormat)(unsafe.Pointer(f)), Curl, unsafe.Pointer(&l), C.uint(o), C.uint(m)))
 }
 
-//Open an input stream and read the header.
+//AVFormatOpenInput Open an input stream and read the header.
 func AVFormatOpenInput(ps **AVFormatContext, fi string, fmt *InputFormat, d **Dictionary) int {
 	Cfi := C.CString(fi)
 	defer C.free(unsafe.Pointer(Cfi))
@@ -190,8 +190,8 @@ func AVFormatOpenInput(ps **AVFormatContext, fi string, fmt *InputFormat, d **Di
 	return int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(ps)), Cfi, (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
-//Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.
-func AvGuessFormat(sn, f, mt string) *OutputFormat {
+//AVGuessFormat Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.
+func AVGuessFormat(sn, f, mt string) *OutputFormat {
 	CshortName := C.CString(sn)
 	defer C.free(unsafe.Pointer(CshortName))
 
@@ -204,8 +204,8 @@ func AvGuessFormat(sn, f, mt string) *OutputFormat {
 	return (*OutputFormat)(C.av_guess_format(CshortName, CfileName, CmimeType))
 }
 
-//Guess the codec ID based upon muxer and filename.
-func AvGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecID {
+//AVGuessCodec Guess the codec ID based upon muxer and filename.
+func AVGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecID {
 	CshortName := C.CString(sn)
 	defer C.free(unsafe.Pointer(CshortName))
 
@@ -244,7 +244,7 @@ func AVCodecGetID(t **AVCodecTag, tag uint) CodecID {
 	return (CodecID)(C.av_codec_get_id((**C.struct_AVCodecTag)(unsafe.Pointer(t)), C.uint(tag)))
 }
 
-//Get the codec tag for the given codec id id.
+//AVCodecGetTag Get the codec tag for the given codec id id.
 func AVCodecGetTag(t **AVCodecTag, id CodecID) uint {
 	return uint(C.av_codec_get_tag((**C.struct_AVCodecTag)(unsafe.Pointer(t)), (C.enum_AVCodecID)(id)))
 }

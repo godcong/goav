@@ -359,13 +359,13 @@ func (ctx *AVFormatContext) AVFormatSeekFile(si int, mit, ts, mat int64, f int) 
 	return int(C.avformat_seek_file((*C.struct_AVFormatContext)(ctx), C.int(si), C.int64_t(mit), C.int64_t(ts), C.int64_t(mat), C.int(f)))
 }
 
-//Start playing a network-based stream (e.g.
-func (ctx *AVFormatContext) AvReadPlay() int {
+//AVReadPlay Start playing a network-based stream (e.g.
+func (ctx *AVFormatContext) AVReadPlay() int {
 	return int(C.av_read_play((*C.struct_AVFormatContext)(ctx)))
 }
 
-//Pause a network-based stream (e.g.
-func (ctx *AVFormatContext) AvReadPause() int {
+//AVReadPause Pause a network-based stream (e.g.
+func (ctx *AVFormatContext) AVReadPause() int {
 	return int(C.av_read_pause((*C.struct_AVFormatContext)(ctx)))
 }
 
@@ -374,70 +374,70 @@ func (ctx *AVFormatContext) AVFormatCloseInput() {
 	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(&ctx)))
 }
 
-//Allocate the stream private data and write the stream header to an output media file.
+//AVFormatWriteHeader Allocate the stream private data and write the stream header to an output media file.
 func (ctx *AVFormatContext) AVFormatWriteHeader(o **Dictionary) int {
 	return int(C.avformat_write_header((*C.struct_AVFormatContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 
-//Write a packet to an output media file.
-func (ctx *AVFormatContext) AvWriteFrame(pkt *Packet) int {
+//AVWriteFrame Write a packet to an output media file.
+func (ctx *AVFormatContext) AVWriteFrame(pkt *Packet) int {
 	return int(C.av_write_frame((*C.struct_AVFormatContext)(ctx), toCPacket(pkt)))
 }
 
-//Write a packet to an output media file ensuring correct interleaving.
-func (ctx *AVFormatContext) AvInterleavedWriteFrame(pkt *Packet) int {
+//AVInterleavedWriteFrame Write a packet to an output media file ensuring correct interleaving.
+func (ctx *AVFormatContext) AVInterleavedWriteFrame(pkt *Packet) int {
 	return int(C.av_interleaved_write_frame((*C.struct_AVFormatContext)(ctx), toCPacket(pkt)))
 }
 
-//Write a uncoded frame to an output media file.
-func (ctx *AVFormatContext) AvWriteUncodedFrame(si int, f *Frame) int {
+//AVWriteUncodedFrame Write a uncoded frame to an output media file.
+func (ctx *AVFormatContext) AVWriteUncodedFrame(si int, f *Frame) int {
 	return int(C.av_write_uncoded_frame((*C.struct_AVFormatContext)(ctx), C.int(si), (*C.struct_AVFrame)(f)))
 }
 
-//Write a uncoded frame to an output media file.
-func (ctx *AVFormatContext) AvInterleavedWriteUncodedFrame(si int, f *Frame) int {
+//AVInterleavedWriteUncodedFrame Write a uncoded frame to an output media file.
+func (ctx *AVFormatContext) AVInterleavedWriteUncodedFrame(si int, f *Frame) int {
 	return int(C.av_interleaved_write_uncoded_frame((*C.struct_AVFormatContext)(ctx), C.int(si), (*C.struct_AVFrame)(f)))
 }
 
-//Test whether a muxer supports uncoded frame.
-func (ctx *AVFormatContext) AvWriteUncodedFrameQuery(si int) int {
+//AVWriteUncodedFrameQuery Test whether a muxer supports uncoded frame.
+func (ctx *AVFormatContext) AVWriteUncodedFrameQuery(si int) int {
 	return int(C.av_write_uncoded_frame_query((*C.struct_AVFormatContext)(ctx), C.int(si)))
 }
 
-//Write the stream trailer to an output media file and free the file private data.
-func (ctx *AVFormatContext) AvWriteTrailer() int {
+//AVWriteTrailer Write the stream trailer to an output media file and free the file private data.
+func (ctx *AVFormatContext) AVWriteTrailer() int {
 	return int(C.av_write_trailer((*C.struct_AVFormatContext)(ctx)))
 }
 
-//Get timing information for the data currently output.
-func (ctx *AVFormatContext) AvGetOutputTimestamp(st int, dts, wall *int) int {
+//AVGetOutputTimestamp Get timing information for the data currently output.
+func (ctx *AVFormatContext) AVGetOutputTimestamp(st int, dts, wall *int) int {
 	return int(C.av_get_output_timestamp((*C.struct_AVFormatContext)(ctx), C.int(st), (*C.int64_t)(unsafe.Pointer(&dts)), (*C.int64_t)(unsafe.Pointer(&wall))))
 }
 
-// AvFindDefaultStreamIndex ...
-func (ctx *AVFormatContext) AvFindDefaultStreamIndex() int {
+// AVFindDefaultStreamIndex ...
+func (ctx *AVFormatContext) AVFindDefaultStreamIndex() int {
 	return int(C.av_find_default_stream_index((*C.struct_AVFormatContext)(ctx)))
 }
 
-//Print detailed information about the input or output format, such as duration, bitrate, streams, container, programs, metadata, side data, codec and time base.
-func (ctx *AVFormatContext) AvDumpFormat(i int, url string, io int) {
+//AVDumpFormat Print detailed information about the input or output format, such as duration, bitrate, streams, container, programs, metadata, side data, codec and time base.
+func (ctx *AVFormatContext) AVDumpFormat(i int, url string, io int) {
 	Curl := C.CString(url)
 	defer C.free(unsafe.Pointer(Curl))
 
 	C.av_dump_format((*C.struct_AVFormatContext)(unsafe.Pointer(ctx)), C.int(i), Curl, C.int(io))
 }
 
-//Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (ctx *AVFormatContext) AvGuessSampleAspectRatio(st *Stream, f *Frame) Rational {
+//AVGuessSampleAspectRatio Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
+func (ctx *AVFormatContext) AVGuessSampleAspectRatio(st *Stream, f *Frame) Rational {
 	return newRational(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(f)))
 }
 
-//Guess the frame rate, based on both the container and codec information.
-func (ctx *AVFormatContext) AvGuessFrameRate(st *Stream, f *Frame) Rational {
+//AVGuessFrameRate Guess the frame rate, based on both the container and codec information.
+func (ctx *AVFormatContext) AVGuessFrameRate(st *Stream, f *Frame) Rational {
 	return newRational(C.av_guess_frame_rate((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(f)))
 }
 
-//Check if the stream st contained in s is matched by the stream specifier spec.
+//AVFormatMatchStreamSpecifier Check if the stream st contained in s is matched by the stream specifier spec.
 func (ctx *AVFormatContext) AVFormatMatchStreamSpecifier(st *Stream, spec string) int {
 	Cspec := C.CString(spec)
 	defer C.free(unsafe.Pointer(Cspec))
@@ -461,17 +461,17 @@ func (ctx *AVFormatContext) AVFormatNewStream2(c *AvCodec) *Stream {
 	return stream
 }
 
-//Allocate an empty Context.
+//SwsAllocContext Allocate an empty Context.
 func SwsAllocContext() *SwsContext {
 	return (*SwsContext)(C.sws_alloc_context())
 }
 
-//Initialize the swscaler context sws_context.
+//SwsInitContext Initialize the swscaler context sws_context.
 func SwsInitContext(ctx *SwsContext, sf, df *Filter) int {
 	return int(C.sws_init_context((*C.struct_SwsContext)(ctx), (*C.struct_SwsFilter)(sf), (*C.struct_SwsFilter)(df)))
 }
 
-//Free the swscaler context swsContext.
+//SwsFreecontext Free the swscaler context swsContext.
 func SwsFreecontext(ctx *SwsContext) {
 	C.sws_freeContext((*C.struct_SwsContext)(ctx))
 }

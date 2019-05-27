@@ -85,17 +85,17 @@ func (d *Dictionary) AvDictParseString(str, key_val_sep, pairs_sep string, flags
 	Cstr := C.CString(str)
 	defer C.free(unsafe.Pointer(Cstr))
 
-	Ckey_val_sep := C.CString(key_val_sep)
-	defer C.free(unsafe.Pointer(Ckey_val_sep))
+	CkeyValSep := C.CString(key_val_sep)
+	defer C.free(unsafe.Pointer(CkeyValSep))
 
-	Cpairs_sep := C.CString(pairs_sep)
-	defer C.free(unsafe.Pointer(Cpairs_sep))
+	CpairsSep := C.CString(pairs_sep)
+	defer C.free(unsafe.Pointer(CpairsSep))
 
 	return int(C.av_dict_parse_string(
 		(**C.struct_AVDictionary)(unsafe.Pointer(&d)),
 		Cstr,
-		Ckey_val_sep,
-		Cpairs_sep,
+		CkeyValSep,
+		CpairsSep,
 		C.int(flags),
 	))
 }

@@ -11,251 +11,251 @@ import (
 )
 
 // CodecParameters ...
-func (avs *Stream) CodecParameters() *AvCodecParameters {
-	return (*AvCodecParameters)(unsafe.Pointer(avs.codecpar))
+func (s *Stream) CodecParameters() *AvCodecParameters {
+	return (*AvCodecParameters)(unsafe.Pointer(s.codecpar))
 }
 
 // Codec ...
-func (avs *Stream) Codec() *CodecContext {
-	return (*CodecContext)(unsafe.Pointer(avs.codec))
+func (s *Stream) Codec() *CodecContext {
+	return (*CodecContext)(unsafe.Pointer(s.codec))
 }
 
 // Metadata ...
-func (avs *Stream) Metadata() *Dictionary {
-	return (*Dictionary)(unsafe.Pointer(avs.metadata))
+func (s *Stream) Metadata() *Dictionary {
+	return (*Dictionary)(unsafe.Pointer(s.metadata))
 }
 
 // IndexEntries ...
-func (avs *Stream) IndexEntries() *AvIndexEntry {
-	return (*AvIndexEntry)(unsafe.Pointer(avs.index_entries))
+func (s *Stream) IndexEntries() *AvIndexEntry {
+	return (*AvIndexEntry)(unsafe.Pointer(s.index_entries))
 }
 
 // AttachedPic ...
-func (avs *Stream) AttachedPic() Packet {
-	return *fromCPacket(&avs.attached_pic)
+func (s *Stream) AttachedPic() Packet {
+	return *fromCPacket(&s.attached_pic)
 }
 
 // SideData ...
-func (avs *Stream) SideData() *AvPacketSideData {
-	return (*AvPacketSideData)(unsafe.Pointer(avs.side_data))
+func (s *Stream) SideData() *AvPacketSideData {
+	return (*AvPacketSideData)(unsafe.Pointer(s.side_data))
 }
 
 // ProbeData ...
-func (avs *Stream) ProbeData() AvProbeData {
-	return AvProbeData(avs.probe_data)
+func (s *Stream) ProbeData() AvProbeData {
+	return AvProbeData(s.probe_data)
 }
 
 // AvgFrameRate ...
-func (avs *Stream) AvgFrameRate() Rational {
-	return newRational(avs.avg_frame_rate)
+func (s *Stream) AvgFrameRate() Rational {
+	return newRational(s.avg_frame_rate)
 }
 
 // RFrameRate ...
-func (avs *Stream) RFrameRate() Rational {
-	return newRational(avs.r_frame_rate)
+func (s *Stream) RFrameRate() Rational {
+	return newRational(s.r_frame_rate)
 }
 
 // SampleAspectRatio ...
-func (avs *Stream) SampleAspectRatio() Rational {
-	return newRational(avs.sample_aspect_ratio)
+func (s *Stream) SampleAspectRatio() Rational {
+	return newRational(s.sample_aspect_ratio)
 }
 
 // TimeBase ...
-func (avs *Stream) TimeBase() Rational {
-	return newRational(avs.time_base)
+func (s *Stream) TimeBase() Rational {
+	return newRational(s.time_base)
 }
 
 // Discard ...
-func (avs *Stream) Discard() AvDiscard {
-	return AvDiscard(avs.discard)
+func (s *Stream) Discard() AvDiscard {
+	return AvDiscard(s.discard)
 }
 
 // NeedParsing ...
-func (avs *Stream) NeedParsing() AvStreamParseType {
-	return AvStreamParseType(avs.need_parsing)
+func (s *Stream) NeedParsing() AvStreamParseType {
+	return AvStreamParseType(s.need_parsing)
 }
 
 // CodecInfoNbFrames ...
-func (avs *Stream) CodecInfoNbFrames() int {
-	return int(avs.codec_info_nb_frames)
+func (s *Stream) CodecInfoNbFrames() int {
+	return int(s.codec_info_nb_frames)
 }
 
 // Disposition ...
-func (avs *Stream) Disposition() int {
-	return int(avs.disposition)
+func (s *Stream) Disposition() int {
+	return int(s.disposition)
 }
 
 // EventFlags ...
-func (avs *Stream) EventFlags() int {
-	return int(avs.event_flags)
+func (s *Stream) EventFlags() int {
+	return int(s.event_flags)
 }
 
 // Id ...
-func (avs *Stream) Id() int {
-	return int(avs.id)
+func (s *Stream) Id() int {
+	return int(s.id)
 }
 
 // Index ...
-func (avs *Stream) Index() int {
-	return int(avs.index)
+func (s *Stream) Index() int {
+	return int(s.index)
 }
 
 // InjectGlobalSideData ...
-func (avs *Stream) InjectGlobalSideData() int {
-	return int(avs.inject_global_side_data)
+func (s *Stream) InjectGlobalSideData() int {
+	return int(s.inject_global_side_data)
 }
 
 // LastIpDuration ...
-func (avs *Stream) LastIpDuration() int {
-	return int(avs.last_IP_duration)
+func (s *Stream) LastIpDuration() int {
+	return int(s.last_IP_duration)
 }
 
 // NbDecodedFrames ...
-func (avs *Stream) NbDecodedFrames() int {
-	return int(avs.nb_decoded_frames)
+func (s *Stream) NbDecodedFrames() int {
+	return int(s.nb_decoded_frames)
 }
 
 // NbIndexEntries ...
-func (avs *Stream) NbIndexEntries() int {
-	return int(avs.nb_index_entries)
+func (s *Stream) NbIndexEntries() int {
+	return int(s.nb_index_entries)
 }
 
 // NbSideData ...
-func (avs *Stream) NbSideData() int {
-	return int(avs.nb_side_data)
+func (s *Stream) NbSideData() int {
+	return int(s.nb_side_data)
 }
 
 // ProbePackets ...
-func (avs *Stream) ProbePackets() int {
-	return int(avs.probe_packets)
+func (s *Stream) ProbePackets() int {
+	return int(s.probe_packets)
 }
 
 // PtsWrapBehavior ...
-func (avs *Stream) PtsWrapBehavior() int {
-	return int(avs.pts_wrap_behavior)
+func (s *Stream) PtsWrapBehavior() int {
+	return int(s.pts_wrap_behavior)
 }
 
 // RequestProbe ...
-func (avs *Stream) RequestProbe() int {
-	return int(avs.request_probe)
+func (s *Stream) RequestProbe() int {
+	return int(s.request_probe)
 }
 
 // SkipSamples ...
-func (avs *Stream) SkipSamples() int {
-	return int(avs.skip_samples)
+func (s *Stream) SkipSamples() int {
+	return int(s.skip_samples)
 }
 
 // SkipToKeyframe ...
-func (avs *Stream) SkipToKeyframe() int {
-	return int(avs.skip_to_keyframe)
+func (s *Stream) SkipToKeyframe() int {
+	return int(s.skip_to_keyframe)
 }
 
 // StreamIdentifier ...
-func (avs *Stream) StreamIdentifier() int {
-	return int(avs.stream_identifier)
+func (s *Stream) StreamIdentifier() int {
+	return int(s.stream_identifier)
 }
 
 // UpdateInitialDurationsDone ...
-func (avs *Stream) UpdateInitialDurationsDone() int {
-	return int(avs.update_initial_durations_done)
+func (s *Stream) UpdateInitialDurationsDone() int {
+	return int(s.update_initial_durations_done)
 }
 
 // CurDts ...
-func (avs *Stream) CurDts() int64 {
-	return int64(avs.cur_dts)
+func (s *Stream) CurDts() int64 {
+	return int64(s.cur_dts)
 }
 
 // Duration ...
-func (avs *Stream) Duration() int64 {
-	return int64(avs.duration)
+func (s *Stream) Duration() int64 {
+	return int64(s.duration)
 }
 
 // FirstDts ...
-func (avs *Stream) FirstDts() int64 {
-	return int64(avs.first_dts)
+func (s *Stream) FirstDts() int64 {
+	return int64(s.first_dts)
 }
 
 // InterleaverChunkDuration ...
-func (avs *Stream) InterleaverChunkDuration() int64 {
-	return int64(avs.interleaver_chunk_duration)
+func (s *Stream) InterleaverChunkDuration() int64 {
+	return int64(s.interleaver_chunk_duration)
 }
 
 // InterleaverChunkSize ...
-func (avs *Stream) InterleaverChunkSize() int64 {
-	return int64(avs.interleaver_chunk_size)
+func (s *Stream) InterleaverChunkSize() int64 {
+	return int64(s.interleaver_chunk_size)
 }
 
 // LastDtsForOrderCheck ...
-func (avs *Stream) LastDtsForOrderCheck() int64 {
-	return int64(avs.last_dts_for_order_check)
+func (s *Stream) LastDtsForOrderCheck() int64 {
+	return int64(s.last_dts_for_order_check)
 }
 
 // LastIPPts ...
-func (avs *Stream) LastIPPts() int64 {
-	return int64(avs.last_IP_pts)
+func (s *Stream) LastIPPts() int64 {
+	return int64(s.last_IP_pts)
 }
 
 // MuxTsOffset ...
-func (avs *Stream) MuxTsOffset() int64 {
-	return int64(avs.mux_ts_offset)
+func (s *Stream) MuxTsOffset() int64 {
+	return int64(s.mux_ts_offset)
 }
 
 // NbFrames ...
-func (avs *Stream) NbFrames() int64 {
-	return int64(avs.nb_frames)
+func (s *Stream) NbFrames() int64 {
+	return int64(s.nb_frames)
 }
 
 // PtsBuffer ...
-func (avs *Stream) PtsBuffer() int64 {
-	return int64(avs.pts_buffer[0])
+func (s *Stream) PtsBuffer() int64 {
+	return int64(s.pts_buffer[0])
 }
 
 // PtsReorderError ...
-func (avs *Stream) PtsReorderError() int64 {
-	return int64(avs.pts_reorder_error[0])
+func (s *Stream) PtsReorderError() int64 {
+	return int64(s.pts_reorder_error[0])
 }
 
 // PtsWrapReference ...
-func (avs *Stream) PtsWrapReference() int64 {
-	return int64(avs.pts_wrap_reference)
+func (s *Stream) PtsWrapReference() int64 {
+	return int64(s.pts_wrap_reference)
 }
 
 // StartTime ...
-func (avs *Stream) StartTime() int64 {
-	return int64(avs.start_time)
+func (s *Stream) StartTime() int64 {
+	return int64(s.start_time)
 }
 
 // Parser ...
-func (avs *Stream) Parser() *CodecParserContext {
-	return (*CodecParserContext)(unsafe.Pointer(avs.parser))
+func (s *Stream) Parser() *CodecParserContext {
+	return (*CodecParserContext)(unsafe.Pointer(s.parser))
 }
 
 // LastInPacketBuffer ...
-func (avs *Stream) LastInPacketBuffer() *AvPacketList {
-	return (*AvPacketList)(unsafe.Pointer(avs.last_in_packet_buffer))
+func (s *Stream) LastInPacketBuffer() *AvPacketList {
+	return (*AvPacketList)(unsafe.Pointer(s.last_in_packet_buffer))
 }
 
 // DtsMisordered ...
-func (avs *Stream) DtsMisordered() uint8 {
-	return uint8(avs.dts_misordered)
+func (s *Stream) DtsMisordered() uint8 {
+	return uint8(s.dts_misordered)
 }
 
 // DtsOrdered ...
-func (avs *Stream) DtsOrdered() uint8 {
-	return uint8(avs.dts_ordered)
+func (s *Stream) DtsOrdered() uint8 {
+	return uint8(s.dts_ordered)
 }
 
 // PtsReorderErrorCount ...
-func (avs *Stream) PtsReorderErrorCount() uint8 {
-	return uint8(avs.pts_reorder_error_count[0])
+func (s *Stream) PtsReorderErrorCount() uint8 {
+	return uint8(s.pts_reorder_error_count[0])
 }
 
 // IndexEntriesAllocatedSize ...
-func (avs *Stream) IndexEntriesAllocatedSize() uint {
-	return uint(avs.index_entries_allocated_size)
+func (s *Stream) IndexEntriesAllocatedSize() uint {
+	return uint(s.index_entries_allocated_size)
 }
 
 // Free ...
-func (avs *Stream) Free() {
-	C.av_freep(unsafe.Pointer(avs))
+func (s *Stream) Free() {
+	C.av_freep(unsafe.Pointer(s))
 }

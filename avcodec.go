@@ -181,12 +181,12 @@ func AvPacketPackDictionary(d *Dictionary, s *int) *uint8 {
 	return (*uint8)(C.av_packet_pack_dictionary((*C.struct_AVDictionary)(d), (*C.int)(unsafe.Pointer(s))))
 }
 
-//Unpack a dictionary from side_data.
-func AvPacketUnpackDictionary(d *uint8, s int, dt **Dictionary) int {
+//AVPacketUnpackDictionary Unpack a dictionary from side_data.
+func AVPacketUnpackDictionary(d *uint8, s int, dt **Dictionary) int {
 	return int(C.av_packet_unpack_dictionary((*C.uint8_t)(d), C.int(s), (**C.struct_AVDictionary)(unsafe.Pointer(dt))))
 }
 
-//Find a registered decoder with a matching codec ID.
+//AVCodecFindDecoder Find a registered decoder with a matching codec ID.
 func AVCodecFindDecoder(id CodecID) *Codec {
 	return (*Codec)(C.avcodec_find_decoder((C.enum_AVCodecID)(id)))
 }
@@ -196,33 +196,33 @@ func AVCodecIterate(p *unsafe.Pointer) *Codec {
 	return (*Codec)(C.av_codec_iterate(p))
 }
 
-//Find a registered decoder with the specified name.
+//AVCodecFindDecoderByName Find a registered decoder with the specified name.
 func AVCodecFindDecoderByName(n string) *Codec {
 	return (*Codec)(C.avcodec_find_decoder_by_name(C.CString(n)))
 }
 
-//Converts AvChromaLocation to swscale x/y chroma position.
+//AVCodecEnumToChromaPos Converts AvChromaLocation to swscale x/y chroma position.
 func AVCodecEnumToChromaPos(x, y *int, l AvChromaLocation) int {
 	return int(C.avcodec_enum_to_chroma_pos((*C.int)(unsafe.Pointer(x)), (*C.int)(unsafe.Pointer(y)), (C.enum_AVChromaLocation)(l)))
 }
 
-//Converts swscale x/y chroma position to AvChromaLocation.
+//AVCodecChromaPosToEnum Converts swscale x/y chroma position to AvChromaLocation.
 func AVCodecChromaPosToEnum(x, y int) AvChromaLocation {
 	return (AvChromaLocation)(C.avcodec_chroma_pos_to_enum(C.int(x), C.int(y)))
 }
 
-//Find a registered encoder with a matching codec ID.
+//AVCodecFindEncoder Find a registered encoder with a matching codec ID.
 func AVCodecFindEncoder(id CodecID) *Codec {
 	return (*Codec)(C.avcodec_find_encoder((C.enum_AVCodecID)(id)))
 }
 
-//Find a registered encoder with the specified name.
+//AVCodecFindEncoderByName Find a registered encoder with the specified name.
 func AVCodecFindEncoderByName(c string) *Codec {
 	return (*Codec)(C.avcodec_find_encoder_by_name(C.CString(c)))
 }
 
-//Put a string representing the codec tag codec_tag in buf.
-func AvGetCodecTagString(b string, bf uintptr, c uint) uintptr {
+//AVGetCodecTagString Put a string representing the codec tag codec_tag in buf.
+func AVGetCodecTagString(b string, bf uintptr, c uint) uintptr {
 	return uintptr(C.av_get_codec_tag_string(C.CString(b), C.size_t(bf), C.uint(c)))
 }
 
@@ -236,13 +236,13 @@ func AVCodecFillAudioFrame(f *Frame, c int, s AvSampleFormat, b *uint8, bs, a in
 	return int(C.avcodec_fill_audio_frame((*C.struct_AVFrame)(f), C.int(c), (C.enum_AVSampleFormat)(s), (*C.uint8_t)(b), C.int(bs), C.int(a)))
 }
 
-//Return codec bits per sample.
-func AvGetBitsPerSample(c CodecID) int {
+//AVGetBitsPerSample Return codec bits per sample.
+func AVGetBitsPerSample(c CodecID) int {
 	return int(C.av_get_bits_per_sample((C.enum_AVCodecID)(c)))
 }
 
-//Return the PCM codec associated with a sample format.
-func AvGetPcmCodec(f AvSampleFormat, b int) CodecID {
+//AVGetPcmCodec Return the PCM codec associated with a sample format.
+func AVGetPcmCodec(f AvSampleFormat, b int) CodecID {
 	return (CodecID)(C.av_get_pcm_codec((C.enum_AVSampleFormat)(f), C.int(b)))
 }
 
@@ -261,7 +261,7 @@ func AVXiphlacing(s *string, v uint) uint {
 	return uint(C.av_xiphlacing((*C.uchar)(unsafe.Pointer(s)), (C.uint)(v)))
 }
 
-//AVHWAccel If hwaccel is NULL, returns the first registered hardware accelerator, if hwaccel is non-NULL,
+//AVHWAccelNext If hwaccel is NULL, returns the first registered hardware accelerator, if hwaccel is non-NULL,
 //returns the next registered hardware accelerator after hwaccel, or NULL if hwaccel is the last one.
 func (a *AVHWAccel) AVHWAccelNext() *AVHWAccel {
 	return (*AVHWAccel)(C.av_hwaccel_next((*C.struct_AVHWAccel)(a)))
