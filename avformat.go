@@ -114,8 +114,8 @@ func AvformatNetworkDeinit() int {
 }
 
 //Allocate an Context.
-func AvformatAllocContext() *AvFormatContext {
-	return (*Context)(C.avformat_alloc_context())
+func AvformatAllocContext() *AVFormatContext {
+	return (*AVFormatContext)(C.avformat_alloc_context())
 }
 
 //Get the Class for Context.
@@ -129,7 +129,7 @@ func (s *Stream) AvStreamGetSideData(t AvPacketSideDataType, z int) *uint8 {
 }
 
 //Allocate an Context for an output format.
-func AvformatAllocOutputContext2(ctx **Context, o *OutputFormat, fo, fi string) int {
+func AvformatAllocOutputContext2(ctx **AVFormatContext, o *OutputFormat, fo, fi string) int {
 	Cformat_name := C.CString(fo)
 	defer C.free(unsafe.Pointer(Cformat_name))
 
@@ -179,7 +179,7 @@ func AvProbeInputBuffer(pb *AvIOContext, f **InputFormat, fi string, l int, o, m
 }
 
 //Open an input stream and read the header.
-func AvformatOpenInput(ps **Context, fi string, fmt *InputFormat, d **avutil.Dictionary) int {
+func AvformatOpenInput(ps **AVFormatContext, fi string, fmt *InputFormat, d **Dictionary) int {
 	Cfi := C.CString(fi)
 	defer C.free(unsafe.Pointer(Cfi))
 
@@ -312,7 +312,7 @@ func AvFilenameNumberTest(filename string) int {
 }
 
 //Generate an SDP for an RTP session.
-func AvSdpCreate(ac **Context, n_files int, buf_size int) (int, string) {
+func AvSdpCreate(ac **AVFormatContext, n_files int, buf_size int) (int, string) {
 	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.ulong(buf_size)))
 	defer C.free(unsafe.Pointer(Cbuf))
 
@@ -359,7 +359,7 @@ func AvIOOpen(url string, flags int) (res *AvIOContext, err error) {
 	urlStr := C.CString(url)
 	defer C.free(unsafe.Pointer(urlStr))
 
-	err = avutil.ErrorFromCode(int(C.avio_open((**C.AVIOContext)(unsafe.Pointer(&res)), urlStr, C.int(flags))))
+	err = ErrorFromCode(int(C.avio_open((**C.AVIOContext)(unsafe.Pointer(&res)), urlStr, C.int(flags))))
 
 	return
 }
