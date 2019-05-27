@@ -3,7 +3,7 @@
 
 // Package swresample provides a high-level interface to the libswresample library audio resampling utilities
 // The process of changing the sampling rate of a discrete signal to obtain a new discrete representation of the underlying continuous signal.
-package swresample
+package goav
 
 /*
 	#cgo pkg-config: libswresample
@@ -12,20 +12,20 @@ package swresample
 import "C"
 
 type (
-	Context        C.struct_SwrContext
-	Frame          C.struct_AVFrame
-	Class          C.struct_AVClass
-	AvSampleFormat C.enum_AVSampleFormat
+	SwrContext C.struct_SwrContext
+	//Frame C.struct_AVFrame
+	//Class C.struct_AVClass
+	//AvSampleFormat C.enum_AVSampleFormat
 )
 
-//Get the Class for Context.
+//Get the Class for SwrContext.
 func SwrGetClass() *Class {
 	return (*Class)(C.swr_get_class())
 }
 
-//Context constructor functions.Allocate Context.
-func SwrAlloc() *Context {
-	return (*Context)(C.swr_alloc())
+//SwrContext constructor functions.Allocate SwrContext.
+func SwrAlloc() *SwrContext {
+	return (*SwrContext)(C.swr_alloc())
 }
 
 //Configuration accessors
