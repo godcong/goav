@@ -49,7 +49,7 @@ type (
 	//MediaType                  C.enum_AVMediaType
 	AvDurationEstimationMethod C.enum_AVDurationEstimationMethod
 	//AvPacketSideDataType       C.enum_AVPacketSideDataType
-	//CodecId                    C.enum_AVCodecID
+	//CodecID                    C.enum_AVCodecID
 )
 
 //Allocate and read the payload of a packet and initialize its fields with default values.
@@ -205,7 +205,7 @@ func AvGuessFormat(sn, f, mt string) *OutputFormat {
 }
 
 //Guess the codec ID based upon muxer and filename.
-func AvGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecId {
+func AvGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecID {
 	CshortName := C.CString(sn)
 	defer C.free(unsafe.Pointer(CshortName))
 
@@ -215,7 +215,7 @@ func AvGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecId {
 	CmimeType := C.CString(mt)
 	defer C.free(unsafe.Pointer(CmimeType))
 
-	return (CodecId)(C.av_guess_codec((*C.struct_AVOutputFormat)(fmt), CshortName, CfileName, CmimeType, (C.enum_AVMediaType)(t)))
+	return (CodecID)(C.av_guess_codec((*C.struct_AVOutputFormat)(fmt), CshortName, CfileName, CmimeType, (C.enum_AVMediaType)(t)))
 }
 
 //Send a nice hexadecimal dump of a buffer to the specified file stream.
@@ -238,29 +238,29 @@ func AvPktDumpLog2(a int, l int, pkt *Packet, dp int, st *Stream) {
 	C.av_pkt_dump_log2(unsafe.Pointer(&a), C.int(l), toCPacket(pkt), C.int(dp), (*C.struct_AVStream)(st))
 }
 
-//AvCodecGetID enum CodecId av_codec_get_id (const struct AvCodecTag *const *tags, unsigned int tag)
-//Get the CodecId for the given codec tag tag.
-func AvCodecGetID(t **AvCodecTag, tag uint) CodecId {
-	return (CodecId)(C.av_codec_get_id((**C.struct_AVCodecTag)(unsafe.Pointer(t)), C.uint(tag)))
+//AvCodecGetID enum CodecID av_codec_get_id (const struct AvCodecTag *const *tags, unsigned int tag)
+//Get the CodecID for the given codec tag tag.
+func AvCodecGetID(t **AvCodecTag, tag uint) CodecID {
+	return (CodecID)(C.av_codec_get_id((**C.struct_AVCodecTag)(unsafe.Pointer(t)), C.uint(tag)))
 }
 
 //Get the codec tag for the given codec id id.
-func AvCodecGetTag(t **AvCodecTag, id CodecId) uint {
+func AvCodecGetTag(t **AvCodecTag, id CodecID) uint {
 	return uint(C.av_codec_get_tag((**C.struct_AVCodecTag)(unsafe.Pointer(t)), (C.enum_AVCodecID)(id)))
 }
 
-//Get the codec tag for the given codec id.
-func AvCodecGetTag2(t **AvCodecTag, id CodecId, tag *uint) int {
+//AVCodecGetTag2 Get the codec tag for the given codec id.
+func AvCodecGetTag2(t **AvCodecTag, id CodecID, tag *uint) int {
 	return int(C.av_codec_get_tag2((**C.struct_AVCodecTag)(unsafe.Pointer(t)), (C.enum_AVCodecID)(id), (*C.uint)(unsafe.Pointer(tag))))
 }
 
-//Get the index for a specific timestamp.
-func AvIndexSearchTimestamp(st *Stream, t int64, f int) int {
+//AVIndexSearchTimestamp Get the index for a specific timestamp.
+func AVIndexSearchTimestamp(st *Stream, t int64, f int) int {
 	return int(C.av_index_search_timestamp((*C.struct_AVStream)(st), C.int64_t(t), C.int(f)))
 }
 
-//Add an index entry into a sorted list.
-func AvAddIndexEntry(st *Stream, pos, t, int64, s, d, f int) int {
+//AVAddIndexEntry Add an index entry into a sorted list.
+func AVAddIndexEntry(st *Stream, pos, t, int64, s, d, f int) int {
 	return int(C.av_add_index_entry((*C.struct_AVStream)(st), C.int64_t(pos), C.int64_t(t), C.int(s), C.int(d), C.int(f)))
 }
 

@@ -626,9 +626,9 @@ func (ctx *AVCodecContext) CodecDescriptor() *Descriptor {
 	return (*Descriptor)(ctx.codec_descriptor)
 }
 
-// CodecId ...
-func (ctx *AVCodecContext) CodecId() CodecId {
-	return (CodecId)(ctx.codec_id)
+// CodecID ...
+func (ctx *AVCodecContext) CodecID() CodecID {
+	return (CodecID)(ctx.codec_id)
 }
 
 // CodecType ...
@@ -697,17 +697,17 @@ func (ctx *AVFormatContext) Chapters() **AvChapter {
 }
 
 // AudioCodec ...
-func (ctx *AVFormatContext) AudioCodec() *AvCodec {
-	return (*AvCodec)(unsafe.Pointer(ctx.audio_codec))
+func (ctx *AVFormatContext) AudioCodec() *AVCodec {
+	return (*AVCodec)(unsafe.Pointer(ctx.audio_codec))
 }
 
 // SubtitleCodec ...
-func (ctx *AVFormatContext) SubtitleCodec() *AvCodec {
-	return (*AvCodec)(unsafe.Pointer(ctx.subtitle_codec))
+func (ctx *AVFormatContext) SubtitleCodec() *AVCodec {
+	return (*AVCodec)(unsafe.Pointer(ctx.subtitle_codec))
 }
 
 // VideoCodec ...
-func (ctx *AVFormatContext) VideoCodec() *AvCodec {
+func (ctx *AVFormatContext) VideoCodec() *AVCodec {
 	return (*AvCodec)(unsafe.Pointer(ctx.video_codec))
 }
 
@@ -758,19 +758,19 @@ func (ctx *AVFormatContext) Filename() string {
 	return C.GoString((*C.char)(unsafe.Pointer(&ctx.filename[0])))
 }
 
-// AudioCodecId ...
-func (ctx *AVFormatContext) AudioCodecId() CodecId {
-	return CodecId(ctx.audio_codec_id)
+// AudioCodecID ...
+func (ctx *AVFormatContext) AudioCodecID() CodecID {
+	return CodecID(ctx.audio_codec_id)
 }
 
-// SubtitleCodecId ...
-func (ctx *AVFormatContext) SubtitleCodecId() CodecId {
-	return CodecId(ctx.subtitle_codec_id)
+// SubtitleCodecID ...
+func (ctx *AVFormatContext) SubtitleCodecID() CodecID {
+	return CodecID(ctx.subtitle_codec_id)
 }
 
-// VideoCodecId ...
-func (ctx *AVFormatContext) VideoCodecId() CodecId {
-	return CodecId(ctx.video_codec_id)
+// VideoCodecID ...
+func (ctx *AVFormatContext) VideoCodecID() CodecID {
+	return CodecID(ctx.video_codec_id)
 }
 
 // DurationEstimationMethod ...
@@ -888,8 +888,8 @@ func (ctx *AVFormatContext) StrictStdCompliance() int {
 	return int(ctx.strict_std_compliance)
 }
 
-// TsId ...
-func (ctx *AVFormatContext) TsId() int {
+// TsID ...
+func (ctx *AVFormatContext) TsID() int {
 	return int(ctx.ts_id)
 }
 

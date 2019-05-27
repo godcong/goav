@@ -30,13 +30,13 @@ func (ctx *CodecContext) SetBitRate(br int64) {
 	ctx.bit_rate = C.int64_t(br)
 }
 
-// GetCodecId ...
-func (ctx *CodecContext) GetCodecId() CodecId {
-	return CodecId(ctx.codec_id)
+// GetCodecID ...
+func (ctx *CodecContext) GetCodecID() CodecID {
+	return CodecID(ctx.codec_id)
 }
 
-// SetCodecId ...
-func (ctx *CodecContext) SetCodecId(codecId CodecId) {
+// SetCodecID ...
+func (ctx *CodecContext) SetCodecID(codecId CodecID) {
 	ctx.codec_id = C.enum_AVCodecID(codecId)
 }
 

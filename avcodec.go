@@ -34,7 +34,7 @@ type (
 	BitStreamFilterContext C.struct_AVBitStreamFilterContext
 	//Rational               C.struct_AVRational
 	//Class                         C.struct_AVClass
-	AvCodecParameters C.struct_AVCodecParameters
+	AVCodecParameters C.struct_AVCodecParameters
 	AvHWAccel         C.struct_AVHWAccel
 	AvPacketSideData  C.struct_AVPacketSideData
 	AvPanScan         C.struct_AVPanScan
@@ -58,48 +58,48 @@ type (
 	AvSampleFormat C.enum_AVSampleFormat
 )
 
-// AvCodecGetID ...
-func (cp *AvCodecParameters) AvCodecGetID() CodecID {
+// AVCodecGetID ...
+func (cp *AVCodecParameters) AvCodecGetID() CodecID {
 	return *((*CodecID)(unsafe.Pointer(&cp.codec_id)))
 }
 
-// AvCodecGetType ...
-func (cp *AvCodecParameters) AvCodecGetType() MediaType {
+// AVCodecGetType ...
+func (cp *AVCodecParameters) AVCodecGetType() MediaType {
 	return *((*MediaType)(unsafe.Pointer(&cp.codec_type)))
 }
 
-// AvCodecGetWidth ...
-func (cp *AvCodecParameters) AvCodecGetWidth() int {
+// AVCodecGetWidth ...
+func (cp *AVCodecParameters) AVCodecGetWidth() int {
 	return (int)(*((*int32)(unsafe.Pointer(&cp.width))))
 }
 
-// AvCodecGetHeight ...
-func (cp *AvCodecParameters) AvCodecGetHeight() int {
+// AVCodecGetHeight ...
+func (cp *AVCodecParameters) AVCodecGetHeight() int {
 	return (int)(*((*int32)(unsafe.Pointer(&cp.height))))
 }
 
-// AvCodecGetChannels ...
-func (cp *AvCodecParameters) AvCodecGetChannels() int {
+// AVCodecGetChannels ...
+func (cp *AVCodecParameters) AVCodecGetChannels() int {
 	return *((*int)(unsafe.Pointer(&cp.channels)))
 }
 
-// AvCodecGetSampleRate ...
-func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
+// AVCodecGetSampleRate ...
+func (cp *AVCodecParameters) AVCodecGetSampleRate() int {
 	return *((*int)(unsafe.Pointer(&cp.sample_rate)))
 }
 
-// AvCodecGetMaxLowres ...
-func (c *Codec) AvCodecGetMaxLowres() int {
+// AVCodecGetMaxLowres ...
+func (c *Codec) AVCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
 }
 
-// AvCodecNext If c is NULL, returns the first registered codec, if c is non-NULL,
-func (c *Codec) AvCodecNext() *Codec {
+// AVCodecNext If c is NULL, returns the first registered codec, if c is non-NULL,
+func (c *Codec) AVCodecNext() *Codec {
 	return (*Codec)(C.av_codec_next((*C.struct_AVCodec)(c)))
 }
 
 // Register the codec codec and initialize libavcodec.
-func (c *Codec) AvcodecRegister() {
+func (c *Codec) AVCodecRegister() {
 	C.avcodec_register((*C.struct_AVCodec)(c))
 }
 
@@ -187,7 +187,7 @@ func AvPacketUnpackDictionary(d *uint8, s int, dt **Dictionary) int {
 }
 
 //Find a registered decoder with a matching codec ID.
-func AvcodecFindDecoder(id CodecId) *Codec {
+func AvcodecFindDecoder(id CodecID) *Codec {
 	return (*Codec)(C.avcodec_find_decoder((C.enum_AVCodecID)(id)))
 }
 
@@ -212,7 +212,7 @@ func AvcodecChromaPosToEnum(x, y int) AvChromaLocation {
 }
 
 //Find a registered encoder with a matching codec ID.
-func AvcodecFindEncoder(id CodecId) *Codec {
+func AvcodecFindEncoder(id CodecID) *Codec {
 	return (*Codec)(C.avcodec_find_encoder((C.enum_AVCodecID)(id)))
 }
 
@@ -237,17 +237,17 @@ func AvcodecFillAudioFrame(f *Frame, c int, s AvSampleFormat, b *uint8, bs, a in
 }
 
 //Return codec bits per sample.
-func AvGetBitsPerSample(c CodecId) int {
+func AvGetBitsPerSample(c CodecID) int {
 	return int(C.av_get_bits_per_sample((C.enum_AVCodecID)(c)))
 }
 
 //Return the PCM codec associated with a sample format.
-func AvGetPcmCodec(f AvSampleFormat, b int) CodecId {
-	return (CodecId)(C.av_get_pcm_codec((C.enum_AVSampleFormat)(f), C.int(b)))
+func AvGetPcmCodec(f AvSampleFormat, b int) CodecID {
+	return (CodecID)(C.av_get_pcm_codec((C.enum_AVSampleFormat)(f), C.int(b)))
 }
 
 //Return codec bits per sample.
-func AvGetExactBitsPerSample(c CodecId) int {
+func AvGetExactBitsPerSample(c CodecID) int {
 	return int(C.av_get_exact_bits_per_sample((C.enum_AVCodecID)(c)))
 }
 
@@ -268,27 +268,27 @@ func (a *AvHWAccel) AvHwaccelNext() *AvHWAccel {
 }
 
 //Get the type of the given codec.
-func AvcodecGetType(c CodecId) MediaType {
+func AvcodecGetType(c CodecID) MediaType {
 	return (MediaType)(C.avcodec_get_type((C.enum_AVCodecID)(c)))
 }
 
 //Get the name of a codec.
-func AvcodecGetName(d CodecId) string {
+func AvcodecGetName(d CodecID) string {
 	return C.GoString(C.avcodec_get_name((C.enum_AVCodecID)(d)))
 }
 
-//const Descriptor *avcodec_descriptor_get (enum CodecId id)
-func AvcodecDescriptorGet(id CodecId) *Descriptor {
+//AVCodecDescriptorGet const Descriptor *avcodec_descriptor_get (enum CodecID id)
+func AVCodecDescriptorGet(id CodecID) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get((C.enum_AVCodecID)(id)))
 }
 
-//Iterate over all codec descriptors known to libavcodec.
-func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
+//AVCodecDescriptorNext Iterate over all codec descriptors known to libavcodec.
+func (d *Descriptor) AVCodecDescriptorNext() *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_next((*C.struct_AVCodecDescriptor)(d)))
 }
 
-// AvcodecDescriptorGetByName ...
-func AvcodecDescriptorGetByName(n string) *Descriptor {
+// AVCodecDescriptorGetByName ...
+func AVCodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
 }
 

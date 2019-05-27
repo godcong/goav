@@ -16,11 +16,13 @@ import (
 	"unsafe"
 )
 
+// Dictionary ...
 type (
 	Dictionary      C.struct_AVDictionary
 	DictionaryEntry C.struct_AVDictionaryEntry
 )
 
+// AV_DICT_MATCH_CASE ...
 const (
 	AV_DICT_MATCH_CASE      = int(C.AV_DICT_MATCH_CASE)
 	AV_DICT_IGNORE_SUFFIX   = int(C.AV_DICT_IGNORE_SUFFIX)
@@ -31,6 +33,7 @@ const (
 	AV_DICT_MULTIKEY        = int(C.AV_DICT_MULTIKEY)
 )
 
+// AvDictGet ...
 func (d *Dictionary) AvDictGet(key string, prev *DictionaryEntry, flags int) *DictionaryEntry {
 	Ckey := C.CString(key)
 	defer C.free(unsafe.Pointer(Ckey))
@@ -43,10 +46,12 @@ func (d *Dictionary) AvDictGet(key string, prev *DictionaryEntry, flags int) *Di
 	))
 }
 
+// AvDictCount ...
 func (d *Dictionary) AvDictCount() int {
 	return int(C.av_dict_count((*C.struct_AVDictionary)(d)))
 }
 
+// AvDictSet ...
 func (d *Dictionary) AvDictSet(key, value string, flags int) int {
 	Ckey := C.CString(key)
 	defer C.free(unsafe.Pointer(Ckey))
@@ -62,6 +67,7 @@ func (d *Dictionary) AvDictSet(key, value string, flags int) int {
 	))
 }
 
+// AvDictSetInt ...
 func (d *Dictionary) AvDictSetInt(key string, value int64, flags int) int {
 	Ckey := C.CString(key)
 	defer C.free(unsafe.Pointer(Ckey))
@@ -74,6 +80,7 @@ func (d *Dictionary) AvDictSetInt(key string, value int64, flags int) int {
 	))
 }
 
+// AvDictParseString ...
 func (d *Dictionary) AvDictParseString(str, key_val_sep, pairs_sep string, flags int) int {
 	Cstr := C.CString(str)
 	defer C.free(unsafe.Pointer(Cstr))
@@ -93,6 +100,7 @@ func (d *Dictionary) AvDictParseString(str, key_val_sep, pairs_sep string, flags
 	))
 }
 
+// AvDictCopy ...
 func (d *Dictionary) AvDictCopy(src *Dictionary, flags int) int {
 	return int(C.av_dict_copy(
 		(**C.struct_AVDictionary)(unsafe.Pointer(&d)),
@@ -101,18 +109,20 @@ func (d *Dictionary) AvDictCopy(src *Dictionary, flags int) int {
 	))
 }
 
+// AvDictFree ...
 func (d *Dictionary) AvDictFree() {
 	C.av_dict_free((**C.struct_AVDictionary)(unsafe.Pointer(&d)))
 }
 
-func (d *Dictionary) AvDictGetString(key_val_sep, pairs_sep byte) (int, string) {
+// AvDictGetString ...
+func (d *Dictionary) AvDictGetString(keyValSep, pairsSep byte) (int, string) {
 	var Cbuf *C.char
 
 	ret := int(C.av_dict_get_string(
 		(*C.struct_AVDictionary)(d),
 		(**C.char)(&Cbuf),
-		C.char(key_val_sep),
-		C.char(pairs_sep),
+		C.char(keyValSep),
+		C.char(pairsSep),
 	))
 
 	var buf string
@@ -124,10 +134,12 @@ func (d *Dictionary) AvDictGetString(key_val_sep, pairs_sep byte) (int, string) 
 	return ret, buf
 }
 
+// Key ...
 func (d *DictionaryEntry) Key() string {
 	return C.GoString(d.key)
 }
 
+// Value ...
 func (d *DictionaryEntry) Value() string {
 	return C.GoString(d.value)
 }

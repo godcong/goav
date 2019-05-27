@@ -18,58 +18,58 @@ type (
 	AVCodecContext C.struct_AVCodecContext
 )
 
-// AvCodecGetPktTimebase ...
-func (ctx *AVCodecContext) AvCodecGetPktTimebase() Rational {
+// AVCodecGetPktTimebase ...
+func (ctx *AVCodecContext) AVCodecGetPktTimebase() Rational {
 	return Rational(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctx)))
 }
 
-// AvCodecGetPktTimebase2 returns the timebase rational number as numerator and denominator
-func (ctx *AVCodecContext) AvCodecGetPktTimebase2() Rational {
-	return ctx.AvCodecGetPktTimebase()
+// AVCodecGetPktTimebase2 returns the timebase rational number as numerator and denominator
+func (ctx *AVCodecContext) AVCodecGetPktTimebase2() Rational {
+	return ctx.AVCodecGetPktTimebase()
 }
 
-// AvCodecSetPktTimebase ...
-func (ctx *AVCodecContext) AvCodecSetPktTimebase(r Rational) {
+// AVCodecSetPktTimebase ...
+func (ctx *AVCodecContext) AVCodecSetPktTimebase(r Rational) {
 	C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(ctx), (C.struct_AVRational)(r))
 }
 
-// AvCodecGetCodecDescriptor ...
-func (ctx *AVCodecContext) AvCodecGetCodecDescriptor() *Descriptor {
+// AVCodecGetCodecDescriptor ...
+func (ctx *AVCodecContext) AVCodecGetCodecDescriptor() *Descriptor {
 	return (*Descriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(ctx)))
 }
 
-// AvCodecSetCodecDescriptor ...
-func (ctx *AVCodecContext) AvCodecSetCodecDescriptor(d *Descriptor) {
+// AVCodecSetCodecDescriptor ...
+func (ctx *AVCodecContext) AVCodecSetCodecDescriptor(d *Descriptor) {
 	C.av_codec_set_codec_descriptor((*C.struct_AVCodecContext)(ctx), (*C.struct_AVCodecDescriptor)(d))
 }
 
-// AvCodecGetLowres ...
-func (ctx *AVCodecContext) AvCodecGetLowres() int {
+// AVCodecGetLowres ...
+func (ctx *AVCodecContext) AVCodecGetLowres() int {
 	return int(C.av_codec_get_lowres((*C.struct_AVCodecContext)(ctx)))
 }
 
-// AvCodecSetLowres ...
-func (ctx *AVCodecContext) AvCodecSetLowres(i int) {
+// AVCodecSetLowres ...
+func (ctx *AVCodecContext) AVCodecSetLowres(i int) {
 	C.av_codec_set_lowres((*C.struct_AVCodecContext)(ctx), C.int(i))
 }
 
-// AvCodecGetSeekPreroll ...
-func (ctx *AVCodecContext) AvCodecGetSeekPreroll() int {
+// AVCodecGetSeekPreroll ...
+func (ctx *AVCodecContext) AVCodecGetSeekPreroll() int {
 	return int(C.av_codec_get_seek_preroll((*C.struct_AVCodecContext)(ctx)))
 }
 
-// AvCodecSetSeekPreroll ...
-func (ctx *AVCodecContext) AvCodecSetSeekPreroll(i int) {
+// AVCodecSetSeekPreroll ...
+func (ctx *AVCodecContext) AVCodecSetSeekPreroll(i int) {
 	C.av_codec_set_seek_preroll((*C.struct_AVCodecContext)(ctx), C.int(i))
 }
 
-// AvCodecGetChromaIntraMatrix ...
-func (ctx *AVCodecContext) AvCodecGetChromaIntraMatrix() *uint16 {
+// AVCodecGetChromaIntraMatrix ...
+func (ctx *AVCodecContext) AVCodecGetChromaIntraMatrix() *uint16 {
 	return (*uint16)(C.av_codec_get_chroma_intra_matrix((*C.struct_AVCodecContext)(ctx)))
 }
 
-// AvCodecSetChromaIntraMatrix ...
-func (ctx *AVCodecContext) AvCodecSetChromaIntraMatrix(t *uint16) {
+// AVCodecSetChromaIntraMatrix ...
+func (ctx *AVCodecContext) AVCodecSetChromaIntraMatrix(t *uint16) {
 	C.av_codec_set_chroma_intra_matrix((*C.struct_AVCodecContext)(ctx), (*C.uint16_t)(t))
 }
 
@@ -247,32 +247,32 @@ func (ctx *AVFormatContext) AvFormatGetProbeScore() int {
 }
 
 // AvFormatGetVideoCodec ...
-func (ctx *AVFormatContext) AvFormatGetVideoCodec() *AvCodec {
-	return (*AvCodec)(C.av_format_get_video_codec((*C.struct_AVFormatContext)(ctx)))
+func (ctx *AVFormatContext) AvFormatGetVideoCodec() *AVCodec {
+	return (*AVCodec)(C.av_format_get_video_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
 // AvFormatSetVideoCodec ...
-func (ctx *AVFormatContext) AvFormatSetVideoCodec(c *AvCodec) {
+func (ctx *AVFormatContext) AvFormatSetVideoCodec(c *AVCodec) {
 	C.av_format_set_video_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
 // AvFormatGetAudioCodec ...
-func (ctx *AVFormatContext) AvFormatGetAudioCodec() *AvCodec {
-	return (*AvCodec)(C.av_format_get_audio_codec((*C.struct_AVFormatContext)(ctx)))
+func (ctx *AVFormatContext) AvFormatGetAudioCodec() *AVCodec {
+	return (*AVCodec)(C.av_format_get_audio_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
 // AvFormatSetAudioCodec ...
-func (ctx *AVFormatContext) AvFormatSetAudioCodec(c *AvCodec) {
+func (ctx *AVFormatContext) AvFormatSetAudioCodec(c *AVCodec) {
 	C.av_format_set_audio_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
 // AvFormatGetSubtitleCodec ...
-func (ctx *AVFormatContext) AvFormatGetSubtitleCodec() *AvCodec {
-	return (*AvCodec)(C.av_format_get_subtitle_codec((*C.struct_AVFormatContext)(ctx)))
+func (ctx *AVFormatContext) AvFormatGetSubtitleCodec() *AVCodec {
+	return (*AVCodec)(C.av_format_get_subtitle_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
 // AvFormatSetSubtitleCodec ...
-func (ctx *AVFormatContext) AvFormatSetSubtitleCodec(c *AvCodec) {
+func (ctx *AVFormatContext) AvFormatSetSubtitleCodec(c *AVCodec) {
 	C.av_format_set_subtitle_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
@@ -312,7 +312,7 @@ func (ctx *AVFormatContext) AvformatFreeContext() {
 }
 
 //Add a new stream to a media file.
-func (ctx *AVFormatContext) AvformatNewStream(c *AvCodec) *Stream {
+func (ctx *AVFormatContext) AvformatNewStream(c *AVCodec) *Stream {
 	return (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
 }
 
@@ -332,7 +332,7 @@ func (ctx *AVFormatContext) AvFindProgramFromStream(l *AvProgram, su int) *AvPro
 }
 
 //Find the "best" stream in the file.
-func AvFindBestStream(ic *AVFormatContext, t MediaType, ws, rs int, c **AvCodec, f int) int {
+func AvFindBestStream(ic *AVFormatContext, t MediaType, ws, rs int, c **AVCodec, f int) int {
 	return int(C.av_find_best_stream((*C.struct_AVFormatContext)(ic), (C.enum_AVMediaType)(t), C.int(ws), C.int(rs), (**C.struct_AVCodec)(unsafe.Pointer(c)), C.int(f)))
 }
 
@@ -476,32 +476,32 @@ func SwsFreecontext(ctx *SwsContext) {
 	C.sws_freeContext((*C.struct_SwsContext)(ctx))
 }
 
-//Allocate and return an Context.
+//SwsGetcontext Allocate and return an Context.
 func SwsGetcontext(sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *int) *SwsContext {
 	return (*SwsContext)(C.sws_getContext(C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(unsafe.Pointer(p))))
 }
 
-//Check if context can be reused, otherwise reallocate a new one.
-func SwsGetcachedcontext(ctx *SwsContext, sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *float64) *SwsContext {
+//SwsGetCachedContext Check if context can be reused, otherwise reallocate a new one.
+func SwsGetCachedContext(ctx *SwsContext, sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *float64) *SwsContext {
 	return (*SwsContext)(C.sws_getCachedContext((*C.struct_SwsContext)(ctx), C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(p)))
 }
 
-//Initialize context after user parameters have been set.
+//SwrInit Initialize context after user parameters have been set.
 func (s *SwrContext) SwrInit() int {
 	return int(C.swr_init((*C.struct_SwrContext)(s)))
 }
 
-//Check whether an swr context has been initialized or not.
+//SwrIsInitialized Check whether an swr context has been initialized or not.
 func (s *SwrContext) SwrIsInitialized() int {
 	return int(C.swr_is_initialized((*C.struct_SwrContext)(s)))
 }
 
-//Allocate SwrContext if needed and set/reset common parameters.
+//SwrAllocSetOpts Allocate SwrContext if needed and set/reset common parameters.
 func (s *SwrContext) SwrAllocSetOpts(ocl int64, osf AvSampleFormat, osr int, icl int64, isf AvSampleFormat, isr, lo, lc int) *SwrContext {
 	return (*SwrContext)(C.swr_alloc_set_opts((*C.struct_SwrContext)(s), C.int64_t(ocl), (C.enum_AVSampleFormat)(osf), C.int(osr), C.int64_t(icl), (C.enum_AVSampleFormat)(isf), C.int(isr), C.int(lo), unsafe.Pointer(&lc)))
 }
 
-//SwrContext destructor functions. Free the given SwrContext and set the pointer to NULL.
+//SwrFree SwrContext destructor functions. Free the given SwrContext and set the pointer to NULL.
 func (s *SwrContext) SwrFree() {
 	C.swr_free((**C.struct_SwrContext)(unsafe.Pointer(s)))
 }

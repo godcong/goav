@@ -85,7 +85,7 @@ func main() {
 			// Get a pointer to the codec context for the video stream
 			pCodecCtxOrig := pFormatContext.Streams()[i].Codec()
 			// Find the decoder for the video stream
-			pCodec := goav.AvcodecFindDecoder(goav.CodecId(pCodecCtxOrig.GetCodecId()))
+			pCodec := goav.AvcodecFindDecoder(goav.CodecID(pCodecCtxOrig.GetCodecID()))
 			if pCodec == nil {
 				fmt.Println("Unsupported codec!")
 				os.Exit(1)
