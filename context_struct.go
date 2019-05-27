@@ -667,13 +667,13 @@ func (ctx *CodecContext) PixFmt() PixelFormat {
 }
 
 // RequestSampleFmt ...
-func (ctx *CodecContext) RequestSampleFmt() AvSampleFormat {
-	return (AvSampleFormat)(ctx.request_sample_fmt)
+func (ctx *CodecContext) RequestSampleFmt() SampleFormat {
+	return (SampleFormat)(ctx.request_sample_fmt)
 }
 
 // SampleFmt ...
-func (ctx *CodecContext) SampleFmt() AvSampleFormat {
-	return (AvSampleFormat)(ctx.sample_fmt)
+func (ctx *CodecContext) SampleFmt() SampleFormat {
+	return (SampleFormat)(ctx.sample_fmt)
 }
 
 // SkipFrame ...

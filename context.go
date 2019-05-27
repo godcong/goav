@@ -446,7 +446,7 @@ func (ctx *FormatContext) AVFormatQueueAttachedPictures() int {
 }
 
 // AVFormatNewStream2 ...
-func (ctx *FormatContext) AVFormatNewStream2(c *AvCodec) *Stream {
+func (ctx *FormatContext) AVFormatNewStream2(c *Codec) *Stream {
 	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
 	stream.codec.pix_fmt = int32(AvPixFmtYuv)
 	stream.codec.width = 640
@@ -492,7 +492,7 @@ func (s *SwrContext) SwrIsInitialized() int {
 }
 
 //SwrAllocSetOpts Allocate SwrContext if needed and set/reset common parameters.
-func (s *SwrContext) SwrAllocSetOpts(ocl int64, osf AvSampleFormat, osr int, icl int64, isf AvSampleFormat, isr, lo, lc int) *SwrContext {
+func (s *SwrContext) SwrAllocSetOpts(ocl int64, osf SampleFormat, osr int, icl int64, isf SampleFormat, isr, lo, lc int) *SwrContext {
 	return (*SwrContext)(C.swr_alloc_set_opts((*C.struct_SwrContext)(s), C.int64_t(ocl), (C.enum_AVSampleFormat)(osf), C.int(osr), C.int64_t(icl), (C.enum_AVSampleFormat)(isf), C.int(isr), C.int(lo), unsafe.Pointer(&lc)))
 }
 

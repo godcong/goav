@@ -48,7 +48,7 @@ const (
 
 // AvioFlagRead ...
 const (
-	AvioFlagRead      = int(C.AVIO_FLAG_READ)
-	AvioFlagWrite     = int(C.AVIO_FLAG_WRITE)
-	AvioFlagReadWrite = int(C.AVIO_FLAG_READ_WRITE)
+	AVIOFlagRead      = int(C.AVIO_FLAG_READ)
+	AVIOFlagWrite     = int(C.AVIO_FLAG_WRITE)
+	AVIOFlagReadWrite = int(C.AVIO_FLAG_READ_WRITE)
 )

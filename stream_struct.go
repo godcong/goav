@@ -11,8 +11,8 @@ import (
 )
 
 // CodecParameters ...
-func (s *Stream) CodecParameters() *AvCodecParameters {
-	return (*AvCodecParameters)(unsafe.Pointer(s.codecpar))
+func (s *Stream) CodecParameters() *CodecParameters {
+	return (*CodecParameters)(unsafe.Pointer(s.codecpar))
 }
 
 // Codec ...
@@ -36,8 +36,8 @@ func (s *Stream) AttachedPic() Packet {
 }
 
 // SideData ...
-func (s *Stream) SideData() *AvPacketSideData {
-	return (*AvPacketSideData)(unsafe.Pointer(s.side_data))
+func (s *Stream) SideData() *PacketSideData {
+	return (*PacketSideData)(unsafe.Pointer(s.side_data))
 }
 
 // ProbeData ...
