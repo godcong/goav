@@ -18,20 +18,20 @@ func main() {
 	// Register all formats and codecs
 	goav.AvRegisterAll()
 
-	ctx := goav.AvformatAllocContext()
+	ctx := goav.AVFormatAllocContext()
 
 	// Open video file
-	if AvformatOpenInput(&ctx, filename, nil, nil) != 0 {
+	if AVFormatOpenInput(&ctx, filename, nil, nil) != 0 {
 		log.Println("Error: Couldn't open file.")
 		return
 	}
 
 	// Retrieve stream information
-	if ctx.AvformatFindStreamInfo(nil) < 0 {
+	if ctx.AVFormatFindStreamInfo(nil) < 0 {
 		log.Println("Error: Couldn't find stream information.")
 
 		// Close input file and free context
-		ctx.AvformatCloseInput()
+		ctx.AVFormatCloseInput()
 		return
 	}
 

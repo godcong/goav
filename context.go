@@ -74,82 +74,82 @@ func (ctx *AVCodecContext) AVCodecSetChromaIntraMatrix(t *uint16) {
 }
 
 //Free the codec context and everything associated with it and write NULL to the provided pointer.
-func (ctx *AVCodecContext) AvcodecFreeContext() {
+func (ctx *AVCodecContext) AVCodecFreeContext() {
 	C.avcodec_free_context((**C.struct_AVCodecContext)(unsafe.Pointer(ctx)))
 }
 
 //Set the fields of the given Context to default values corresponding to the given codec (defaults may be codec-dependent).
-func (ctx *AVCodecContext) AvcodecGetContextDefaults3(codec *Codec) int {
+func (ctx *AVCodecContext) AVCodecGetContextDefaults3(codec *Codec) int {
 	return int(C.avcodec_get_context_defaults3((*C.struct_AVCodecContext)(ctx), (*C.struct_AVCodec)(codec)))
 }
 
 //Copy the settings of the source Context into the destination Context.
-func (ctx *AVCodecContext) AvcodecCopyContext(ctxt2 *AVCodecContext) int {
+func (ctx *AVCodecContext) AVCodecCopyContext(ctxt2 *AVCodecContext) int {
 	return int(C.avcodec_copy_context((*C.struct_AVCodecContext)(ctx), (*C.struct_AVCodecContext)(ctxt2)))
 }
 
 //Initialize the Context to use the given Codec
-func (ctx *AVCodecContext) AvcodecOpen2(codec *Codec, d **Dictionary) int {
+func (ctx *AVCodecContext) AVCodecOpen2(codec *Codec, d **Dictionary) int {
 	return int(C.avcodec_open2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVCodec)(codec), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
 //Close a given Context and free all the data associated with it (but not the Context itself).
-func (ctx *AVCodecContext) AvcodecClose() int {
+func (ctx *AVCodecContext) AVCodecClose() int {
 	return int(C.avcodec_close((*C.struct_AVCodecContext)(ctx)))
 }
 
 //The default callback for Context.get_buffer2().
-func (ctx *AVCodecContext) AvcodecDefaultGetBuffer2(f *Frame, l int) int {
+func (ctx *AVCodecContext) AVCodecDefaultGetBuffer2(f *Frame, l int) int {
 	return int(C.avcodec_default_get_buffer2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f), C.int(l)))
 }
 
 //Modify width and height values so that they will result in a memory buffer that is acceptable for the codec if you do not use any horizontal padding.
-func (ctx *AVCodecContext) AvcodecAlignDimensions(w, h *int) {
+func (ctx *AVCodecContext) AVCodecAlignDimensions(w, h *int) {
 	C.avcodec_align_dimensions((*C.struct_AVCodecContext)(ctx), (*C.int)(unsafe.Pointer(w)), (*C.int)(unsafe.Pointer(h)))
 }
 
 //Modify width and height values so that they will result in a memory buffer that is acceptable for the codec if you also ensure that all line sizes are a multiple of the respective linesize_align[i].
-func (ctx *AVCodecContext) AvcodecAlignDimensions2(w, h *int, l int) {
+func (ctx *AVCodecContext) AVCodecAlignDimensions2(w, h *int, l int) {
 	C.avcodec_align_dimensions2((*C.struct_AVCodecContext)(ctx), (*C.int)(unsafe.Pointer(w)), (*C.int)(unsafe.Pointer(h)), (*C.int)(unsafe.Pointer(&l)))
 }
 
 //Decode the audio frame of size avpkt->size from avpkt->data into frame.
-func (ctx *AVCodecContext) AvcodecDecodeAudio4(f *Frame, g *int, a *Packet) int {
+func (ctx *AVCodecContext) AVCodecDecodeAudio4(f *Frame, g *int, a *Packet) int {
 	return int(C.avcodec_decode_audio4((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
 //Decode the video frame of size avpkt->size from avpkt->data into picture.
-func (ctx *AVCodecContext) AvcodecDecodeVideo2(f *Frame, g *int, a *Packet) int {
+func (ctx *AVCodecContext) AVCodecDecodeVideo2(f *Frame, g *int, a *Packet) int {
 	return int(C.avcodec_decode_video2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
 //Decode a subtitle message.
-func (ctx *AVCodecContext) AvcodecDecodeSubtitle2(s *AvSubtitle, g *int, a *Packet) int {
+func (ctx *AVCodecContext) AVCodecDecodeSubtitle2(s *AvSubtitle, g *int, a *Packet) int {
 	return int(C.avcodec_decode_subtitle2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVSubtitle)(s), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
 //Encode a frame of audio.
-func (ctx *AVCodecContext) AvcodecEncodeAudio2(p *Packet, f *Frame, gp *int) int {
+func (ctx *AVCodecContext) AVCodecEncodeAudio2(p *Packet, f *Frame, gp *int) int {
 	return int(C.avcodec_encode_audio2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
 //Encode a frame of video
-func (ctx *AVCodecContext) AvcodecEncodeVideo2(p *Packet, f *Frame, gp *int) int {
+func (ctx *AVCodecContext) AVCodecEncodeVideo2(p *Packet, f *Frame, gp *int) int {
 	return int(C.avcodec_encode_video2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
-// AvcodecEncodeSubtitle ...
-func (ctx *AVCodecContext) AvcodecEncodeSubtitle(b *uint8, bs int, s *AvSubtitle) int {
+// AVCodecEncodeSubtitle ...
+func (ctx *AVCodecContext) AVCodecEncodeSubtitle(b *uint8, bs int, s *AvSubtitle) int {
 	return int(C.avcodec_encode_subtitle((*C.struct_AVCodecContext)(ctx), (*C.uint8_t)(b), C.int(bs), (*C.struct_AVSubtitle)(s)))
 }
 
-// AvcodecDefaultGetFormat ...
-func (ctx *AVCodecContext) AvcodecDefaultGetFormat(f *PixelFormat) PixelFormat {
+// AVCodecDefaultGetFormat ...
+func (ctx *AVCodecContext) AVCodecDefaultGetFormat(f *PixelFormat) PixelFormat {
 	return (PixelFormat)(C.avcodec_default_get_format((*C.struct_AVCodecContext)(ctx), (*C.enum_AVPixelFormat)(f)))
 }
 
 //Reset the internal decoder state / flush internal buffers.
-func (ctx *AVCodecContext) AvcodecFlushBuffers() {
+func (ctx *AVCodecContext) AVCodecFlushBuffers() {
 	C.avcodec_flush_buffers((*C.struct_AVCodecContext)(ctx))
 }
 
@@ -158,8 +158,8 @@ func (ctx *AVCodecContext) AvGetAudioFrameDuration(f int) int {
 	return int(C.av_get_audio_frame_duration((*C.struct_AVCodecContext)(ctx), C.int(f)))
 }
 
-// AvcodecIsOpen ...
-func (ctx *AVCodecContext) AvcodecIsOpen() int {
+// AVCodecIsOpen ...
+func (ctx *AVCodecContext) AVCodecIsOpen() int {
 	return int(C.avcodec_is_open((*C.struct_AVCodecContext)(ctx)))
 }
 
@@ -223,13 +223,13 @@ func (ctx *AVCodecContext) SetEncodeParams(width int, height int, pxlFmt PixelFo
 	ctx.SetEncodeParams2(width, height, pxlFmt, false /*no b frames*/, 10)
 }
 
-// AvcodecSendPacket ...
-func (ctx *AVCodecContext) AvcodecSendPacket(packet *Packet) int {
+// AVCodecSendPacket ...
+func (ctx *AVCodecContext) AVCodecSendPacket(packet *Packet) int {
 	return (int)(C.avcodec_send_packet((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(packet)))
 }
 
-// AvcodecReceiveFrame ...
-func (ctx *AVCodecContext) AvcodecReceiveFrame(f *Frame) int {
+// AVCodecReceiveFrame ...
+func (ctx *AVCodecContext) AVCodecReceiveFrame(f *Frame) int {
 	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f)))
 }
 
@@ -307,12 +307,12 @@ func (ctx *AVFormatContext) AvFmtCtxGetDurationEstimationMethod() AvDurationEsti
 }
 
 //Free an Context and all its streams.
-func (ctx *AVFormatContext) AvformatFreeContext() {
+func (ctx *AVFormatContext) AVFormatFreeContext() {
 	C.avformat_free_context((*C.struct_AVFormatContext)(ctx))
 }
 
 //Add a new stream to a media file.
-func (ctx *AVFormatContext) AvformatNewStream(c *AVCodec) *Stream {
+func (ctx *AVFormatContext) AVFormatNewStream(c *AVCodec) *Stream {
 	return (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
 }
 
@@ -322,7 +322,7 @@ func (ctx *AVFormatContext) AvNewProgram(id int) *AvProgram {
 }
 
 //Read packets of a media file to get stream information.
-func (ctx *AVFormatContext) AvformatFindStreamInfo(d **Dictionary) int {
+func (ctx *AVFormatContext) AVFormatFindStreamInfo(d **Dictionary) int {
 	return int(C.avformat_find_stream_info((*C.struct_AVFormatContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
@@ -355,7 +355,7 @@ func (ctx *AVFormatContext) AvSeekFrameTime(st int, at time.Duration, timebase R
 }
 
 //Seek to timestamp ts.
-func (ctx *AVFormatContext) AvformatSeekFile(si int, mit, ts, mat int64, f int) int {
+func (ctx *AVFormatContext) AVFormatSeekFile(si int, mit, ts, mat int64, f int) int {
 	return int(C.avformat_seek_file((*C.struct_AVFormatContext)(ctx), C.int(si), C.int64_t(mit), C.int64_t(ts), C.int64_t(mat), C.int(f)))
 }
 
@@ -370,12 +370,12 @@ func (ctx *AVFormatContext) AvReadPause() int {
 }
 
 //Close an opened input Context.
-func (ctx *AVFormatContext) AvformatCloseInput() {
+func (ctx *AVFormatContext) AVFormatCloseInput() {
 	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(&ctx)))
 }
 
 //Allocate the stream private data and write the stream header to an output media file.
-func (ctx *AVFormatContext) AvformatWriteHeader(o **Dictionary) int {
+func (ctx *AVFormatContext) AVFormatWriteHeader(o **Dictionary) int {
 	return int(C.avformat_write_header((*C.struct_AVFormatContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 
@@ -438,20 +438,20 @@ func (ctx *AVFormatContext) AvGuessFrameRate(st *Stream, f *Frame) Rational {
 }
 
 //Check if the stream st contained in s is matched by the stream specifier spec.
-func (ctx *AVFormatContext) AvformatMatchStreamSpecifier(st *Stream, spec string) int {
+func (ctx *AVFormatContext) AVFormatMatchStreamSpecifier(st *Stream, spec string) int {
 	Cspec := C.CString(spec)
 	defer C.free(unsafe.Pointer(Cspec))
 
 	return int(C.avformat_match_stream_specifier((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), Cspec))
 }
 
-// AvformatQueueAttachedPictures ...
-func (ctx *AVFormatContext) AvformatQueueAttachedPictures() int {
+// AVFormatQueueAttachedPictures ...
+func (ctx *AVFormatContext) AVFormatQueueAttachedPictures() int {
 	return int(C.avformat_queue_attached_pictures((*C.struct_AVFormatContext)(ctx)))
 }
 
-// AvformatNewStream2 ...
-func (ctx *AVFormatContext) AvformatNewStream2(c *AvCodec) *Stream {
+// AVFormatNewStream2 ...
+func (ctx *AVFormatContext) AVFormatNewStream2(c *AvCodec) *Stream {
 	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
 	stream.codec.pix_fmt = int32(AvPixFmtYuv)
 	stream.codec.width = 640

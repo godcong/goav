@@ -62,14 +62,14 @@ func main() {
 	}
 
 	// Open video file
-	pFormatContext := goav.AvformatAllocContext()
-	if goav.AvformatOpenInput(&pFormatContext, os.Args[1], nil, nil) != 0 {
+	pFormatContext := goav.AVFormatAllocContext()
+	if goav.AVFormatOpenInput(&pFormatContext, os.Args[1], nil, nil) != 0 {
 		fmt.Printf("Unable to open file %s\n", os.Args[1])
 		os.Exit(1)
 	}
 
 	// Retrieve stream information
-	if pFormatContext.AvformatFindStreamInfo(nil) < 0 {
+	if pFormatContext.AVFormatFindStreamInfo(nil) < 0 {
 		fmt.Println("Couldn't find stream information")
 		os.Exit(1)
 	}
@@ -85,20 +85,20 @@ func main() {
 			// Get a pointer to the codec context for the video stream
 			pCodecCtxOrig := pFormatContext.Streams()[i].Codec()
 			// Find the decoder for the video stream
-			pCodec := goav.AvcodecFindDecoder(goav.CodecID(pCodecCtxOrig.GetCodecID()))
+			pCodec := goav.AVCodecFindDecoder(goav.CodecID(pCodecCtxOrig.GetCodecID()))
 			if pCodec == nil {
 				fmt.Println("Unsupported codec!")
 				os.Exit(1)
 			}
 			// Copy context
-			pCodecCtx := pCodec.AvcodecAllocContext3()
-			if pCodecCtx.AvcodecCopyContext((*goav.Context)(unsafe.Pointer(pCodecCtxOrig))) != 0 {
+			pCodecCtx := pCodec.AVCodecAllocContext3()
+			if pCodecCtx.AVCodecCopyContext((*goav.Context)(unsafe.Pointer(pCodecCtxOrig))) != 0 {
 				fmt.Println("Couldn't copy codec context")
 				os.Exit(1)
 			}
 
 			// Open codec
-			if pCodecCtx.AvcodecOpen2(pCodec, nil) < 0 {
+			if pCodecCtx.AVCodecOpen2(pCodec, nil) < 0 {
 				fmt.Println("Could not open codec")
 				os.Exit(1)
 			}
@@ -145,12 +145,12 @@ func main() {
 				// Is this a packet from the video stream?
 				if packet.StreamIndex() == i {
 					// Decode video frame
-					response := pCodecCtx.AvcodecSendPacket(packet)
+					response := pCodecCtx.AVCodecSendPacket(packet)
 					if response < 0 {
 						fmt.Printf("Error while sending a packet to the decoder: %s\n", goav.ErrorFromCode(response))
 					}
 					for response >= 0 {
-						response = pCodecCtx.AvcodecReceiveFrame((*goav.Frame)(unsafe.Pointer(pFrame)))
+						response = pCodecCtx.AVCodecReceiveFrame((*goav.Frame)(unsafe.Pointer(pFrame)))
 						if response == goav.AvErrorEAGAIN || response == goav.AvErrorEOF {
 							break
 						} else if response < 0 {
@@ -186,11 +186,11 @@ func main() {
 			goav.AvFrameFree(pFrame)
 
 			// Close the codecs
-			pCodecCtx.AvcodecClose()
-			(*goav.Context)(unsafe.Pointer(pCodecCtxOrig)).AvcodecClose()
+			pCodecCtx.AVCodecClose()
+			(*goav.Context)(unsafe.Pointer(pCodecCtxOrig)).AVCodecClose()
 
 			// Close the video file
-			pFormatContext.AvformatCloseInput()
+			pFormatContext.AVFormatCloseInput()
 
 			// Stop after saving frames of first video straem
 			break
