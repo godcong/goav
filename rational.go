@@ -3,7 +3,7 @@
 
 //Package avcodec contains the codecs (decoders and encoders) provided by the libavcodec library
 //Provides some generic global options, which can be set on all the encoders and decoders.
-package avcodec
+package goav
 
 //#cgo pkg-config: libavformat libavcodec libavutil
 //#include <stdio.h>
@@ -42,4 +42,8 @@ func NewRational(num, den int) Rational {
 		num: C.int(num),
 		den: C.int(den),
 	}
+}
+
+func newRational(r C.struct_AVRational) Rational {
+	return NewRational(int(r.num), int(r.den))
 }

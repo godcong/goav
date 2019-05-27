@@ -4,7 +4,7 @@
 //Package avformat provides some generic global options, which can be set on all the muxers and demuxers.
 //In addition each muxer or demuxer may support so-called private options, which are specific for that component.
 //Supported formats (muxers and demuxers) provided by the libavformat library
-package avformat
+package goav
 
 //#cgo pkg-config: libavformat libavcodec libavutil libavdevice libavfilter libswresample libswscale
 //#include <stdio.h>

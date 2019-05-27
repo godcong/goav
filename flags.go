@@ -1,10 +1,17 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-package avcodec
+package goav
 
-//#cgo pkg-config: libavcodec
+//#cgo pkg-config: libavformat libavcodec libavutil libavdevice libavfilter libswresample libswscale
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <inttypes.h>
+//#include <stdint.h>
+//#include <string.h>
 //#include <libavcodec/avcodec.h>
+//#include <libavformat/avformat.h>
+//#include <libavformat/avio.h>
 import "C"
 
 const (
@@ -36,4 +43,10 @@ const (
 	AV_CODEC_FLAG2_EXPORT_MVS          = int(C.AV_CODEC_FLAG2_EXPORT_MVS)
 	AV_CODEC_FLAG2_SKIP_MANUAL         = int(C.AV_CODEC_FLAG2_SKIP_MANUAL)
 	AV_CODEC_FLAG2_RO_FLUSH_NOOP       = int(C.AV_CODEC_FLAG2_RO_FLUSH_NOOP)
+)
+
+const (
+	AVIO_FLAG_READ       = int(C.AVIO_FLAG_READ)
+	AVIO_FLAG_WRITE      = int(C.AVIO_FLAG_WRITE)
+	AVIO_FLAG_READ_WRITE = int(C.AVIO_FLAG_READ_WRITE)
 )

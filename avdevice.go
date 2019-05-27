@@ -5,7 +5,7 @@
 // The libavdevice library provides the same interface as libavformat.
 // Namely, an input device is considered like a demuxer, and an output device like a muxer,
 // and the interface and generic device options are the same provided by libavformat
-package avdevice
+package goav
 
 /*
 	#cgo pkg-config: libavdevice

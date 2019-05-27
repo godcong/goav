@@ -1,5 +1,4 @@
-
-package avformat_test
+package goav_test
 
 import (
 	"testing"

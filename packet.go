@@ -1,10 +1,11 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-package avcodec
+package goav
 
-//#cgo pkg-config: libavcodec
+//#cgo pkg-config: libavcodec libavformat
 //#include <libavcodec/avcodec.h>
+//#include <libavformat/avformat.h>
 import "C"
 import (
 	"unsafe"
@@ -120,4 +121,12 @@ func (p *Packet) AvPacketCopyProps(s *Packet) int {
 //Convert valid timing fields (timestamps / durations) in a packet from one timebase to another.
 func (p *Packet) AvPacketRescaleTs(r, r2 Rational) {
 	C.av_packet_rescale_ts((*C.struct_AVPacket)(p), (C.struct_AVRational)(r), (C.struct_AVRational)(r2))
+}
+
+func toCPacket(pkt *Packet) *C.struct_AVPacket {
+	return (*C.struct_AVPacket)(unsafe.Pointer(pkt))
+}
+
+func fromCPacket(pkt *C.struct_AVPacket) *Packet {
+	return (*Packet)(unsafe.Pointer(pkt))
 }
