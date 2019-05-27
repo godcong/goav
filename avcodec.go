@@ -19,6 +19,7 @@ import (
 	"unsafe"
 )
 
+// Codec ...
 type (
 	Codec C.struct_AVCodec
 
@@ -57,30 +58,37 @@ type (
 	AvSampleFormat C.enum_AVSampleFormat
 )
 
+// AvCodecGetId ...
 func (cp *AvCodecParameters) AvCodecGetId() CodecId {
 	return *((*CodecId)(unsafe.Pointer(&cp.codec_id)))
 }
 
+// AvCodecGetType ...
 func (cp *AvCodecParameters) AvCodecGetType() MediaType {
 	return *((*MediaType)(unsafe.Pointer(&cp.codec_type)))
 }
 
+// AvCodecGetWidth ...
 func (cp *AvCodecParameters) AvCodecGetWidth() int {
 	return (int)(*((*int32)(unsafe.Pointer(&cp.width))))
 }
 
+// AvCodecGetHeight ...
 func (cp *AvCodecParameters) AvCodecGetHeight() int {
 	return (int)(*((*int32)(unsafe.Pointer(&cp.height))))
 }
 
+// AvCodecGetChannels ...
 func (cp *AvCodecParameters) AvCodecGetChannels() int {
 	return *((*int)(unsafe.Pointer(&cp.channels)))
 }
 
+// AvCodecGetSampleRate ...
 func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
 	return *((*int)(unsafe.Pointer(&cp.sample_rate)))
 }
 
+// AvCodecGetMaxLowres ...
 func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
 }
@@ -105,62 +113,65 @@ func (c *Codec) AvcodecAllocContext3() *AVCodecContext {
 	return (*AVCodecContext)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
 }
 
+// AvCodecIsEncoder ...
 func (c *Codec) AvCodecIsEncoder() int {
 	return int(C.av_codec_is_encoder((*C.struct_AVCodec)(c)))
 }
 
+// AvCodecIsDecoder ...
 func (c *Codec) AvCodecIsDecoder() int {
 	return int(C.av_codec_is_decoder((*C.struct_AVCodec)(c)))
 }
 
-//Same behaviour av_fast_malloc but the buffer has additional FF_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
+//AvFastPaddedMalloc Same behaviour av_fast_malloc but the buffer has additional FF_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
 func AvFastPaddedMalloc(p unsafe.Pointer, s *uint, t uintptr) {
 	C.av_fast_padded_malloc(p, (*C.uint)(unsafe.Pointer(s)), (C.size_t)(t))
 }
 
-//Return the LIBAvCODEC_VERSION_INT constant.
+//AvcodecVersion Return the LIBAvCODEC_VERSION_INT constant.
 func AvcodecVersion() uint {
 	return uint(C.avcodec_version())
 }
 
-//Return the libavcodec build-time configuration.
+//AvcodecConfiguration Return the libavcodec build-time configuration.
 func AvcodecConfiguration() string {
 	return C.GoString(C.avcodec_configuration())
 
 }
 
-//Return the libavcodec license.
+//AvcodecLicense Return the libavcodec license.
 func AvcodecLicense() string {
 	return C.GoString(C.avcodec_license())
 }
 
-//Register all the codecs, parsers and bitstream filters which were enabled at configuration time.
+//AvcodecRegisterAll Register all the codecs, parsers and bitstream filters which were enabled at configuration time.
 func AvcodecRegisterAll() {
 	C.av_register_all()
 	C.avcodec_register_all()
 	// C.av_log_set_level(0xffff)
 }
 
-//Get the Class for Context.
+//AvcodecGetClass Get the Class for Context.
 func AvcodecGetClass() *Class {
 	return (*Class)(C.avcodec_get_class())
 }
 
-//Get the Class for Frame.
+//AvcodecGetFrameClass Get the Class for Frame.
 func AvcodecGetFrameClass() *Class {
 	return (*Class)(C.avcodec_get_frame_class())
 }
 
-//Get the Class for AvSubtitleRect.
+//AvcodecGetSubtitleRectClass Get the Class for AvSubtitleRect.
 func AvcodecGetSubtitleRectClass() *Class {
 	return (*Class)(C.avcodec_get_subtitle_rect_class())
 }
 
-//Free all allocated data in the given subtitle struct.
+//AvsubtitleFree Free all allocated data in the given subtitle struct.
 func AvsubtitleFree(s *AvSubtitle) {
 	C.avsubtitle_free((*C.struct_AVSubtitle)(s))
 }
 
+// AvPacketAlloc ...
 func AvPacketAlloc() *Packet {
 	return (*Packet)(C.av_packet_alloc())
 }
@@ -180,6 +191,7 @@ func AvcodecFindDecoder(id CodecId) *Codec {
 	return (*Codec)(C.avcodec_find_decoder((C.enum_AVCodecID)(id)))
 }
 
+// AvCodecIterate ...
 func AvCodecIterate(p *unsafe.Pointer) *Codec {
 	return (*Codec)(C.av_codec_iterate(p))
 }
@@ -214,6 +226,7 @@ func AvGetCodecTagString(b string, bf uintptr, c uint) uintptr {
 	return uintptr(C.av_get_codec_tag_string(C.CString(b), C.size_t(bf), C.uint(c)))
 }
 
+// AvcodecString ...
 func AvcodecString(b string, bs int, ctxt *AVCodecContext, e int) {
 	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(ctxt), C.int(e))
 }
@@ -274,10 +287,12 @@ func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_next((*C.struct_AVCodecDescriptor)(d)))
 }
 
+// AvcodecDescriptorGetByName ...
 func AvcodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
 }
 
+// Pts ...
 func (f *Frame) Pts() int64 {
 	return int64(f.pts)
 }
