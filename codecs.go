@@ -8,396 +8,1174 @@ package goav
 import "C"
 
 // Multiple encoders have the same ID and are able to encode compatible streams.
-const (
-	AvCodecId012v               = int(C.AV_CODEC_ID_012V)
-	AvCodecId4xm                = int(C.AV_CODEC_ID_4XM)
-	AvCodecId8bps               = int(C.AV_CODEC_ID_8BPS)
-	AvCodecId8svxExp            = int(C.AV_CODEC_ID_8SVX_EXP)
-	AvCodecId8svxFib            = int(C.AV_CODEC_ID_8SVX_FIB)
-	AvCodecIdA64Multi           = int(C.AV_CODEC_ID_A64_MULTI)
-	AvCodecIdA64Multi5          = int(C.AV_CODEC_ID_A64_MULTI5)
-	AvCodecIdAac                = int(C.AV_CODEC_ID_AAC)
-	AvCodecIdAacLatm            = int(C.AV_CODEC_ID_AAC_LATM)
-	AvCodecIdAasc               = int(C.AV_CODEC_ID_AASC)
-	AvCodecIdAc3                = int(C.AV_CODEC_ID_AC3)
-	AvCodecIdAdpcm4xm           = int(C.AV_CODEC_ID_ADPCM_4XM)
-	AvCodecIdAdpcmAdx           = int(C.AV_CODEC_ID_ADPCM_ADX)
-	AvCodecIdAdpcmAfc           = int(C.AV_CODEC_ID_ADPCM_AFC)
-	AvCodecIdAdpcmCt            = int(C.AV_CODEC_ID_ADPCM_CT)
-	AvCodecIdAdpcmDtk           = int(C.AV_CODEC_ID_ADPCM_DTK)
-	AvCodecIdAdpcmEa            = int(C.AV_CODEC_ID_ADPCM_EA)
-	AvCodecIdAdpcmEaMaxisXa     = int(C.AV_CODEC_ID_ADPCM_EA_MAXIS_XA)
-	AvCodecIdAdpcmEaR1          = int(C.AV_CODEC_ID_ADPCM_EA_R1)
-	AvCodecIdAdpcmEaR2          = int(C.AV_CODEC_ID_ADPCM_EA_R2)
-	AvCodecIdAdpcmEaR3          = int(C.AV_CODEC_ID_ADPCM_EA_R3)
-	AvCodecIdAdpcmEaXas         = int(C.AV_CODEC_ID_ADPCM_EA_XAS)
-	AvCodecIdAdpcmG722          = int(C.AV_CODEC_ID_ADPCM_G722)
-	AvCodecIdAdpcmG726          = int(C.AV_CODEC_ID_ADPCM_G726)
-	AvCodecIdAdpcmG726le        = int(C.AV_CODEC_ID_ADPCM_G726LE)
-	AvCodecIdAdpcmImaAmv        = int(C.AV_CODEC_ID_ADPCM_IMA_AMV)
-	AvCodecIdAdpcmImaApc        = int(C.AV_CODEC_ID_ADPCM_IMA_APC)
-	AvCodecIdAdpcmImaDk3        = int(C.AV_CODEC_ID_ADPCM_IMA_DK3)
-	AvCodecIdAdpcmImaDk4        = int(C.AV_CODEC_ID_ADPCM_IMA_DK4)
-	AvCodecIdAdpcmImaEaEacs     = int(C.AV_CODEC_ID_ADPCM_IMA_EA_EACS)
-	AvCodecIdAdpcmImaEaSead     = int(C.AV_CODEC_ID_ADPCM_IMA_EA_SEAD)
-	AvCodecIdAdpcmImaIss        = int(C.AV_CODEC_ID_ADPCM_IMA_ISS)
-	AvCodecIdAdpcmImaOki        = int(C.AV_CODEC_ID_ADPCM_IMA_OKI)
-	AvCodecIdAdpcmImaQt         = int(C.AV_CODEC_ID_ADPCM_IMA_QT)
-	AvCodecIdAdpcmImaRad        = int(C.AV_CODEC_ID_ADPCM_IMA_RAD)
-	AvCodecIdAdpcmImaSmjpeg     = int(C.AV_CODEC_ID_ADPCM_IMA_SMJPEG)
-	AvCodecIdAdpcmImaWav        = int(C.AV_CODEC_ID_ADPCM_IMA_WAV)
-	AvCodecIdAdpcmImaWs         = int(C.AV_CODEC_ID_ADPCM_IMA_WS)
-	AvCodecIdAdpcmMs            = int(C.AV_CODEC_ID_ADPCM_MS)
-	AvCodecIdAdpcmSbpro2        = int(C.AV_CODEC_ID_ADPCM_SBPRO_2)
-	AvCodecIdAdpcmSbpro3        = int(C.AV_CODEC_ID_ADPCM_SBPRO_3)
-	AvCodecIdAdpcmSbpro4        = int(C.AV_CODEC_ID_ADPCM_SBPRO_4)
-	AvCodecIdAdpcmSwf           = int(C.AV_CODEC_ID_ADPCM_SWF)
-	AvCodecIdAdpcmThp           = int(C.AV_CODEC_ID_ADPCM_THP)
-	AvCodecIdAdpcmVima          = int(C.AV_CODEC_ID_ADPCM_VIMA)
-	AvCodecIdAdpcmXa            = int(C.AV_CODEC_ID_ADPCM_XA)
-	AvCodecIdAdpcmYamaha        = int(C.AV_CODEC_ID_ADPCM_YAMAHA)
-	AvCodecIdAic                = int(C.AV_CODEC_ID_AIC)
-	AvCodecIdAlac               = int(C.AV_CODEC_ID_ALAC)
-	AvCodecIdAliasPix           = int(C.AV_CODEC_ID_ALIAS_PIX)
-	AvCodecIdAmrNb              = int(C.AV_CODEC_ID_AMR_NB)
-	AvCodecIdAmrWb              = int(C.AV_CODEC_ID_AMR_WB)
-	AvCodecIdAmv                = int(C.AV_CODEC_ID_AMV)
-	AvCodecIdAnm                = int(C.AV_CODEC_ID_ANM)
-	AvCodecIdAnsi               = int(C.AV_CODEC_ID_ANSI)
-	AvCodecIdApe                = int(C.AV_CODEC_ID_APE)
-	AvCodecIdAss                = int(C.AV_CODEC_ID_ASS)
-	AvCodecIdAsv1               = int(C.AV_CODEC_ID_ASV1)
-	AvCodecIdAsv2               = int(C.AV_CODEC_ID_ASV2)
-	AvCodecIdAtrac1             = int(C.AV_CODEC_ID_ATRAC1)
-	AvCodecIdAtrac3             = int(C.AV_CODEC_ID_ATRAC3)
-	AvCodecIdAtrac3p            = int(C.AV_CODEC_ID_ATRAC3P)
-	AvCodecIdAura               = int(C.AV_CODEC_ID_AURA)
-	AvCodecIdAura2              = int(C.AV_CODEC_ID_AURA2)
-	AvCodecIdAvrn               = int(C.AV_CODEC_ID_AVRN)
-	AvCodecIdAvrp               = int(C.AV_CODEC_ID_AVRP)
-	AvCodecIdAvs                = int(C.AV_CODEC_ID_AVS)
-	AvCodecIdAvui               = int(C.AV_CODEC_ID_AVUI)
-	AvCodecIdAyuv               = int(C.AV_CODEC_ID_AYUV)
-	AvCodecIdBethsoftvid        = int(C.AV_CODEC_ID_BETHSOFTVID)
-	AvCodecIdBfi                = int(C.AV_CODEC_ID_BFI)
-	AvCodecIdBinkaudioDct       = int(C.AV_CODEC_ID_BINKAUDIO_DCT)
-	AvCodecIdBinkaudioRdft      = int(C.AV_CODEC_ID_BINKAUDIO_RDFT)
-	AvCodecIdBinkvideo          = int(C.AV_CODEC_ID_BINKVIDEO)
-	AvCodecIdBintext            = int(C.AV_CODEC_ID_BINTEXT)
-	AvCodecIdBinData            = int(C.AV_CODEC_ID_BIN_DATA)
-	AvCodecIdBmp                = int(C.AV_CODEC_ID_BMP)
-	AvCodecIdBmvAudio           = int(C.AV_CODEC_ID_BMV_AUDIO)
-	AvCodecIdBmvVideo           = int(C.AV_CODEC_ID_BMV_VIDEO)
-	AvCodecIdBrenderPix         = int(C.AV_CODEC_ID_BRENDER_PIX)
-	AvCodecIdC93                = int(C.AV_CODEC_ID_C93)
-	AvCodecIdCavs               = int(C.AV_CODEC_ID_CAVS)
-	AvCodecIdCdgraphics         = int(C.AV_CODEC_ID_CDGRAPHICS)
-	AvCodecIdCdxl               = int(C.AV_CODEC_ID_CDXL)
-	AvCodecIdCelt               = int(C.AV_CODEC_ID_CELT)
-	AvCodecIdCinepak            = int(C.AV_CODEC_ID_CINEPAK)
-	AvCodecIdCljr               = int(C.AV_CODEC_ID_CLJR)
-	AvCodecIdCllc               = int(C.AV_CODEC_ID_CLLC)
-	AvCodecIdCmv                = int(C.AV_CODEC_ID_CMV)
-	AvCodecIdComfortNoise       = int(C.AV_CODEC_ID_COMFORT_NOISE)
-	AvCodecIdCook               = int(C.AV_CODEC_ID_COOK)
-	AvCodecIdCpia               = int(C.AV_CODEC_ID_CPIA)
-	AvCodecIdCscd               = int(C.AV_CODEC_ID_CSCD)
-	AvCodecIdCyuv               = int(C.AV_CODEC_ID_CYUV)
-	AvCodecIdDfa                = int(C.AV_CODEC_ID_DFA)
-	AvCodecIdDirac              = int(C.AV_CODEC_ID_DIRAC)
-	AvCodecIdDnxhd              = int(C.AV_CODEC_ID_DNXHD)
-	AvCodecIdDpx                = int(C.AV_CODEC_ID_DPX)
-	AvCodecIdDsdLsbf            = int(C.AV_CODEC_ID_DSD_LSBF)
-	AvCodecIdDsdLsbfPlanar      = int(C.AV_CODEC_ID_DSD_LSBF_PLANAR)
-	AvCodecIdDsdMsbf            = int(C.AV_CODEC_ID_DSD_MSBF)
-	AvCodecIdDsdMsbfPlanar      = int(C.AV_CODEC_ID_DSD_MSBF_PLANAR)
-	AvCodecIdDsicinaudio        = int(C.AV_CODEC_ID_DSICINAUDIO)
-	AvCodecIdDsicinvideo        = int(C.AV_CODEC_ID_DSICINVIDEO)
-	AvCodecIdDts                = int(C.AV_CODEC_ID_DTS)
-	AvCodecIdDvaudio            = int(C.AV_CODEC_ID_DVAUDIO)
-	AvCodecIdDvbSubtitle        = int(C.AV_CODEC_ID_DVB_SUBTITLE)
-	AvCodecIdDvbTeletext        = int(C.AV_CODEC_ID_DVB_TELETEXT)
-	AvCodecIdDvdNav             = int(C.AV_CODEC_ID_DVD_NAV)
-	AvCodecIdDvdSubtitle        = int(C.AV_CODEC_ID_DVD_SUBTITLE)
-	AvCodecIdDvvideo            = int(C.AV_CODEC_ID_DVVIDEO)
-	AvCodecIdDxa                = int(C.AV_CODEC_ID_DXA)
-	AvCodecIdDxtory             = int(C.AV_CODEC_ID_DXTORY)
-	AvCodecIdEac3               = int(C.AV_CODEC_ID_EAC3)
-	AvCodecIdEia608             = int(C.AV_CODEC_ID_EIA_608)
-	AvCodecIdEscape124          = int(C.AV_CODEC_ID_ESCAPE124)
-	AvCodecIdEscape130          = int(C.AV_CODEC_ID_ESCAPE130)
-	AvCodecIdEvrc               = int(C.AV_CODEC_ID_EVRC)
-	AvCodecIdExr                = int(C.AV_CODEC_ID_EXR)
-	AvCodecIdFfmetadata         = int(C.AV_CODEC_ID_FFMETADATA)
-	AvCodecIdFfv1               = int(C.AV_CODEC_ID_FFV1)
-	AvCodecIdFfvhuff            = int(C.AV_CODEC_ID_FFVHUFF)
-	AvCodecIdFfwavesynth        = int(C.AV_CODEC_ID_FFWAVESYNTH)
-	AvCodecIdFic                = int(C.AV_CODEC_ID_FIC)
-	AvCodecIdFirstAudio         = int(C.AV_CODEC_ID_FIRST_AUDIO)
-	AvCodecIdFirstSubtitle      = int(C.AV_CODEC_ID_FIRST_SUBTITLE)
-	AvCodecIdFirstUnknown       = int(C.AV_CODEC_ID_FIRST_UNKNOWN)
-	AvCodecIdFlac               = int(C.AV_CODEC_ID_FLAC)
-	AvCodecIdFlashsv            = int(C.AV_CODEC_ID_FLASHSV)
-	AvCodecIdFlashsv2           = int(C.AV_CODEC_ID_FLASHSV2)
-	AvCodecIdFlic               = int(C.AV_CODEC_ID_FLIC)
-	AvCodecIdFlv1               = int(C.AV_CODEC_ID_FLV1)
-	AvCodecIdFraps              = int(C.AV_CODEC_ID_FRAPS)
-	AvCodecIdFrwu               = int(C.AV_CODEC_ID_FRWU)
-	AvCodecIdG2m                = int(C.AV_CODEC_ID_G2M)
-	AvCodecIdG7231              = int(C.AV_CODEC_ID_G723_1)
-	AvCodecIdG729               = int(C.AV_CODEC_ID_G729)
-	AvCodecIdGif                = int(C.AV_CODEC_ID_GIF)
-	AvCodecIdGsm                = int(C.AV_CODEC_ID_GSM)
-	AvCodecIdGsmMs              = int(C.AV_CODEC_ID_GSM_MS)
-	AvCodecIdH261               = int(C.AV_CODEC_ID_H261)
-	AvCodecIdH263               = int(C.AV_CODEC_ID_H263)
-	AvCodecIdH263i              = int(C.AV_CODEC_ID_H263I)
-	AvCodecIdH263p              = int(C.AV_CODEC_ID_H263P)
-	AvCodecIdH264               = int(C.AV_CODEC_ID_H264)
-	AvCodecIdH265               = int(C.AV_CODEC_ID_H265)
-	AvCodecIdHdmvPgsSubtitle    = int(C.AV_CODEC_ID_HDMV_PGS_SUBTITLE)
-	AvCodecIdHevc               = int(C.AV_CODEC_ID_HEVC)
-	AvCodecIdHnm4Video          = int(C.AV_CODEC_ID_HNM4_VIDEO)
-	AvCodecIdHuffyuv            = int(C.AV_CODEC_ID_HUFFYUV)
-	AvCodecIdIac                = int(C.AV_CODEC_ID_IAC)
-	AvCodecIdIdcin              = int(C.AV_CODEC_ID_IDCIN)
-	AvCodecIdIdf                = int(C.AV_CODEC_ID_IDF)
-	AvCodecIdIffByterun1        = int(C.AV_CODEC_ID_IFF_BYTERUN1)
-	AvCodecIdIffIlbm            = int(C.AV_CODEC_ID_IFF_ILBM)
-	AvCodecIdIlbc               = int(C.AV_CODEC_ID_ILBC)
-	AvCodecIdImc                = int(C.AV_CODEC_ID_IMC)
-	AvCodecIdIndeo2             = int(C.AV_CODEC_ID_INDEO2)
-	AvCodecIdIndeo3             = int(C.AV_CODEC_ID_INDEO3)
-	AvCodecIdIndeo4             = int(C.AV_CODEC_ID_INDEO4)
-	AvCodecIdIndeo5             = int(C.AV_CODEC_ID_INDEO5)
-	AvCodecIdInterplayDpcm      = int(C.AV_CODEC_ID_INTERPLAY_DPCM)
-	AvCodecIdInterplayVideo     = int(C.AV_CODEC_ID_INTERPLAY_VIDEO)
-	AvCodecIdJacosub            = int(C.AV_CODEC_ID_JACOSUB)
-	AvCodecIdJpeg2000           = int(C.AV_CODEC_ID_JPEG2000)
-	AvCodecIdJpegls             = int(C.AV_CODEC_ID_JPEGLS)
-	AvCodecIdJv                 = int(C.AV_CODEC_ID_JV)
-	AvCodecIdKgv1               = int(C.AV_CODEC_ID_KGV1)
-	AvCodecIdKmvc               = int(C.AV_CODEC_ID_KMVC)
-	AvCodecIdLagarith           = int(C.AV_CODEC_ID_LAGARITH)
-	AvCodecIdLjpeg              = int(C.AV_CODEC_ID_LJPEG)
-	AvCodecIdLoco               = int(C.AV_CODEC_ID_LOCO)
-	AvCodecIdMace3              = int(C.AV_CODEC_ID_MACE3)
-	AvCodecIdMace6              = int(C.AV_CODEC_ID_MACE6)
-	AvCodecIdMad                = int(C.AV_CODEC_ID_MAD)
-	AvCodecIdMdec               = int(C.AV_CODEC_ID_MDEC)
-	AvCodecIdMetasound          = int(C.AV_CODEC_ID_METASOUND)
-	AvCodecIdMicrodvd           = int(C.AV_CODEC_ID_MICRODVD)
-	AvCodecIdMimic              = int(C.AV_CODEC_ID_MIMIC)
-	AvCodecIdMjpeg              = int(C.AV_CODEC_ID_MJPEG)
-	AvCodecIdMjpegb             = int(C.AV_CODEC_ID_MJPEGB)
-	AvCodecIdMlp                = int(C.AV_CODEC_ID_MLP)
-	AvCodecIdMmvideo            = int(C.AV_CODEC_ID_MMVIDEO)
-	AvCodecIdMotionpixels       = int(C.AV_CODEC_ID_MOTIONPIXELS)
-	AvCodecIdMovText            = int(C.AV_CODEC_ID_MOV_TEXT)
-	AvCodecIdMp1                = int(C.AV_CODEC_ID_MP1)
-	AvCodecIdMp2                = int(C.AV_CODEC_ID_MP2)
-	AvCodecIdMp3                = int(C.AV_CODEC_ID_MP3)
-	AvCodecIdMp3adu             = int(C.AV_CODEC_ID_MP3ADU)
-	AvCodecIdMp3on4             = int(C.AV_CODEC_ID_MP3ON4)
-	AvCodecIdMp4als             = int(C.AV_CODEC_ID_MP4ALS)
-	AvCodecIdMpeg1video         = int(C.AV_CODEC_ID_MPEG1VIDEO)
-	AvCodecIdMpeg2ts            = int(C.AV_CODEC_ID_MPEG2TS)
-	AvCodecIdMpeg2video         = int(C.AV_CODEC_ID_MPEG2VIDEO)
-	AvCodecIdMpeg2videoXvmc     = int(C.AV_CODEC_ID_MPEG2VIDEO_XVMC)
-	AvCodecIdMpeg4              = int(C.AV_CODEC_ID_MPEG4)
-	AvCodecIdMpeg4systems       = int(C.AV_CODEC_ID_MPEG4SYSTEMS)
-	AvCodecIdMpl2               = int(C.AV_CODEC_ID_MPL2)
-	AvCodecIdMsa1               = int(C.AV_CODEC_ID_MSA1)
-	AvCodecIdMsmpeg4v1          = int(C.AV_CODEC_ID_MSMPEG4V1)
-	AvCodecIdMsmpeg4v2          = int(C.AV_CODEC_ID_MSMPEG4V2)
-	AvCodecIdMsmpeg4v3          = int(C.AV_CODEC_ID_MSMPEG4V3)
-	AvCodecIdMsrle              = int(C.AV_CODEC_ID_MSRLE)
-	AvCodecIdMss1               = int(C.AV_CODEC_ID_MSS1)
-	AvCodecIdMss2               = int(C.AV_CODEC_ID_MSS2)
-	AvCodecIdMsvideo1           = int(C.AV_CODEC_ID_MSVIDEO1)
-	AvCodecIdMszh               = int(C.AV_CODEC_ID_MSZH)
-	AvCodecIdMts2               = int(C.AV_CODEC_ID_MTS2)
-	AvCodecIdMusepack7          = int(C.AV_CODEC_ID_MUSEPACK7)
-	AvCodecIdMusepack8          = int(C.AV_CODEC_ID_MUSEPACK8)
-	AvCodecIdMvc1               = int(C.AV_CODEC_ID_MVC1)
-	AvCodecIdMvc2               = int(C.AV_CODEC_ID_MVC2)
-	AvCodecIdMxpeg              = int(C.AV_CODEC_ID_MXPEG)
-	AvCodecIdNellymoser         = int(C.AV_CODEC_ID_NELLYMOSER)
-	AvCodecIdNone               = int(C.AV_CODEC_ID_NONE)
-	AvCodecIdNuv                = int(C.AV_CODEC_ID_NUV)
-	AvCodecIdOn2avc             = int(C.AV_CODEC_ID_ON2AVC)
-	AvCodecIdOpus               = int(C.AV_CODEC_ID_OPUS)
-	AvCodecIdOtf                = int(C.AV_CODEC_ID_OTF)
-	AvCodecIdPafAudio           = int(C.AV_CODEC_ID_PAF_AUDIO)
-	AvCodecIdPafVideo           = int(C.AV_CODEC_ID_PAF_VIDEO)
-	AvCodecIdPam                = int(C.AV_CODEC_ID_PAM)
-	AvCodecIdPbm                = int(C.AV_CODEC_ID_PBM)
-	AvCodecIdPcmAlaw            = int(C.AV_CODEC_ID_PCM_ALAW)
-	AvCodecIdPcmBluray          = int(C.AV_CODEC_ID_PCM_BLURAY)
-	AvCodecIdPcmDvd             = int(C.AV_CODEC_ID_PCM_DVD)
-	AvCodecIdPcmF32be           = int(C.AV_CODEC_ID_PCM_F32BE)
-	AvCodecIdPcmF32le           = int(C.AV_CODEC_ID_PCM_F32LE)
-	AvCodecIdPcmF64be           = int(C.AV_CODEC_ID_PCM_F64BE)
-	AvCodecIdPcmF64le           = int(C.AV_CODEC_ID_PCM_F64LE)
-	AvCodecIdPcmLxf             = int(C.AV_CODEC_ID_PCM_LXF)
-	AvCodecIdPcmMulaw           = int(C.AV_CODEC_ID_PCM_MULAW)
-	AvCodecIdPcmS16be           = int(C.AV_CODEC_ID_PCM_S16BE)
-	AvCodecIdPcmS16bePlanar     = int(C.AV_CODEC_ID_PCM_S16BE_PLANAR)
-	AvCodecIdPcmS16le           = int(C.AV_CODEC_ID_PCM_S16LE)
-	AvCodecIdPcmS16lePlanar     = int(C.AV_CODEC_ID_PCM_S16LE_PLANAR)
-	AvCodecIdPcmS24be           = int(C.AV_CODEC_ID_PCM_S24BE)
-	AvCodecIdPcmS24daud         = int(C.AV_CODEC_ID_PCM_S24DAUD)
-	AvCodecIdPcmS24le           = int(C.AV_CODEC_ID_PCM_S24LE)
-	AvCodecIdPcmS24lePlanar     = int(C.AV_CODEC_ID_PCM_S24LE_PLANAR)
-	AvCodecIdPcmS32be           = int(C.AV_CODEC_ID_PCM_S32BE)
-	AvCodecIdPcmS32le           = int(C.AV_CODEC_ID_PCM_S32LE)
-	AvCodecIdPcmS32lePlanar     = int(C.AV_CODEC_ID_PCM_S32LE_PLANAR)
-	AvCodecIdPcmS8              = int(C.AV_CODEC_ID_PCM_S8)
-	AvCodecIdPcmS8Planar        = int(C.AV_CODEC_ID_PCM_S8_PLANAR)
-	AvCodecIdPcmU16be           = int(C.AV_CODEC_ID_PCM_U16BE)
-	AvCodecIdPcmU16le           = int(C.AV_CODEC_ID_PCM_U16LE)
-	AvCodecIdPcmU24be           = int(C.AV_CODEC_ID_PCM_U24BE)
-	AvCodecIdPcmU24le           = int(C.AV_CODEC_ID_PCM_U24LE)
-	AvCodecIdPcmU32be           = int(C.AV_CODEC_ID_PCM_U32BE)
-	AvCodecIdPcmU32le           = int(C.AV_CODEC_ID_PCM_U32LE)
-	AvCodecIdPcmU8              = int(C.AV_CODEC_ID_PCM_U8)
-	AvCodecIdPcmZork            = int(C.AV_CODEC_ID_PCM_ZORK)
-	AvCodecIdPcx                = int(C.AV_CODEC_ID_PCX)
-	AvCodecIdPgm                = int(C.AV_CODEC_ID_PGM)
-	AvCodecIdPgmyuv             = int(C.AV_CODEC_ID_PGMYUV)
-	AvCodecIdPictor             = int(C.AV_CODEC_ID_PICTOR)
-	AvCodecIdPjs                = int(C.AV_CODEC_ID_PJS)
-	AvCodecIdPng                = int(C.AV_CODEC_ID_PNG)
-	AvCodecIdPpm                = int(C.AV_CODEC_ID_PPM)
-	AvCodecIdProbe              = int(C.AV_CODEC_ID_PROBE)
-	AvCodecIdProres             = int(C.AV_CODEC_ID_PRORES)
-	AvCodecIdPtx                = int(C.AV_CODEC_ID_PTX)
-	AvCodecIdQcelp              = int(C.AV_CODEC_ID_QCELP)
-	AvCodecIdQdm2               = int(C.AV_CODEC_ID_QDM2)
-	AvCodecIdQdmc               = int(C.AV_CODEC_ID_QDMC)
-	AvCodecIdQdraw              = int(C.AV_CODEC_ID_QDRAW)
-	AvCodecIdQpeg               = int(C.AV_CODEC_ID_QPEG)
-	AvCodecIdQtrle              = int(C.AV_CODEC_ID_QTRLE)
-	AvCodecIdR10k               = int(C.AV_CODEC_ID_R10K)
-	AvCodecIdR210               = int(C.AV_CODEC_ID_R210)
-	AvCodecIdRalf               = int(C.AV_CODEC_ID_RALF)
-	AvCodecIdRawvideo           = int(C.AV_CODEC_ID_RAWVIDEO)
-	AvCodecIdRa144              = int(C.AV_CODEC_ID_RA_144)
-	AvCodecIdRa288              = int(C.AV_CODEC_ID_RA_288)
-	AvCodecIdRealtext           = int(C.AV_CODEC_ID_REALTEXT)
-	AvCodecIdRl2                = int(C.AV_CODEC_ID_RL2)
-	AvCodecIdRoq                = int(C.AV_CODEC_ID_ROQ)
-	AvCodecIdRoqDpcm            = int(C.AV_CODEC_ID_ROQ_DPCM)
-	AvCodecIdRpza               = int(C.AV_CODEC_ID_RPZA)
-	AvCodecIdRv10               = int(C.AV_CODEC_ID_RV10)
-	AvCodecIdRv20               = int(C.AV_CODEC_ID_RV20)
-	AvCodecIdRv30               = int(C.AV_CODEC_ID_RV30)
-	AvCodecIdRv40               = int(C.AV_CODEC_ID_RV40)
-	AvCodecIdS302m              = int(C.AV_CODEC_ID_S302M)
-	AvCodecIdSami               = int(C.AV_CODEC_ID_SAMI)
-	AvCodecIdSanm               = int(C.AV_CODEC_ID_SANM)
-	AvCodecIdSgi                = int(C.AV_CODEC_ID_SGI)
-	AV_CODEC_ID_SGIRLE          = int(C.AV_CODEC_ID_SGIRLE)
-	AV_CODEC_ID_SHORTEN         = int(C.AV_CODEC_ID_SHORTEN)
-	AV_CODEC_ID_SIPR            = int(C.AV_CODEC_ID_SIPR)
-	AV_CODEC_ID_SMACKAUDIO      = int(C.AV_CODEC_ID_SMACKAUDIO)
-	AV_CODEC_ID_SMACKVIDEO      = int(C.AV_CODEC_ID_SMACKVIDEO)
-	AV_CODEC_ID_SMC             = int(C.AV_CODEC_ID_SMC)
-	AV_CODEC_ID_SMPTE_KLV       = int(C.AV_CODEC_ID_SMPTE_KLV)
-	AV_CODEC_ID_SMV             = int(C.AV_CODEC_ID_SMV)
-	AV_CODEC_ID_SMVJPEG         = int(C.AV_CODEC_ID_SMVJPEG)
-	AV_CODEC_ID_SNOW            = int(C.AV_CODEC_ID_SNOW)
-	AV_CODEC_ID_SOL_DPCM        = int(C.AV_CODEC_ID_SOL_DPCM)
-	AV_CODEC_ID_SONIC           = int(C.AV_CODEC_ID_SONIC)
-	AV_CODEC_ID_SONIC_LS        = int(C.AV_CODEC_ID_SONIC_LS)
-	AV_CODEC_ID_SP5X            = int(C.AV_CODEC_ID_SP5X)
-	AV_CODEC_ID_SPEEX           = int(C.AV_CODEC_ID_SPEEX)
-	AV_CODEC_ID_SRT             = int(C.AV_CODEC_ID_SRT)
-	AV_CODEC_ID_SSA             = int(C.AV_CODEC_ID_SSA)
-	AV_CODEC_ID_SUBRIP          = int(C.AV_CODEC_ID_SUBRIP)
-	AV_CODEC_ID_SUBVIEWER       = int(C.AV_CODEC_ID_SUBVIEWER)
-	AV_CODEC_ID_SUBVIEWER1      = int(C.AV_CODEC_ID_SUBVIEWER1)
-	AV_CODEC_ID_SUNRAST         = int(C.AV_CODEC_ID_SUNRAST)
-	AV_CODEC_ID_SVQ1            = int(C.AV_CODEC_ID_SVQ1)
-	AV_CODEC_ID_SVQ3            = int(C.AV_CODEC_ID_SVQ3)
-	AV_CODEC_ID_TAK             = int(C.AV_CODEC_ID_TAK)
-	AV_CODEC_ID_TARGA           = int(C.AV_CODEC_ID_TARGA)
-	AV_CODEC_ID_TARGA_Y216      = int(C.AV_CODEC_ID_TARGA_Y216)
-	AV_CODEC_ID_TEXT            = int(C.AV_CODEC_ID_TEXT)
-	AV_CODEC_ID_TGQ             = int(C.AV_CODEC_ID_TGQ)
-	AV_CODEC_ID_TGV             = int(C.AV_CODEC_ID_TGV)
-	AV_CODEC_ID_THEORA          = int(C.AV_CODEC_ID_THEORA)
-	AV_CODEC_ID_THP             = int(C.AV_CODEC_ID_THP)
-	AV_CODEC_ID_TIERTEXSEQVIDEO = int(C.AV_CODEC_ID_TIERTEXSEQVIDEO)
-	AV_CODEC_ID_TIFF            = int(C.AV_CODEC_ID_TIFF)
-	AV_CODEC_ID_TIMED_ID3       = int(C.AV_CODEC_ID_TIMED_ID3)
-	AV_CODEC_ID_TMV             = int(C.AV_CODEC_ID_TMV)
-	AV_CODEC_ID_TQI             = int(C.AV_CODEC_ID_TQI)
-	AV_CODEC_ID_TRUEHD          = int(C.AV_CODEC_ID_TRUEHD)
-	AV_CODEC_ID_TRUEMOTION1     = int(C.AV_CODEC_ID_TRUEMOTION1)
-	AV_CODEC_ID_TRUEMOTION2     = int(C.AV_CODEC_ID_TRUEMOTION2)
-	AV_CODEC_ID_TRUESPEECH      = int(C.AV_CODEC_ID_TRUESPEECH)
-	AV_CODEC_ID_TSCC            = int(C.AV_CODEC_ID_TSCC)
-	AV_CODEC_ID_TSCC2           = int(C.AV_CODEC_ID_TSCC2)
-	AV_CODEC_ID_TTA             = int(C.AV_CODEC_ID_TTA)
-	AV_CODEC_ID_TTF             = int(C.AV_CODEC_ID_TTF)
-	AV_CODEC_ID_TWINVQ          = int(C.AV_CODEC_ID_TWINVQ)
-	AV_CODEC_ID_TXD             = int(C.AV_CODEC_ID_TXD)
-	AV_CODEC_ID_ULTI            = int(C.AV_CODEC_ID_ULTI)
-	AV_CODEC_ID_UTVIDEO         = int(C.AV_CODEC_ID_UTVIDEO)
-	AV_CODEC_ID_V210            = int(C.AV_CODEC_ID_V210)
-	AV_CODEC_ID_V210X           = int(C.AV_CODEC_ID_V210X)
-	AV_CODEC_ID_V308            = int(C.AV_CODEC_ID_V308)
-	AV_CODEC_ID_V408            = int(C.AV_CODEC_ID_V408)
-	AV_CODEC_ID_V410            = int(C.AV_CODEC_ID_V410)
-	AV_CODEC_ID_VB              = int(C.AV_CODEC_ID_VB)
-	AV_CODEC_ID_VBLE            = int(C.AV_CODEC_ID_VBLE)
-	AV_CODEC_ID_VC1             = int(C.AV_CODEC_ID_VC1)
-	AV_CODEC_ID_VC1IMAGE        = int(C.AV_CODEC_ID_VC1IMAGE)
-	AV_CODEC_ID_VCR1            = int(C.AV_CODEC_ID_VCR1)
-	// AV_CODEC_ID_VIMA             = int(C.AV_CODEC_ID_VIMA)
-	AV_CODEC_ID_VIXL     = int(C.AV_CODEC_ID_VIXL)
-	AV_CODEC_ID_VMDAUDIO = int(C.AV_CODEC_ID_VMDAUDIO)
-	AV_CODEC_ID_VMDVIDEO = int(C.AV_CODEC_ID_VMDVIDEO)
-	AV_CODEC_ID_VMNC     = int(C.AV_CODEC_ID_VMNC)
-	AV_CODEC_ID_VORBIS   = int(C.AV_CODEC_ID_VORBIS)
-	// AV_CODEC_ID_VOXWARE          = int(C.AV_CODEC_ID_VOXWARE)
-	AV_CODEC_ID_VP3           = int(C.AV_CODEC_ID_VP3)
-	AV_CODEC_ID_VP5           = int(C.AV_CODEC_ID_VP5)
-	AV_CODEC_ID_VP6           = int(C.AV_CODEC_ID_VP6)
-	AV_CODEC_ID_VP6A          = int(C.AV_CODEC_ID_VP6A)
-	AV_CODEC_ID_VP6F          = int(C.AV_CODEC_ID_VP6F)
-	AV_CODEC_ID_VP7           = int(C.AV_CODEC_ID_VP7)
-	AV_CODEC_ID_VP8           = int(C.AV_CODEC_ID_VP8)
-	AV_CODEC_ID_VP9           = int(C.AV_CODEC_ID_VP9)
-	AV_CODEC_ID_VPLAYER       = int(C.AV_CODEC_ID_VPLAYER)
-	AV_CODEC_ID_WAVPACK       = int(C.AV_CODEC_ID_WAVPACK)
-	AV_CODEC_ID_WEBP          = int(C.AV_CODEC_ID_WEBP)
-	AV_CODEC_ID_WEBVTT        = int(C.AV_CODEC_ID_WEBVTT)
-	AV_CODEC_ID_WESTWOOD_SND1 = int(C.AV_CODEC_ID_WESTWOOD_SND1)
-	AV_CODEC_ID_WMALOSSLESS   = int(C.AV_CODEC_ID_WMALOSSLESS)
-	AV_CODEC_ID_WMAPRO        = int(C.AV_CODEC_ID_WMAPRO)
-	AV_CODEC_ID_WMAV1         = int(C.AV_CODEC_ID_WMAV1)
-	AV_CODEC_ID_WMAV2         = int(C.AV_CODEC_ID_WMAV2)
-	AV_CODEC_ID_WMAVOICE      = int(C.AV_CODEC_ID_WMAVOICE)
-	AV_CODEC_ID_WMV1          = int(C.AV_CODEC_ID_WMV1)
-	AV_CODEC_ID_WMV2          = int(C.AV_CODEC_ID_WMV2)
-	AV_CODEC_ID_WMV3          = int(C.AV_CODEC_ID_WMV3)
-	AV_CODEC_ID_WMV3IMAGE     = int(C.AV_CODEC_ID_WMV3IMAGE)
-	AV_CODEC_ID_WNV1          = int(C.AV_CODEC_ID_WNV1)
-	AV_CODEC_ID_WS_VQA        = int(C.AV_CODEC_ID_WS_VQA)
-	AV_CODEC_ID_XAN_DPCM      = int(C.AV_CODEC_ID_XAN_DPCM)
-	AV_CODEC_ID_XAN_WC3       = int(C.AV_CODEC_ID_XAN_WC3)
-	AV_CODEC_ID_XAN_WC4       = int(C.AV_CODEC_ID_XAN_WC4)
-	AV_CODEC_ID_XBIN          = int(C.AV_CODEC_ID_XBIN)
-	AV_CODEC_ID_XBM           = int(C.AV_CODEC_ID_XBM)
-	AV_CODEC_ID_XFACE         = int(C.AV_CODEC_ID_XFACE)
-	AV_CODEC_ID_XSUB          = int(C.AV_CODEC_ID_XSUB)
-	AV_CODEC_ID_XWD           = int(C.AV_CODEC_ID_XWD)
-	AV_CODEC_ID_Y41P          = int(C.AV_CODEC_ID_Y41P)
-	AV_CODEC_ID_YOP           = int(C.AV_CODEC_ID_YOP)
-	AV_CODEC_ID_YUV4          = int(C.AV_CODEC_ID_YUV4)
-	AV_CODEC_ID_ZEROCODEC     = int(C.AV_CODEC_ID_ZEROCODEC)
-	AV_CODEC_ID_ZLIB          = int(C.AV_CODEC_ID_ZLIB)
-	AV_CODEC_ID_ZMBV          = int(C.AV_CODEC_ID_ZMBV)
-)
+const AvCodecId012v = int(C.AV_CODEC_ID_012V)
+
+// AvCodecId4xm ...
+const AvCodecId4xm = int(C.AV_CODEC_ID_4XM)
+
+// AvCodecId8bps ...
+const AvCodecId8bps = int(C.AV_CODEC_ID_8BPS)
+
+// AvCodecId8svxExp ...
+const AvCodecId8svxExp = int(C.AV_CODEC_ID_8SVX_EXP)
+
+// AvCodecId8svxFib ...
+const AvCodecId8svxFib = int(C.AV_CODEC_ID_8SVX_FIB)
+
+// AvCodecIdA64Multi ...
+const AvCodecIdA64Multi = int(C.AV_CODEC_ID_A64_MULTI)
+
+// AvCodecIdA64Multi5 ...
+const AvCodecIdA64Multi5 = int(C.AV_CODEC_ID_A64_MULTI5)
+
+// AvCodecIdAac ...
+const AvCodecIdAac = int(C.AV_CODEC_ID_AAC)
+
+// AvCodecIdAacLatm ...
+const AvCodecIdAacLatm = int(C.AV_CODEC_ID_AAC_LATM)
+
+// AvCodecIdAasc ...
+const AvCodecIdAasc = int(C.AV_CODEC_ID_AASC)
+
+// AvCodecIdAc3 ...
+const AvCodecIdAc3 = int(C.AV_CODEC_ID_AC3)
+
+// AvCodecIdAdpcm4xm ...
+const AvCodecIdAdpcm4xm = int(C.AV_CODEC_ID_ADPCM_4XM)
+
+// AvCodecIdAdpcmAdx ...
+const AvCodecIdAdpcmAdx = int(C.AV_CODEC_ID_ADPCM_ADX)
+
+// AvCodecIdAdpcmAfc ...
+const AvCodecIdAdpcmAfc = int(C.AV_CODEC_ID_ADPCM_AFC)
+
+// AvCodecIdAdpcmCt ...
+const AvCodecIdAdpcmCt = int(C.AV_CODEC_ID_ADPCM_CT)
+
+// AvCodecIdAdpcmDtk ...
+const AvCodecIdAdpcmDtk = int(C.AV_CODEC_ID_ADPCM_DTK)
+
+// AvCodecIdAdpcmEa ...
+const AvCodecIdAdpcmEa = int(C.AV_CODEC_ID_ADPCM_EA)
+
+// AvCodecIdAdpcmEaMaxisXa ...
+const AvCodecIdAdpcmEaMaxisXa = int(C.AV_CODEC_ID_ADPCM_EA_MAXIS_XA)
+
+// AvCodecIdAdpcmEaR1 ...
+const AvCodecIdAdpcmEaR1 = int(C.AV_CODEC_ID_ADPCM_EA_R1)
+
+// AvCodecIdAdpcmEaR2 ...
+const AvCodecIdAdpcmEaR2 = int(C.AV_CODEC_ID_ADPCM_EA_R2)
+
+// AvCodecIdAdpcmEaR3 ...
+const AvCodecIdAdpcmEaR3 = int(C.AV_CODEC_ID_ADPCM_EA_R3)
+
+// AvCodecIdAdpcmEaXas ...
+const AvCodecIdAdpcmEaXas = int(C.AV_CODEC_ID_ADPCM_EA_XAS)
+
+// AvCodecIdAdpcmG722 ...
+const AvCodecIdAdpcmG722 = int(C.AV_CODEC_ID_ADPCM_G722)
+
+// AvCodecIdAdpcmG726 ...
+const AvCodecIdAdpcmG726 = int(C.AV_CODEC_ID_ADPCM_G726)
+
+// AvCodecIdAdpcmG726le ...
+const AvCodecIdAdpcmG726le = int(C.AV_CODEC_ID_ADPCM_G726LE)
+
+// AvCodecIdAdpcmImaAmv ...
+const AvCodecIdAdpcmImaAmv = int(C.AV_CODEC_ID_ADPCM_IMA_AMV)
+
+// AvCodecIdAdpcmImaApc ...
+const AvCodecIdAdpcmImaApc = int(C.AV_CODEC_ID_ADPCM_IMA_APC)
+
+// AvCodecIdAdpcmImaDk3 ...
+const AvCodecIdAdpcmImaDk3 = int(C.AV_CODEC_ID_ADPCM_IMA_DK3)
+
+// AvCodecIdAdpcmImaDk4 ...
+const AvCodecIdAdpcmImaDk4 = int(C.AV_CODEC_ID_ADPCM_IMA_DK4)
+
+// AvCodecIdAdpcmImaEaEacs ...
+const AvCodecIdAdpcmImaEaEacs = int(C.AV_CODEC_ID_ADPCM_IMA_EA_EACS)
+
+// AvCodecIdAdpcmImaEaSead ...
+const AvCodecIdAdpcmImaEaSead = int(C.AV_CODEC_ID_ADPCM_IMA_EA_SEAD)
+
+// AvCodecIdAdpcmImaIss ...
+const AvCodecIdAdpcmImaIss = int(C.AV_CODEC_ID_ADPCM_IMA_ISS)
+
+// AvCodecIdAdpcmImaOki ...
+const AvCodecIdAdpcmImaOki = int(C.AV_CODEC_ID_ADPCM_IMA_OKI)
+
+// AvCodecIdAdpcmImaQt ...
+const AvCodecIdAdpcmImaQt = int(C.AV_CODEC_ID_ADPCM_IMA_QT)
+
+// AvCodecIdAdpcmImaRad ...
+const AvCodecIdAdpcmImaRad = int(C.AV_CODEC_ID_ADPCM_IMA_RAD)
+
+// AvCodecIdAdpcmImaSmjpeg ...
+const AvCodecIdAdpcmImaSmjpeg = int(C.AV_CODEC_ID_ADPCM_IMA_SMJPEG)
+
+// AvCodecIdAdpcmImaWav ...
+const AvCodecIdAdpcmImaWav = int(C.AV_CODEC_ID_ADPCM_IMA_WAV)
+
+// AvCodecIdAdpcmImaWs ...
+const AvCodecIdAdpcmImaWs = int(C.AV_CODEC_ID_ADPCM_IMA_WS)
+
+// AvCodecIdAdpcmMs ...
+const AvCodecIdAdpcmMs = int(C.AV_CODEC_ID_ADPCM_MS)
+
+// AvCodecIdAdpcmSbpro2 ...
+const AvCodecIdAdpcmSbpro2 = int(C.AV_CODEC_ID_ADPCM_SBPRO_2)
+
+// AvCodecIdAdpcmSbpro3 ...
+const AvCodecIdAdpcmSbpro3 = int(C.AV_CODEC_ID_ADPCM_SBPRO_3)
+
+// AvCodecIdAdpcmSbpro4 ...
+const AvCodecIdAdpcmSbpro4 = int(C.AV_CODEC_ID_ADPCM_SBPRO_4)
+
+// AvCodecIdAdpcmSwf ...
+const AvCodecIdAdpcmSwf = int(C.AV_CODEC_ID_ADPCM_SWF)
+
+// AvCodecIdAdpcmThp ...
+const AvCodecIdAdpcmThp = int(C.AV_CODEC_ID_ADPCM_THP)
+
+// AvCodecIdAdpcmVima ...
+const AvCodecIdAdpcmVima = int(C.AV_CODEC_ID_ADPCM_VIMA)
+
+// AvCodecIdAdpcmXa ...
+const AvCodecIdAdpcmXa = int(C.AV_CODEC_ID_ADPCM_XA)
+
+// AvCodecIdAdpcmYamaha ...
+const AvCodecIdAdpcmYamaha = int(C.AV_CODEC_ID_ADPCM_YAMAHA)
+
+// AvCodecIdAic ...
+const AvCodecIdAic = int(C.AV_CODEC_ID_AIC)
+
+// AvCodecIdAlac ...
+const AvCodecIdAlac = int(C.AV_CODEC_ID_ALAC)
+
+// AvCodecIdAliasPix ...
+const AvCodecIdAliasPix = int(C.AV_CODEC_ID_ALIAS_PIX)
+
+// AvCodecIdAmrNb ...
+const AvCodecIdAmrNb = int(C.AV_CODEC_ID_AMR_NB)
+
+// AvCodecIdAmrWb ...
+const AvCodecIdAmrWb = int(C.AV_CODEC_ID_AMR_WB)
+
+// AvCodecIdAmv ...
+const AvCodecIdAmv = int(C.AV_CODEC_ID_AMV)
+
+// AvCodecIdAnm ...
+const AvCodecIdAnm = int(C.AV_CODEC_ID_ANM)
+
+// AvCodecIdAnsi ...
+const AvCodecIdAnsi = int(C.AV_CODEC_ID_ANSI)
+
+// AvCodecIdApe ...
+const AvCodecIdApe = int(C.AV_CODEC_ID_APE)
+
+// AvCodecIdAss ...
+const AvCodecIdAss = int(C.AV_CODEC_ID_ASS)
+
+// AvCodecIdAsv1 ...
+const AvCodecIdAsv1 = int(C.AV_CODEC_ID_ASV1)
+
+// AvCodecIdAsv2 ...
+const AvCodecIdAsv2 = int(C.AV_CODEC_ID_ASV2)
+
+// AvCodecIdAtrac1 ...
+const AvCodecIdAtrac1 = int(C.AV_CODEC_ID_ATRAC1)
+
+// AvCodecIdAtrac3 ...
+const AvCodecIdAtrac3 = int(C.AV_CODEC_ID_ATRAC3)
+
+// AvCodecIdAtrac3p ...
+const AvCodecIdAtrac3p = int(C.AV_CODEC_ID_ATRAC3P)
+
+// AvCodecIdAura ...
+const AvCodecIdAura = int(C.AV_CODEC_ID_AURA)
+
+// AvCodecIdAura2 ...
+const AvCodecIdAura2 = int(C.AV_CODEC_ID_AURA2)
+
+// AvCodecIdAvrn ...
+const AvCodecIdAvrn = int(C.AV_CODEC_ID_AVRN)
+
+// AvCodecIdAvrp ...
+const AvCodecIdAvrp = int(C.AV_CODEC_ID_AVRP)
+
+// AvCodecIdAvs ...
+const AvCodecIdAvs = int(C.AV_CODEC_ID_AVS)
+
+// AvCodecIdAvui ...
+const AvCodecIdAvui = int(C.AV_CODEC_ID_AVUI)
+
+// AvCodecIdAyuv ...
+const AvCodecIdAyuv = int(C.AV_CODEC_ID_AYUV)
+
+// AvCodecIdBethsoftvid ...
+const AvCodecIdBethsoftvid = int(C.AV_CODEC_ID_BETHSOFTVID)
+
+// AvCodecIdBfi ...
+const AvCodecIdBfi = int(C.AV_CODEC_ID_BFI)
+
+// AvCodecIdBinkaudioDct ...
+const AvCodecIdBinkaudioDct = int(C.AV_CODEC_ID_BINKAUDIO_DCT)
+
+// AvCodecIdBinkaudioRdft ...
+const AvCodecIdBinkaudioRdft = int(C.AV_CODEC_ID_BINKAUDIO_RDFT)
+
+// AvCodecIdBinkvideo ...
+const AvCodecIdBinkvideo = int(C.AV_CODEC_ID_BINKVIDEO)
+
+// AvCodecIdBintext ...
+const AvCodecIdBintext = int(C.AV_CODEC_ID_BINTEXT)
+
+// AvCodecIdBinData ...
+const AvCodecIdBinData = int(C.AV_CODEC_ID_BIN_DATA)
+
+// AvCodecIdBmp ...
+const AvCodecIdBmp = int(C.AV_CODEC_ID_BMP)
+
+// AvCodecIdBmvAudio ...
+const AvCodecIdBmvAudio = int(C.AV_CODEC_ID_BMV_AUDIO)
+
+// AvCodecIdBmvVideo ...
+const AvCodecIdBmvVideo = int(C.AV_CODEC_ID_BMV_VIDEO)
+
+// AvCodecIdBrenderPix ...
+const AvCodecIdBrenderPix = int(C.AV_CODEC_ID_BRENDER_PIX)
+
+// AvCodecIdC93 ...
+const AvCodecIdC93 = int(C.AV_CODEC_ID_C93)
+
+// AvCodecIdCavs ...
+const AvCodecIdCavs = int(C.AV_CODEC_ID_CAVS)
+
+// AvCodecIdCdgraphics ...
+const AvCodecIdCdgraphics = int(C.AV_CODEC_ID_CDGRAPHICS)
+
+// AvCodecIdCdxl ...
+const AvCodecIdCdxl = int(C.AV_CODEC_ID_CDXL)
+
+// AvCodecIdCelt ...
+const AvCodecIdCelt = int(C.AV_CODEC_ID_CELT)
+
+// AvCodecIdCinepak ...
+const AvCodecIdCinepak = int(C.AV_CODEC_ID_CINEPAK)
+
+// AvCodecIdCljr ...
+const AvCodecIdCljr = int(C.AV_CODEC_ID_CLJR)
+
+// AvCodecIdCllc ...
+const AvCodecIdCllc = int(C.AV_CODEC_ID_CLLC)
+
+// AvCodecIdCmv ...
+const AvCodecIdCmv = int(C.AV_CODEC_ID_CMV)
+
+// AvCodecIdComfortNoise ...
+const AvCodecIdComfortNoise = int(C.AV_CODEC_ID_COMFORT_NOISE)
+
+// AvCodecIdCook ...
+const AvCodecIdCook = int(C.AV_CODEC_ID_COOK)
+
+// AvCodecIdCpia ...
+const AvCodecIdCpia = int(C.AV_CODEC_ID_CPIA)
+
+// AvCodecIdCscd ...
+const AvCodecIdCscd = int(C.AV_CODEC_ID_CSCD)
+
+// AvCodecIdCyuv ...
+const AvCodecIdCyuv = int(C.AV_CODEC_ID_CYUV)
+
+// AvCodecIdDfa ...
+const AvCodecIdDfa = int(C.AV_CODEC_ID_DFA)
+
+// AvCodecIdDirac ...
+const AvCodecIdDirac = int(C.AV_CODEC_ID_DIRAC)
+
+// AvCodecIdDnxhd ...
+const AvCodecIdDnxhd = int(C.AV_CODEC_ID_DNXHD)
+
+// AvCodecIdDpx ...
+const AvCodecIdDpx = int(C.AV_CODEC_ID_DPX)
+
+// AvCodecIdDsdLsbf ...
+const AvCodecIdDsdLsbf = int(C.AV_CODEC_ID_DSD_LSBF)
+
+// AvCodecIdDsdLsbfPlanar ...
+const AvCodecIdDsdLsbfPlanar = int(C.AV_CODEC_ID_DSD_LSBF_PLANAR)
+
+// AvCodecIdDsdMsbf ...
+const AvCodecIdDsdMsbf = int(C.AV_CODEC_ID_DSD_MSBF)
+
+// AvCodecIdDsdMsbfPlanar ...
+const AvCodecIdDsdMsbfPlanar = int(C.AV_CODEC_ID_DSD_MSBF_PLANAR)
+
+// AvCodecIdDsicinaudio ...
+const AvCodecIdDsicinaudio = int(C.AV_CODEC_ID_DSICINAUDIO)
+
+// AvCodecIdDsicinvideo ...
+const AvCodecIdDsicinvideo = int(C.AV_CODEC_ID_DSICINVIDEO)
+
+// AvCodecIdDts ...
+const AvCodecIdDts = int(C.AV_CODEC_ID_DTS)
+
+// AvCodecIdDvaudio ...
+const AvCodecIdDvaudio = int(C.AV_CODEC_ID_DVAUDIO)
+
+// AvCodecIdDvbSubtitle ...
+const AvCodecIdDvbSubtitle = int(C.AV_CODEC_ID_DVB_SUBTITLE)
+
+// AvCodecIdDvbTeletext ...
+const AvCodecIdDvbTeletext = int(C.AV_CODEC_ID_DVB_TELETEXT)
+
+// AvCodecIdDvdNav ...
+const AvCodecIdDvdNav = int(C.AV_CODEC_ID_DVD_NAV)
+
+// AvCodecIdDvdSubtitle ...
+const AvCodecIdDvdSubtitle = int(C.AV_CODEC_ID_DVD_SUBTITLE)
+
+// AvCodecIdDvvideo ...
+const AvCodecIdDvvideo = int(C.AV_CODEC_ID_DVVIDEO)
+
+// AvCodecIdDxa ...
+const AvCodecIdDxa = int(C.AV_CODEC_ID_DXA)
+
+// AvCodecIdDxtory ...
+const AvCodecIdDxtory = int(C.AV_CODEC_ID_DXTORY)
+
+// AvCodecIdEac3 ...
+const AvCodecIdEac3 = int(C.AV_CODEC_ID_EAC3)
+
+// AvCodecIdEia608 ...
+const AvCodecIdEia608 = int(C.AV_CODEC_ID_EIA_608)
+
+// AvCodecIdEscape124 ...
+const AvCodecIdEscape124 = int(C.AV_CODEC_ID_ESCAPE124)
+
+// AvCodecIdEscape130 ...
+const AvCodecIdEscape130 = int(C.AV_CODEC_ID_ESCAPE130)
+
+// AvCodecIdEvrc ...
+const AvCodecIdEvrc = int(C.AV_CODEC_ID_EVRC)
+
+// AvCodecIdExr ...
+const AvCodecIdExr = int(C.AV_CODEC_ID_EXR)
+
+// AvCodecIdFfmetadata ...
+const AvCodecIdFfmetadata = int(C.AV_CODEC_ID_FFMETADATA)
+
+// AvCodecIdFfv1 ...
+const AvCodecIdFfv1 = int(C.AV_CODEC_ID_FFV1)
+
+// AvCodecIdFfvhuff ...
+const AvCodecIdFfvhuff = int(C.AV_CODEC_ID_FFVHUFF)
+
+// AvCodecIdFfwavesynth ...
+const AvCodecIdFfwavesynth = int(C.AV_CODEC_ID_FFWAVESYNTH)
+
+// AvCodecIdFic ...
+const AvCodecIdFic = int(C.AV_CODEC_ID_FIC)
+
+// AvCodecIdFirstAudio ...
+const AvCodecIdFirstAudio = int(C.AV_CODEC_ID_FIRST_AUDIO)
+
+// AvCodecIdFirstSubtitle ...
+const AvCodecIdFirstSubtitle = int(C.AV_CODEC_ID_FIRST_SUBTITLE)
+
+// AvCodecIdFirstUnknown ...
+const AvCodecIdFirstUnknown = int(C.AV_CODEC_ID_FIRST_UNKNOWN)
+
+// AvCodecIdFlac ...
+const AvCodecIdFlac = int(C.AV_CODEC_ID_FLAC)
+
+// AvCodecIdFlashsv ...
+const AvCodecIdFlashsv = int(C.AV_CODEC_ID_FLASHSV)
+
+// AvCodecIdFlashsv2 ...
+const AvCodecIdFlashsv2 = int(C.AV_CODEC_ID_FLASHSV2)
+
+// AvCodecIdFlic ...
+const AvCodecIdFlic = int(C.AV_CODEC_ID_FLIC)
+
+// AvCodecIdFlv1 ...
+const AvCodecIdFlv1 = int(C.AV_CODEC_ID_FLV1)
+
+// AvCodecIdFraps ...
+const AvCodecIdFraps = int(C.AV_CODEC_ID_FRAPS)
+
+// AvCodecIdFrwu ...
+const AvCodecIdFrwu = int(C.AV_CODEC_ID_FRWU)
+
+// AvCodecIdG2m ...
+const AvCodecIdG2m = int(C.AV_CODEC_ID_G2M)
+
+// AvCodecIdG7231 ...
+const AvCodecIdG7231 = int(C.AV_CODEC_ID_G723_1)
+
+// AvCodecIdG729 ...
+const AvCodecIdG729 = int(C.AV_CODEC_ID_G729)
+
+// AvCodecIdGif ...
+const AvCodecIdGif = int(C.AV_CODEC_ID_GIF)
+
+// AvCodecIdGsm ...
+const AvCodecIdGsm = int(C.AV_CODEC_ID_GSM)
+
+// AvCodecIdGsmMs ...
+const AvCodecIdGsmMs = int(C.AV_CODEC_ID_GSM_MS)
+
+// AvCodecIdH261 ...
+const AvCodecIdH261 = int(C.AV_CODEC_ID_H261)
+
+// AvCodecIdH263 ...
+const AvCodecIdH263 = int(C.AV_CODEC_ID_H263)
+
+// AvCodecIdH263i ...
+const AvCodecIdH263i = int(C.AV_CODEC_ID_H263I)
+
+// AvCodecIdH263p ...
+const AvCodecIdH263p = int(C.AV_CODEC_ID_H263P)
+
+// AvCodecIdH264 ...
+const AvCodecIdH264 = int(C.AV_CODEC_ID_H264)
+
+// AvCodecIdH265 ...
+const AvCodecIdH265 = int(C.AV_CODEC_ID_H265)
+
+// AvCodecIdHdmvPgsSubtitle ...
+const AvCodecIdHdmvPgsSubtitle = int(C.AV_CODEC_ID_HDMV_PGS_SUBTITLE)
+
+// AvCodecIdHevc ...
+const AvCodecIdHevc = int(C.AV_CODEC_ID_HEVC)
+
+// AvCodecIdHnm4Video ...
+const AvCodecIdHnm4Video = int(C.AV_CODEC_ID_HNM4_VIDEO)
+
+// AvCodecIdHuffyuv ...
+const AvCodecIdHuffyuv = int(C.AV_CODEC_ID_HUFFYUV)
+
+// AvCodecIdIac ...
+const AvCodecIdIac = int(C.AV_CODEC_ID_IAC)
+
+// AvCodecIdIdcin ...
+const AvCodecIdIdcin = int(C.AV_CODEC_ID_IDCIN)
+
+// AvCodecIdIdf ...
+const AvCodecIdIdf = int(C.AV_CODEC_ID_IDF)
+
+// AvCodecIdIffByterun1 ...
+const AvCodecIdIffByterun1 = int(C.AV_CODEC_ID_IFF_BYTERUN1)
+
+// AvCodecIdIffIlbm ...
+const AvCodecIdIffIlbm = int(C.AV_CODEC_ID_IFF_ILBM)
+
+// AvCodecIdIlbc ...
+const AvCodecIdIlbc = int(C.AV_CODEC_ID_ILBC)
+
+// AvCodecIdImc ...
+const AvCodecIdImc = int(C.AV_CODEC_ID_IMC)
+
+// AvCodecIdIndeo2 ...
+const AvCodecIdIndeo2 = int(C.AV_CODEC_ID_INDEO2)
+
+// AvCodecIdIndeo3 ...
+const AvCodecIdIndeo3 = int(C.AV_CODEC_ID_INDEO3)
+
+// AvCodecIdIndeo4 ...
+const AvCodecIdIndeo4 = int(C.AV_CODEC_ID_INDEO4)
+
+// AvCodecIdIndeo5 ...
+const AvCodecIdIndeo5 = int(C.AV_CODEC_ID_INDEO5)
+
+// AvCodecIdInterplayDpcm ...
+const AvCodecIdInterplayDpcm = int(C.AV_CODEC_ID_INTERPLAY_DPCM)
+
+// AvCodecIdInterplayVideo ...
+const AvCodecIdInterplayVideo = int(C.AV_CODEC_ID_INTERPLAY_VIDEO)
+
+// AvCodecIdJacosub ...
+const AvCodecIdJacosub = int(C.AV_CODEC_ID_JACOSUB)
+
+// AvCodecIdJpeg2000 ...
+const AvCodecIdJpeg2000 = int(C.AV_CODEC_ID_JPEG2000)
+
+// AvCodecIdJpegls ...
+const AvCodecIdJpegls = int(C.AV_CODEC_ID_JPEGLS)
+
+// AvCodecIdJv ...
+const AvCodecIdJv = int(C.AV_CODEC_ID_JV)
+
+// AvCodecIdKgv1 ...
+const AvCodecIdKgv1 = int(C.AV_CODEC_ID_KGV1)
+
+// AvCodecIdKmvc ...
+const AvCodecIdKmvc = int(C.AV_CODEC_ID_KMVC)
+
+// AvCodecIdLagarith ...
+const AvCodecIdLagarith = int(C.AV_CODEC_ID_LAGARITH)
+
+// AvCodecIdLjpeg ...
+const AvCodecIdLjpeg = int(C.AV_CODEC_ID_LJPEG)
+
+// AvCodecIdLoco ...
+const AvCodecIdLoco = int(C.AV_CODEC_ID_LOCO)
+
+// AvCodecIdMace3 ...
+const AvCodecIdMace3 = int(C.AV_CODEC_ID_MACE3)
+
+// AvCodecIdMace6 ...
+const AvCodecIdMace6 = int(C.AV_CODEC_ID_MACE6)
+
+// AvCodecIdMad ...
+const AvCodecIdMad = int(C.AV_CODEC_ID_MAD)
+
+// AvCodecIdMdec ...
+const AvCodecIdMdec = int(C.AV_CODEC_ID_MDEC)
+
+// AvCodecIdMetasound ...
+const AvCodecIdMetasound = int(C.AV_CODEC_ID_METASOUND)
+
+// AvCodecIdMicrodvd ...
+const AvCodecIdMicrodvd = int(C.AV_CODEC_ID_MICRODVD)
+
+// AvCodecIdMimic ...
+const AvCodecIdMimic = int(C.AV_CODEC_ID_MIMIC)
+
+// AvCodecIdMjpeg ...
+const AvCodecIdMjpeg = int(C.AV_CODEC_ID_MJPEG)
+
+// AvCodecIdMjpegb ...
+const AvCodecIdMjpegb = int(C.AV_CODEC_ID_MJPEGB)
+
+// AvCodecIdMlp ...
+const AvCodecIdMlp = int(C.AV_CODEC_ID_MLP)
+
+// AvCodecIdMmvideo ...
+const AvCodecIdMmvideo = int(C.AV_CODEC_ID_MMVIDEO)
+
+// AvCodecIdMotionpixels ...
+const AvCodecIdMotionpixels = int(C.AV_CODEC_ID_MOTIONPIXELS)
+
+// AvCodecIdMovText ...
+const AvCodecIdMovText = int(C.AV_CODEC_ID_MOV_TEXT)
+
+// AvCodecIdMp1 ...
+const AvCodecIdMp1 = int(C.AV_CODEC_ID_MP1)
+
+// AvCodecIdMp2 ...
+const AvCodecIdMp2 = int(C.AV_CODEC_ID_MP2)
+
+// AvCodecIdMp3 ...
+const AvCodecIdMp3 = int(C.AV_CODEC_ID_MP3)
+
+// AvCodecIdMp3adu ...
+const AvCodecIdMp3adu = int(C.AV_CODEC_ID_MP3ADU)
+
+// AvCodecIdMp3on4 ...
+const AvCodecIdMp3on4 = int(C.AV_CODEC_ID_MP3ON4)
+
+// AvCodecIdMp4als ...
+const AvCodecIdMp4als = int(C.AV_CODEC_ID_MP4ALS)
+
+// AvCodecIdMpeg1video ...
+const AvCodecIdMpeg1video = int(C.AV_CODEC_ID_MPEG1VIDEO)
+
+// AvCodecIdMpeg2ts ...
+const AvCodecIdMpeg2ts = int(C.AV_CODEC_ID_MPEG2TS)
+
+// AvCodecIdMpeg2video ...
+const AvCodecIdMpeg2video = int(C.AV_CODEC_ID_MPEG2VIDEO)
+
+// AvCodecIdMpeg2videoXvmc ...
+const AvCodecIdMpeg2videoXvmc = int(C.AV_CODEC_ID_MPEG2VIDEO_XVMC)
+
+// AvCodecIdMpeg4 ...
+const AvCodecIdMpeg4 = int(C.AV_CODEC_ID_MPEG4)
+
+// AvCodecIdMpeg4systems ...
+const AvCodecIdMpeg4systems = int(C.AV_CODEC_ID_MPEG4SYSTEMS)
+
+// AvCodecIdMpl2 ...
+const AvCodecIdMpl2 = int(C.AV_CODEC_ID_MPL2)
+
+// AvCodecIdMsa1 ...
+const AvCodecIdMsa1 = int(C.AV_CODEC_ID_MSA1)
+
+// AvCodecIdMsmpeg4v1 ...
+const AvCodecIdMsmpeg4v1 = int(C.AV_CODEC_ID_MSMPEG4V1)
+
+// AvCodecIdMsmpeg4v2 ...
+const AvCodecIdMsmpeg4v2 = int(C.AV_CODEC_ID_MSMPEG4V2)
+
+// AvCodecIdMsmpeg4v3 ...
+const AvCodecIdMsmpeg4v3 = int(C.AV_CODEC_ID_MSMPEG4V3)
+
+// AvCodecIdMsrle ...
+const AvCodecIdMsrle = int(C.AV_CODEC_ID_MSRLE)
+
+// AvCodecIdMss1 ...
+const AvCodecIdMss1 = int(C.AV_CODEC_ID_MSS1)
+
+// AvCodecIdMss2 ...
+const AvCodecIdMss2 = int(C.AV_CODEC_ID_MSS2)
+
+// AvCodecIdMsvideo1 ...
+const AvCodecIdMsvideo1 = int(C.AV_CODEC_ID_MSVIDEO1)
+
+// AvCodecIdMszh ...
+const AvCodecIdMszh = int(C.AV_CODEC_ID_MSZH)
+
+// AvCodecIdMts2 ...
+const AvCodecIdMts2 = int(C.AV_CODEC_ID_MTS2)
+
+// AvCodecIdMusepack7 ...
+const AvCodecIdMusepack7 = int(C.AV_CODEC_ID_MUSEPACK7)
+
+// AvCodecIdMusepack8 ...
+const AvCodecIdMusepack8 = int(C.AV_CODEC_ID_MUSEPACK8)
+
+// AvCodecIdMvc1 ...
+const AvCodecIdMvc1 = int(C.AV_CODEC_ID_MVC1)
+
+// AvCodecIdMvc2 ...
+const AvCodecIdMvc2 = int(C.AV_CODEC_ID_MVC2)
+
+// AvCodecIdMxpeg ...
+const AvCodecIdMxpeg = int(C.AV_CODEC_ID_MXPEG)
+
+// AvCodecIdNellymoser ...
+const AvCodecIdNellymoser = int(C.AV_CODEC_ID_NELLYMOSER)
+
+// AvCodecIdNone ...
+const AvCodecIdNone = int(C.AV_CODEC_ID_NONE)
+
+// AvCodecIdNuv ...
+const AvCodecIdNuv = int(C.AV_CODEC_ID_NUV)
+
+// AvCodecIdOn2avc ...
+const AvCodecIdOn2avc = int(C.AV_CODEC_ID_ON2AVC)
+
+// AvCodecIdOpus ...
+const AvCodecIdOpus = int(C.AV_CODEC_ID_OPUS)
+
+// AvCodecIdOtf ...
+const AvCodecIdOtf = int(C.AV_CODEC_ID_OTF)
+
+// AvCodecIdPafAudio ...
+const AvCodecIdPafAudio = int(C.AV_CODEC_ID_PAF_AUDIO)
+
+// AvCodecIdPafVideo ...
+const AvCodecIdPafVideo = int(C.AV_CODEC_ID_PAF_VIDEO)
+
+// AvCodecIdPam ...
+const AvCodecIdPam = int(C.AV_CODEC_ID_PAM)
+
+// AvCodecIdPbm ...
+const AvCodecIdPbm = int(C.AV_CODEC_ID_PBM)
+
+// AvCodecIdPcmAlaw ...
+const AvCodecIdPcmAlaw = int(C.AV_CODEC_ID_PCM_ALAW)
+
+// AvCodecIdPcmBluray ...
+const AvCodecIdPcmBluray = int(C.AV_CODEC_ID_PCM_BLURAY)
+
+// AvCodecIdPcmDvd ...
+const AvCodecIdPcmDvd = int(C.AV_CODEC_ID_PCM_DVD)
+
+// AvCodecIdPcmF32be ...
+const AvCodecIdPcmF32be = int(C.AV_CODEC_ID_PCM_F32BE)
+
+// AvCodecIdPcmF32le ...
+const AvCodecIdPcmF32le = int(C.AV_CODEC_ID_PCM_F32LE)
+
+// AvCodecIdPcmF64be ...
+const AvCodecIdPcmF64be = int(C.AV_CODEC_ID_PCM_F64BE)
+
+// AvCodecIdPcmF64le ...
+const AvCodecIdPcmF64le = int(C.AV_CODEC_ID_PCM_F64LE)
+
+// AvCodecIdPcmLxf ...
+const AvCodecIdPcmLxf = int(C.AV_CODEC_ID_PCM_LXF)
+
+// AvCodecIdPcmMulaw ...
+const AvCodecIdPcmMulaw = int(C.AV_CODEC_ID_PCM_MULAW)
+
+// AvCodecIdPcmS16be ...
+const AvCodecIdPcmS16be = int(C.AV_CODEC_ID_PCM_S16BE)
+
+// AvCodecIdPcmS16bePlanar ...
+const AvCodecIdPcmS16bePlanar = int(C.AV_CODEC_ID_PCM_S16BE_PLANAR)
+
+// AvCodecIdPcmS16le ...
+const AvCodecIdPcmS16le = int(C.AV_CODEC_ID_PCM_S16LE)
+
+// AvCodecIdPcmS16lePlanar ...
+const AvCodecIdPcmS16lePlanar = int(C.AV_CODEC_ID_PCM_S16LE_PLANAR)
+
+// AvCodecIdPcmS24be ...
+const AvCodecIdPcmS24be = int(C.AV_CODEC_ID_PCM_S24BE)
+
+// AvCodecIdPcmS24daud ...
+const AvCodecIdPcmS24daud = int(C.AV_CODEC_ID_PCM_S24DAUD)
+
+// AvCodecIdPcmS24le ...
+const AvCodecIdPcmS24le = int(C.AV_CODEC_ID_PCM_S24LE)
+
+// AvCodecIdPcmS24lePlanar ...
+const AvCodecIdPcmS24lePlanar = int(C.AV_CODEC_ID_PCM_S24LE_PLANAR)
+
+// AvCodecIdPcmS32be ...
+const AvCodecIdPcmS32be = int(C.AV_CODEC_ID_PCM_S32BE)
+
+// AvCodecIdPcmS32le ...
+const AvCodecIdPcmS32le = int(C.AV_CODEC_ID_PCM_S32LE)
+
+// AvCodecIdPcmS32lePlanar ...
+const AvCodecIdPcmS32lePlanar = int(C.AV_CODEC_ID_PCM_S32LE_PLANAR)
+
+// AvCodecIdPcmS8 ...
+const AvCodecIdPcmS8 = int(C.AV_CODEC_ID_PCM_S8)
+
+// AvCodecIdPcmS8Planar ...
+const AvCodecIdPcmS8Planar = int(C.AV_CODEC_ID_PCM_S8_PLANAR)
+
+// AvCodecIdPcmU16be ...
+const AvCodecIdPcmU16be = int(C.AV_CODEC_ID_PCM_U16BE)
+
+// AvCodecIdPcmU16le ...
+const AvCodecIdPcmU16le = int(C.AV_CODEC_ID_PCM_U16LE)
+
+// AvCodecIdPcmU24be ...
+const AvCodecIdPcmU24be = int(C.AV_CODEC_ID_PCM_U24BE)
+
+// AvCodecIdPcmU24le ...
+const AvCodecIdPcmU24le = int(C.AV_CODEC_ID_PCM_U24LE)
+
+// AvCodecIdPcmU32be ...
+const AvCodecIdPcmU32be = int(C.AV_CODEC_ID_PCM_U32BE)
+
+// AvCodecIdPcmU32le ...
+const AvCodecIdPcmU32le = int(C.AV_CODEC_ID_PCM_U32LE)
+
+// AvCodecIdPcmU8 ...
+const AvCodecIdPcmU8 = int(C.AV_CODEC_ID_PCM_U8)
+
+// AvCodecIdPcmZork ...
+const AvCodecIdPcmZork = int(C.AV_CODEC_ID_PCM_ZORK)
+
+// AvCodecIdPcx ...
+const AvCodecIdPcx = int(C.AV_CODEC_ID_PCX)
+
+// AvCodecIdPgm ...
+const AvCodecIdPgm = int(C.AV_CODEC_ID_PGM)
+
+// AvCodecIdPgmyuv ...
+const AvCodecIdPgmyuv = int(C.AV_CODEC_ID_PGMYUV)
+
+// AvCodecIdPictor ...
+const AvCodecIdPictor = int(C.AV_CODEC_ID_PICTOR)
+
+// AvCodecIdPjs ...
+const AvCodecIdPjs = int(C.AV_CODEC_ID_PJS)
+
+// AvCodecIdPng ...
+const AvCodecIdPng = int(C.AV_CODEC_ID_PNG)
+
+// AvCodecIdPpm ...
+const AvCodecIdPpm = int(C.AV_CODEC_ID_PPM)
+
+// AvCodecIdProbe ...
+const AvCodecIdProbe = int(C.AV_CODEC_ID_PROBE)
+
+// AvCodecIdProres ...
+const AvCodecIdProres = int(C.AV_CODEC_ID_PRORES)
+
+// AvCodecIdPtx ...
+const AvCodecIdPtx = int(C.AV_CODEC_ID_PTX)
+
+// AvCodecIdQcelp ...
+const AvCodecIdQcelp = int(C.AV_CODEC_ID_QCELP)
+
+// AvCodecIdQdm2 ...
+const AvCodecIdQdm2 = int(C.AV_CODEC_ID_QDM2)
+
+// AvCodecIdQdmc ...
+const AvCodecIdQdmc = int(C.AV_CODEC_ID_QDMC)
+
+// AvCodecIdQdraw ...
+const AvCodecIdQdraw = int(C.AV_CODEC_ID_QDRAW)
+
+// AvCodecIdQpeg ...
+const AvCodecIdQpeg = int(C.AV_CODEC_ID_QPEG)
+
+// AvCodecIdQtrle ...
+const AvCodecIdQtrle = int(C.AV_CODEC_ID_QTRLE)
+
+// AvCodecIdR10k ...
+const AvCodecIdR10k = int(C.AV_CODEC_ID_R10K)
+
+// AvCodecIdR210 ...
+const AvCodecIdR210 = int(C.AV_CODEC_ID_R210)
+
+// AvCodecIdRalf ...
+const AvCodecIdRalf = int(C.AV_CODEC_ID_RALF)
+
+// AvCodecIdRawvideo ...
+const AvCodecIdRawvideo = int(C.AV_CODEC_ID_RAWVIDEO)
+
+// AvCodecIdRa144 ...
+const AvCodecIdRa144 = int(C.AV_CODEC_ID_RA_144)
+
+// AvCodecIdRa288 ...
+const AvCodecIdRa288 = int(C.AV_CODEC_ID_RA_288)
+
+// AvCodecIdRealtext ...
+const AvCodecIdRealtext = int(C.AV_CODEC_ID_REALTEXT)
+
+// AvCodecIdRl2 ...
+const AvCodecIdRl2 = int(C.AV_CODEC_ID_RL2)
+
+// AvCodecIdRoq ...
+const AvCodecIdRoq = int(C.AV_CODEC_ID_ROQ)
+
+// AvCodecIdRoqDpcm ...
+const AvCodecIdRoqDpcm = int(C.AV_CODEC_ID_ROQ_DPCM)
+
+// AvCodecIdRpza ...
+const AvCodecIdRpza = int(C.AV_CODEC_ID_RPZA)
+
+// AvCodecIdRv10 ...
+const AvCodecIdRv10 = int(C.AV_CODEC_ID_RV10)
+
+// AvCodecIdRv20 ...
+const AvCodecIdRv20 = int(C.AV_CODEC_ID_RV20)
+
+// AvCodecIdRv30 ...
+const AvCodecIdRv30 = int(C.AV_CODEC_ID_RV30)
+
+// AvCodecIdRv40 ...
+const AvCodecIdRv40 = int(C.AV_CODEC_ID_RV40)
+
+// AvCodecIdS302m ...
+const AvCodecIdS302m = int(C.AV_CODEC_ID_S302M)
+
+// AvCodecIdSami ...
+const AvCodecIdSami = int(C.AV_CODEC_ID_SAMI)
+
+// AvCodecIdSanm ...
+const AvCodecIdSanm = int(C.AV_CODEC_ID_SANM)
+
+// AvCodecIdSgi ...
+const AvCodecIdSgi = int(C.AV_CODEC_ID_SGI)
+
+// AvCodecIdSgirle ...
+const AvCodecIdSgirle = int(C.AV_CODEC_ID_SGIRLE)
+
+// AvCodecIdShorten ...
+const AvCodecIdShorten = int(C.AV_CODEC_ID_SHORTEN)
+
+// AvCodecIdSipr ...
+const AvCodecIdSipr = int(C.AV_CODEC_ID_SIPR)
+
+// AvCodecIdSmackaudio ...
+const AvCodecIdSmackaudio = int(C.AV_CODEC_ID_SMACKAUDIO)
+
+// AvCodecIdSmackvideo ...
+const AvCodecIdSmackvideo = int(C.AV_CODEC_ID_SMACKVIDEO)
+
+// AvCodecIdSmc ...
+const AvCodecIdSmc = int(C.AV_CODEC_ID_SMC)
+
+// AvCodecIdSmpteKlv ...
+const AvCodecIdSmpteKlv = int(C.AV_CODEC_ID_SMPTE_KLV)
+
+// AvCodecIdSmv ...
+const AvCodecIdSmv = int(C.AV_CODEC_ID_SMV)
+
+// AvCodecIdSmvjpeg ...
+const AvCodecIdSmvjpeg = int(C.AV_CODEC_ID_SMVJPEG)
+
+// AvCodecIdSnow ...
+const AvCodecIdSnow = int(C.AV_CODEC_ID_SNOW)
+
+// AvCodecIdSolDpcm ...
+const AvCodecIdSolDpcm = int(C.AV_CODEC_ID_SOL_DPCM)
+
+// AvCodecIdSonic ...
+const AvCodecIdSonic = int(C.AV_CODEC_ID_SONIC)
+
+// AvCodecIdSonicLs ...
+const AvCodecIdSonicLs = int(C.AV_CODEC_ID_SONIC_LS)
+
+// AvCodecIdSp5x ...
+const AvCodecIdSp5x = int(C.AV_CODEC_ID_SP5X)
+
+// AvCodecIdSpeex ...
+const AvCodecIdSpeex = int(C.AV_CODEC_ID_SPEEX)
+
+// AvCodecIdSrt ...
+const AvCodecIdSrt = int(C.AV_CODEC_ID_SRT)
+
+// AvCodecIdSsa ...
+const AvCodecIdSsa = int(C.AV_CODEC_ID_SSA)
+
+// AvCodecIdSubrip ...
+const AvCodecIdSubrip = int(C.AV_CODEC_ID_SUBRIP)
+
+// AvCodecIdSubviewer ...
+const AvCodecIdSubviewer = int(C.AV_CODEC_ID_SUBVIEWER)
+
+// AvCodecIdSubviewer1 ...
+const AvCodecIdSubviewer1 = int(C.AV_CODEC_ID_SUBVIEWER1)
+
+// AvCodecIdSunrast ...
+const AvCodecIdSunrast = int(C.AV_CODEC_ID_SUNRAST)
+
+// AvCodecIdSvq1 ...
+const AvCodecIdSvq1 = int(C.AV_CODEC_ID_SVQ1)
+
+// AvCodecIdSvq3 ...
+const AvCodecIdSvq3 = int(C.AV_CODEC_ID_SVQ3)
+
+// AvCodecIdTak ...
+const AvCodecIdTak = int(C.AV_CODEC_ID_TAK)
+
+// AvCodecIdTarga ...
+const AvCodecIdTarga = int(C.AV_CODEC_ID_TARGA)
+
+// AvCodecIdTargaY216 ...
+const AvCodecIdTargaY216 = int(C.AV_CODEC_ID_TARGA_Y216)
+
+// AvCodecIdText ...
+const AvCodecIdText = int(C.AV_CODEC_ID_TEXT)
+
+// AvCodecIdTgq ...
+const AvCodecIdTgq = int(C.AV_CODEC_ID_TGQ)
+
+// AvCodecIdTgv ...
+const AvCodecIdTgv = int(C.AV_CODEC_ID_TGV)
+
+// AvCodecIdTheora ...
+const AvCodecIdTheora = int(C.AV_CODEC_ID_THEORA)
+
+// AvCodecIdThp ...
+const AvCodecIdThp = int(C.AV_CODEC_ID_THP)
+
+// AvCodecIdTiertexseqvideo ...
+const AvCodecIdTiertexseqvideo = int(C.AV_CODEC_ID_TIERTEXSEQVIDEO)
+
+// AvCodecIdTiff ...
+const AvCodecIdTiff = int(C.AV_CODEC_ID_TIFF)
+
+// AvCodecIdTimedId3 ...
+const AvCodecIdTimedId3 = int(C.AV_CODEC_ID_TIMED_ID3)
+
+// AvCodecIdTmv ...
+const AvCodecIdTmv = int(C.AV_CODEC_ID_TMV)
+
+// AvCodecIdTqi ...
+const AvCodecIdTqi = int(C.AV_CODEC_ID_TQI)
+
+// AvCodecIdTruehd ...
+const AvCodecIdTruehd = int(C.AV_CODEC_ID_TRUEHD)
+
+// AvCodecIdTruemotion1 ...
+const AvCodecIdTruemotion1 = int(C.AV_CODEC_ID_TRUEMOTION1)
+
+// AvCodecIdTruemotion2 ...
+const AvCodecIdTruemotion2 = int(C.AV_CODEC_ID_TRUEMOTION2)
+
+// AvCodecIdTruespeech ...
+const AvCodecIdTruespeech = int(C.AV_CODEC_ID_TRUESPEECH)
+
+// AvCodecIdTscc ...
+const AvCodecIdTscc = int(C.AV_CODEC_ID_TSCC)
+
+// AvCodecIdTscc2 ...
+const AvCodecIdTscc2 = int(C.AV_CODEC_ID_TSCC2)
+
+// AvCodecIdTta ...
+const AvCodecIdTta = int(C.AV_CODEC_ID_TTA)
+
+// AvCodecIdTtf ...
+const AvCodecIdTtf = int(C.AV_CODEC_ID_TTF)
+
+// AvCodecIdTwinvq ...
+const AvCodecIdTwinvq = int(C.AV_CODEC_ID_TWINVQ)
+
+// AvCodecIdTxd ...
+const AvCodecIdTxd = int(C.AV_CODEC_ID_TXD)
+
+// AvCodecIdUlti ...
+const AvCodecIdUlti = int(C.AV_CODEC_ID_ULTI)
+
+// AvCodecIdUtvideo ...
+const AvCodecIdUtvideo = int(C.AV_CODEC_ID_UTVIDEO)
+
+// AvCodecIdV210 ...
+const AvCodecIdV210 = int(C.AV_CODEC_ID_V210)
+
+// AvCodecIdV210x ...
+const AvCodecIdV210x = int(C.AV_CODEC_ID_V210X)
+
+// AvCodecIdV308 ...
+const AvCodecIdV308 = int(C.AV_CODEC_ID_V308)
+
+// AvCodecIdV408 ...
+const AvCodecIdV408 = int(C.AV_CODEC_ID_V408)
+
+// AvCodecIdV410 ...
+const AvCodecIdV410 = int(C.AV_CODEC_ID_V410)
+
+// AvCodecIdVb ...
+const AvCodecIdVb = int(C.AV_CODEC_ID_VB)
+
+// AvCodecIdVble ...
+const AvCodecIdVble = int(C.AV_CODEC_ID_VBLE)
+
+// AvCodecIdVc1 ...
+const AvCodecIdVc1 = int(C.AV_CODEC_ID_VC1)
+
+// AvCodecIdVc1image ...
+const AvCodecIdVc1image = int(C.AV_CODEC_ID_VC1IMAGE)
+
+// AvCodecIdVcr1 ...
+const AvCodecIdVcr1 = int(C.AV_CODEC_ID_VCR1)
+
+// AvCodecIdVima ...
+const AvCodecIdVima = int(C.AV_CODEC_ID_VIMA)
+
+// AvCodecIdVixl ...
+const AvCodecIdVixl = int(C.AV_CODEC_ID_VIXL)
+
+// AvCodecIdVmdaudio ...
+const AvCodecIdVmdaudio = int(C.AV_CODEC_ID_VMDAUDIO)
+
+// AvCodecIdVmdvideo ...
+const AvCodecIdVmdvideo = int(C.AV_CODEC_ID_VMDVIDEO)
+
+// AvCodecIdVmnc ...
+const AvCodecIdVmnc = int(C.AV_CODEC_ID_VMNC)
+
+// AvCodecIdVorbis ...
+const AvCodecIdVorbis = int(C.AV_CODEC_ID_VORBIS)
+
+// AvCodecIdVoxware ...
+const AvCodecIdVoxware = int(C.AV_CODEC_ID_VOXWARE)
+
+// AvCodecIdVp3 ...
+const AvCodecIdVp3 = int(C.AV_CODEC_ID_VP3)
+
+// AvCodecIdVp5 ...
+const AvCodecIdVp5 = int(C.AV_CODEC_ID_VP5)
+
+// AvCodecIdVp6 ...
+const AvCodecIdVp6 = int(C.AV_CODEC_ID_VP6)
+
+// AvCodecIdVp6a ...
+const AvCodecIdVp6a = int(C.AV_CODEC_ID_VP6A)
+
+// AvCodecIdVp6f ...
+const AvCodecIdVp6f = int(C.AV_CODEC_ID_VP6F)
+
+// AvCodecIdVp7 ...
+const AvCodecIdVp7 = int(C.AV_CODEC_ID_VP7)
+
+// AvCodecIdVp8 ...
+const AvCodecIdVp8 = int(C.AV_CODEC_ID_VP8)
+
+// AvCodecIdVp9 ...
+const AvCodecIdVp9 = int(C.AV_CODEC_ID_VP9)
+
+// AvCodecIdVplayer ...
+const AvCodecIdVplayer = int(C.AV_CODEC_ID_VPLAYER)
+
+// AvCodecIdWavpack ...
+const AvCodecIdWavpack = int(C.AV_CODEC_ID_WAVPACK)
+
+// AvCodecIdWebp ...
+const AvCodecIdWebp = int(C.AV_CODEC_ID_WEBP)
+
+// AvCodecIdWebvtt ...
+const AvCodecIdWebvtt = int(C.AV_CODEC_ID_WEBVTT)
+
+// AvCodecIdWestwoodSnd1 ...
+const AvCodecIdWestwoodSnd1 = int(C.AV_CODEC_ID_WESTWOOD_SND1)
+
+// AvCodecIdWmalossless ...
+const AvCodecIdWmalossless = int(C.AV_CODEC_ID_WMALOSSLESS)
+
+// AvCodecIdWmapro ...
+const AvCodecIdWmapro = int(C.AV_CODEC_ID_WMAPRO)
+
+// AvCodecIdWmav1 ...
+const AvCodecIdWmav1 = int(C.AV_CODEC_ID_WMAV1)
+
+// AvCodecIdWmav2 ...
+const AvCodecIdWmav2 = int(C.AV_CODEC_ID_WMAV2)
+
+// AvCodecIdWmavoice ...
+const AvCodecIdWmavoice = int(C.AV_CODEC_ID_WMAVOICE)
+
+// AvCodecIdWmv1 ...
+const AvCodecIdWmv1 = int(C.AV_CODEC_ID_WMV1)
+
+// AvCodecIdWmv2 ...
+const AvCodecIdWmv2 = int(C.AV_CODEC_ID_WMV2)
+
+// AvCodecIdWmv3 ...
+const AvCodecIdWmv3 = int(C.AV_CODEC_ID_WMV3)
+
+// AvCodecIdWmv3image ...
+const AvCodecIdWmv3image = int(C.AV_CODEC_ID_WMV3IMAGE)
+
+// AvCodecIdWnv1 ...
+const AvCodecIdWnv1 = int(C.AV_CODEC_ID_WNV1)
+
+// AvCodecIdWsVqa ...
+const AvCodecIdWsVqa = int(C.AV_CODEC_ID_WS_VQA)
+
+// AvCodecIdXanDpcm ...
+const AvCodecIdXanDpcm = int(C.AV_CODEC_ID_XAN_DPCM)
+
+// AvCodecIdXanWc3 ...
+const AvCodecIdXanWc3 = int(C.AV_CODEC_ID_XAN_WC3)
+
+// AvCodecIdXanWc4 ...
+const AvCodecIdXanWc4 = int(C.AV_CODEC_ID_XAN_WC4)
+
+// AvCodecIdXbin ...
+const AvCodecIdXbin = int(C.AV_CODEC_ID_XBIN)
+
+// AvCodecIdXbm ...
+const AvCodecIdXbm = int(C.AV_CODEC_ID_XBM)
+
+// AvCodecIdXface ...
+const AvCodecIdXface = int(C.AV_CODEC_ID_XFACE)
+
+// AvCodecIdXsub ...
+const AvCodecIdXsub = int(C.AV_CODEC_ID_XSUB)
+
+// AvCodecIdXwd ...
+const AvCodecIdXwd = int(C.AV_CODEC_ID_XWD)
+
+// AvCodecIdY41p ...
+const AvCodecIdY41p = int(C.AV_CODEC_ID_Y41P)
+
+// AvCodecIdYop ...
+const AvCodecIdYop = int(C.AV_CODEC_ID_YOP)
+
+// AvCodecIdYuv4 ...
+const AvCodecIdYuv4 = int(C.AV_CODEC_ID_YUV4)
+
+// AvCodecIdZerocodec ...
+const AvCodecIdZerocodec = int(C.AV_CODEC_ID_ZEROCODEC)
+
+// AvCodecIdZlib ...
+const AvCodecIdZlib = int(C.AV_CODEC_ID_ZLIB)
+
+// AvCodecIdZmbv ...
+const AvCodecIdZmbv = int(C.AV_CODEC_ID_ZMBV)
