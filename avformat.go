@@ -22,6 +22,7 @@ import (
 	"unsafe"
 )
 
+// AvProbeData ...
 type (
 	AvProbeData     C.struct_AVProbeData
 	InputFormat     C.struct_AVInputFormat
@@ -61,14 +62,17 @@ func (ctxt *AvIOContext) AvAppendPacket(pkt *Packet, s int) int {
 	return int(C.av_append_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
 }
 
+// Close ...
 func (ctxt *AvIOContext) Close() error {
 	return ErrorFromCode(int(C.avio_close((*C.AVIOContext)(unsafe.Pointer(ctxt)))))
 }
 
+// AvRegisterInputFormat ...
 func (f *InputFormat) AvRegisterInputFormat() {
 	C.av_register_input_format((*C.struct_AVInputFormat)(f))
 }
 
+// AvRegisterOutputFormat ...
 func (f *OutputFormat) AvRegisterOutputFormat() {
 	C.av_register_output_format((*C.struct_AVOutputFormat)(f))
 }
@@ -289,16 +293,16 @@ func AvUrlSplit(proto_size, authorization_size, hostname_size int, pp *int, path
 	return C.GoString(Cproto), C.GoString(Cauthorization), C.GoString(Chostname), C.GoString(Cpath)
 }
 
-//int av_get_frame_filename (char *buf, int buf_size, const char *path, int number)
+//AvGetFrameFilename int av_get_frame_filename (char *buf, int buf_size, const char *path, int number)
 //Return in 'buf' the path with 'd' replaced by a number.
-func AvGetFrameFilename(buf_size int, path string, number int) (int, string) {
-	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.ulong(buf_size)))
+func AvGetFrameFilename(bufSize int, path string, number int) (int, string) {
+	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.ulong(bufSize)))
 	defer C.free(unsafe.Pointer(Cbuf))
 
 	Cpath := C.CString(path)
 	defer C.free(unsafe.Pointer(Cpath))
 
-	ret := int(C.av_get_frame_filename(Cbuf, C.int(buf_size), Cpath, C.int(number)))
+	ret := int(C.av_get_frame_filename(Cbuf, C.int(bufSize), Cpath, C.int(number)))
 
 	return ret, C.GoString(Cbuf)
 }
@@ -311,7 +315,7 @@ func AvFilenameNumberTest(filename string) int {
 	return int(C.av_filename_number_test(Cfilename))
 }
 
-//Generate an SDP for an RTP session.
+//AvSdpCreate Generate an SDP for an RTP session.
 func AvSdpCreate(ac **AVFormatContext, n_files int, buf_size int) (int, string) {
 	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.ulong(buf_size)))
 	defer C.free(unsafe.Pointer(Cbuf))
@@ -338,6 +342,7 @@ func AvformatQueryCodec(o *OutputFormat, cd CodecId, sc int) int {
 	return int(C.avformat_query_codec((*C.struct_AVOutputFormat)(o), (C.enum_AVCodecID)(cd), C.int(sc)))
 }
 
+// AvformatGetRiffVideoTags ...
 func AvformatGetRiffVideoTags() *AvCodecTag {
 	return (*AvCodecTag)(C.avformat_get_riff_video_tags())
 }
@@ -347,14 +352,17 @@ func AvformatGetRiffAudioTags() *AvCodecTag {
 	return (*AvCodecTag)(C.avformat_get_riff_audio_tags())
 }
 
+// AvformatGetMovVideoTags ...
 func AvformatGetMovVideoTags() *AvCodecTag {
 	return (*AvCodecTag)(C.avformat_get_mov_video_tags())
 }
 
+// AvformatGetMovAudioTags ...
 func AvformatGetMovAudioTags() *AvCodecTag {
 	return (*AvCodecTag)(C.avformat_get_mov_audio_tags())
 }
 
+// AvIOOpen ...
 func AvIOOpen(url string, flags int) (res *AvIOContext, err error) {
 	urlStr := C.CString(url)
 	defer C.free(unsafe.Pointer(urlStr))

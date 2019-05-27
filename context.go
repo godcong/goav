@@ -13,10 +13,12 @@ import (
 	"unsafe"
 )
 
+// AVCodecContext ...
 type (
 	AVCodecContext C.struct_AVCodecContext
 )
 
+// AvCodecGetPktTimebase ...
 func (ctx *AVCodecContext) AvCodecGetPktTimebase() Rational {
 	return Rational(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctx)))
 }
@@ -26,38 +28,47 @@ func (ctx *AVCodecContext) AvCodecGetPktTimebase2() Rational {
 	return ctx.AvCodecGetPktTimebase()
 }
 
+// AvCodecSetPktTimebase ...
 func (ctx *AVCodecContext) AvCodecSetPktTimebase(r Rational) {
 	C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(ctx), (C.struct_AVRational)(r))
 }
 
+// AvCodecGetCodecDescriptor ...
 func (ctx *AVCodecContext) AvCodecGetCodecDescriptor() *Descriptor {
 	return (*Descriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(ctx)))
 }
 
+// AvCodecSetCodecDescriptor ...
 func (ctx *AVCodecContext) AvCodecSetCodecDescriptor(d *Descriptor) {
 	C.av_codec_set_codec_descriptor((*C.struct_AVCodecContext)(ctx), (*C.struct_AVCodecDescriptor)(d))
 }
 
+// AvCodecGetLowres ...
 func (ctx *AVCodecContext) AvCodecGetLowres() int {
 	return int(C.av_codec_get_lowres((*C.struct_AVCodecContext)(ctx)))
 }
 
+// AvCodecSetLowres ...
 func (ctx *AVCodecContext) AvCodecSetLowres(i int) {
 	C.av_codec_set_lowres((*C.struct_AVCodecContext)(ctx), C.int(i))
 }
 
+// AvCodecGetSeekPreroll ...
 func (ctx *AVCodecContext) AvCodecGetSeekPreroll() int {
 	return int(C.av_codec_get_seek_preroll((*C.struct_AVCodecContext)(ctx)))
 }
 
+// AvCodecSetSeekPreroll ...
 func (ctx *AVCodecContext) AvCodecSetSeekPreroll(i int) {
 	C.av_codec_set_seek_preroll((*C.struct_AVCodecContext)(ctx), C.int(i))
 }
 
+// AvCodecGetChromaIntraMatrix ...
 func (ctx *AVCodecContext) AvCodecGetChromaIntraMatrix() *uint16 {
 	return (*uint16)(C.av_codec_get_chroma_intra_matrix((*C.struct_AVCodecContext)(ctx)))
 }
 
+// AvCodecSetChromaIntraMatrix ...
 func (ctx *AVCodecContext) AvCodecSetChromaIntraMatrix(t *uint16) {
 	C.av_codec_set_chroma_intra_matrix((*C.struct_AVCodecContext)(ctx), (*C.uint16_t)(t))
 }
@@ -127,10 +138,12 @@ func (ctx *AVCodecContext) AvcodecEncodeVideo2(p *Packet, f *Frame, gp *int) int
 	return int(C.avcodec_encode_video2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
+// AvcodecEncodeSubtitle ...
 func (ctx *AVCodecContext) AvcodecEncodeSubtitle(b *uint8, bs int, s *AvSubtitle) int {
 	return int(C.avcodec_encode_subtitle((*C.struct_AVCodecContext)(ctx), (*C.uint8_t)(b), C.int(bs), (*C.struct_AVSubtitle)(s)))
 }
 
+// AvcodecDefaultGetFormat ...
 func (ctx *AVCodecContext) AvcodecDefaultGetFormat(f *PixelFormat) PixelFormat {
 	return (PixelFormat)(C.avcodec_default_get_format((*C.struct_AVCodecContext)(ctx), (*C.enum_AVPixelFormat)(f)))
 }
@@ -145,6 +158,7 @@ func (ctx *AVCodecContext) AvGetAudioFrameDuration(f int) int {
 	return int(C.av_get_audio_frame_duration((*C.struct_AVCodecContext)(ctx), C.int(f)))
 }
 
+// AvcodecIsOpen ...
 func (ctx *AVCodecContext) AvcodecIsOpen() int {
 	return int(C.avcodec_is_open((*C.struct_AVCodecContext)(ctx)))
 }
@@ -154,31 +168,38 @@ func (ctx *AVCodecContext) AvParserParse2(ctxtp *ParserContext, p **uint8, ps *i
 	return int(C.av_parser_parse2((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctx), (**C.uint8_t)(unsafe.Pointer(p)), (*C.int)(unsafe.Pointer(ps)), (*C.uint8_t)(b), C.int(bs), (C.int64_t)(pt), (C.int64_t)(dt), (C.int64_t)(po)))
 }
 
+// AvParserChange ...
 func (ctx *AVCodecContext) AvParserChange(ctxtp *ParserContext, pb **uint8, pbs *int, b *uint8, bs, k int) int {
 	return int(C.av_parser_change((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctx), (**C.uint8_t)(unsafe.Pointer(pb)), (*C.int)(unsafe.Pointer(pbs)), (*C.uint8_t)(b), C.int(bs), C.int(k)))
 }
 
+// AvParserInit ...
 func AvParserInit(c int) *ParserContext {
 	return (*ParserContext)(C.av_parser_init(C.int(c)))
 }
 
+// AvParserClose ...
 func AvParserClose(ctxtp *ParserContext) {
 	C.av_parser_close((*C.struct_AVCodecParserContext)(ctxtp))
 }
 
+// AvParserNext ...
 func (p *Parser) AvParserNext() *Parser {
 	return (*Parser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
 }
 
+// AvRegisterCodecParser ...
 func (p *Parser) AvRegisterCodecParser() {
 	C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
 }
 
+// SetTimebase ...
 func (ctx *AVCodecContext) SetTimebase(num1 int, den1 int) {
 	ctx.time_base.num = C.int(num1)
 	ctx.time_base.den = C.int(den1)
 }
 
+// SetEncodeParams2 ...
 func (ctx *AVCodecContext) SetEncodeParams2(width int, height int, pxlFmt PixelFormat, hasBframes bool, gopSize int) {
 	ctx.width = C.int(width)
 	ctx.height = C.int(height)
@@ -197,18 +218,22 @@ func (ctx *AVCodecContext) SetEncodeParams2(width int, height int, pxlFmt PixelF
 	// C.av_opt_set(c.priv_data, "preset", "ultrafast", 0)
 }
 
+// SetEncodeParams ...
 func (ctx *AVCodecContext) SetEncodeParams(width int, height int, pxlFmt PixelFormat) {
 	ctx.SetEncodeParams2(width, height, pxlFmt, false /*no b frames*/, 10)
 }
 
+// AvcodecSendPacket ...
 func (ctx *AVCodecContext) AvcodecSendPacket(packet *Packet) int {
 	return (int)(C.avcodec_send_packet((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(packet)))
 }
 
+// AvcodecReceiveFrame ...
 func (ctx *AVCodecContext) AvcodecReceiveFrame(f *Frame) int {
 	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f)))
 }
 
+// AvseekFlagBackward ...
 const (
 	AvseekFlagBackward = 1 ///< seek backward
 	AvseekFlagByte     = 2 ///< seeking based on position in bytes
@@ -216,46 +241,57 @@ const (
 	AvseekFlagFrame    = 8 ///< seeking based on frame number
 )
 
+// AvFormatGetProbeScore ...
 func (ctx *AVFormatContext) AvFormatGetProbeScore() int {
 	return int(C.av_format_get_probe_score((*C.struct_AVFormatContext)(ctx)))
 }
 
+// AvFormatGetVideoCodec ...
 func (ctx *AVFormatContext) AvFormatGetVideoCodec() *AvCodec {
 	return (*AvCodec)(C.av_format_get_video_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
+// AvFormatSetVideoCodec ...
 func (ctx *AVFormatContext) AvFormatSetVideoCodec(c *AvCodec) {
 	C.av_format_set_video_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
+// AvFormatGetAudioCodec ...
 func (ctx *AVFormatContext) AvFormatGetAudioCodec() *AvCodec {
 	return (*AvCodec)(C.av_format_get_audio_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
+// AvFormatSetAudioCodec ...
 func (ctx *AVFormatContext) AvFormatSetAudioCodec(c *AvCodec) {
 	C.av_format_set_audio_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
+// AvFormatGetSubtitleCodec ...
 func (ctx *AVFormatContext) AvFormatGetSubtitleCodec() *AvCodec {
 	return (*AvCodec)(C.av_format_get_subtitle_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
+// AvFormatSetSubtitleCodec ...
 func (ctx *AVFormatContext) AvFormatSetSubtitleCodec(c *AvCodec) {
 	C.av_format_set_subtitle_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
+// AvFormatGetMetadataHeaderPadding ...
 func (ctx *AVFormatContext) AvFormatGetMetadataHeaderPadding() int {
 	return int(C.av_format_get_metadata_header_padding((*C.struct_AVFormatContext)(ctx)))
 }
 
+// AvFormatSetMetadataHeaderPadding ...
 func (ctx *AVFormatContext) AvFormatSetMetadataHeaderPadding(c int) {
 	C.av_format_set_metadata_header_padding((*C.struct_AVFormatContext)(ctx), C.int(c))
 }
 
+// AvFormatGetOpaque ...
 func (ctx *AVFormatContext) AvFormatGetOpaque() {
 	C.av_format_get_opaque((*C.struct_AVFormatContext)(ctx))
 }
 
+// AvFormatSetOpaque ...
 func (ctx *AVFormatContext) AvFormatSetOpaque(o int) {
 	C.av_format_set_opaque((*C.struct_AVFormatContext)(ctx), unsafe.Pointer(&o))
 }
@@ -280,6 +316,7 @@ func (ctx *AVFormatContext) AvformatNewStream(c *AvCodec) *Stream {
 	return (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
 }
 
+// AvNewProgram ...
 func (ctx *AVFormatContext) AvNewProgram(id int) *AvProgram {
 	return (*AvProgram)(C.av_new_program((*C.struct_AVFormatContext)(ctx), C.int(id)))
 }
@@ -377,6 +414,7 @@ func (ctx *AVFormatContext) AvGetOutputTimestamp(st int, dts, wall *int) int {
 	return int(C.av_get_output_timestamp((*C.struct_AVFormatContext)(ctx), C.int(st), (*C.int64_t)(unsafe.Pointer(&dts)), (*C.int64_t)(unsafe.Pointer(&wall))))
 }
 
+// AvFindDefaultStreamIndex ...
 func (ctx *AVFormatContext) AvFindDefaultStreamIndex() int {
 	return int(C.av_find_default_stream_index((*C.struct_AVFormatContext)(ctx)))
 }
@@ -407,10 +445,12 @@ func (ctx *AVFormatContext) AvformatMatchStreamSpecifier(st *Stream, spec string
 	return int(C.avformat_match_stream_specifier((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), Cspec))
 }
 
+// AvformatQueueAttachedPictures ...
 func (ctx *AVFormatContext) AvformatQueueAttachedPictures() int {
 	return int(C.avformat_queue_attached_pictures((*C.struct_AVFormatContext)(ctx)))
 }
 
+// AvformatNewStream2 ...
 func (ctx *AVFormatContext) AvformatNewStream2(c *AvCodec) *Stream {
 	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
 	stream.codec.pix_fmt = int32(AV_PIX_FMT_YUV)
@@ -420,26 +460,6 @@ func (ctx *AVFormatContext) AvformatNewStream2(c *AvCodec) *Stream {
 	stream.time_base.num = 25
 	return stream
 }
-
-// //av_format_control_message av_format_get_control_message_cb (const Context *s)
-// func (s *AVFormatContext) AvFormatControlMessage() C.av_format_get_control_message_cb {
-// 	return C.av_format_get_control_message_cb((*C.struct_AVFormatContext)(s))
-// }
-
-// //void av_format_set_control_message_cb (Context *s, av_format_control_message callback)
-// func (s *AVFormatContext) AvFormatSetControlMessageCb(c AvFormatControlMessage) C.av_format_get_control_message_cb {
-// 	C.av_format_set_control_message_cb((*C.struct_AVFormatContext)(s), (C.struct_AVFormatControlMessage)(c))
-// }
-
-// //AvCodec * av_format_get_data_codec (const Context *s)
-// func (s *AVFormatContext)AvFormatGetDataCodec() *AvCodec {
-// 	return (*AvCodec)(C.av_format_get_data_codec((*C.struct_AVFormatContext)(s)))
-// }
-
-// //void av_format_set_data_codec (Context *s, AvCodec *c)
-// func (s *AVFormatContext)AvFormatSetDataCodec( c *AvCodec) {
-// 	C.av_format_set_data_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
-// }
 
 //Allocate an empty Context.
 func SwsAllocContext() *SwsContext {
@@ -491,12 +511,12 @@ func (s *SwrContext) SwrClose() {
 	C.swr_close((*C.struct_SwrContext)(s))
 }
 
-//Core conversion functions. Convert audio
+//SwrConvert Core conversion functions. Convert audio
 func (s *SwrContext) SwrConvert(out **uint8, oc int, in **uint8, ic int) int {
 	return int(C.swr_convert((*C.struct_SwrContext)(s), (**C.uint8_t)(unsafe.Pointer(out)), C.int(oc), (**C.uint8_t)(unsafe.Pointer(in)), C.int(ic)))
 }
 
-//Convert the next timestamp from input to output timestamps are in 1/(in_sample_rate * out_sample_rate) units.
+//SwrNextPts Convert the next timestamp from input to output timestamps are in 1/(in_sample_rate * out_sample_rate) units.
 func (s *SwrContext) SwrNextPts(pts int64) int64 {
 	return int64(C.swr_next_pts((*C.struct_SwrContext)(s), C.int64_t(pts)))
 }
@@ -508,7 +528,7 @@ func (s *SwrContext) SwrSetCompensation(sd, cd int) int {
 	return int(C.swr_set_compensation((*C.struct_SwrContext)(s), C.int(sd), C.int(cd)))
 }
 
-//Set a customized input channel mapping.
+//SwrSetChannelMapping Set a customized input channel mapping.
 func (s *SwrContext) SwrSetChannelMapping(cm *int) int {
 	return int(C.swr_set_channel_mapping((*C.struct_SwrContext)(s), (*C.int)(unsafe.Pointer(cm))))
 }
@@ -523,7 +543,7 @@ func (s *SwrContext) SwrDropOutput(c int) int {
 	return int(C.swr_drop_output((*C.struct_SwrContext)(s), C.int(c)))
 }
 
-//Injects the specified number of silence samples.
+//SwrInjectSilence Injects the specified number of silence samples.
 func (s *SwrContext) SwrInjectSilence(c int) int {
 	return int(C.swr_inject_silence((*C.struct_SwrContext)(s), C.int(c)))
 }
@@ -533,7 +553,7 @@ func (s *SwrContext) SwrGetDelay(b int64) int64 {
 	return int64(C.swr_get_delay((*C.struct_SwrContext)(s), C.int64_t(b)))
 }
 
-//Frame based API. Convert the samples in the input Frame and write them to the output Frame.
+//SwrConvertFrame Frame based API. Convert the samples in the input Frame and write them to the output Frame.
 func (s *SwrContext) SwrConvertFrame(o, i *Frame) int {
 	return int(C.swr_convert_frame((*C.struct_SwrContext)(s), (*C.struct_AVFrame)(o), (*C.struct_AVFrame)(i)))
 }
