@@ -108,8 +108,8 @@ func (ctx *AVCodecContext) AvcodecDecodeAudio4(f *Frame, g *int, a *Packet) int 
 }
 
 //Decode the video frame of size avpkt->size from avpkt->data into picture.
-func (ctx *AVCodecContext) AvcodecDecodeVideo2(p *Frame, g *int, a *Packet) int {
-	return int(C.avcodec_decode_video2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(p), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
+func (ctx *AVCodecContext) AvcodecDecodeVideo2(f *Frame, g *int, a *Packet) int {
+	return int(C.avcodec_decode_video2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
 //Decode a subtitle message.
@@ -205,8 +205,8 @@ func (ctx *AVCodecContext) AvcodecSendPacket(packet *Packet) int {
 	return (int)(C.avcodec_send_packet((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(packet)))
 }
 
-func (ctx *AVCodecContext) AvcodecReceiveFrame(frame *Frame) int {
-	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(frame)))
+func (ctx *AVCodecContext) AvcodecReceiveFrame(f *Frame) int {
+	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f)))
 }
 
 const (
@@ -390,13 +390,13 @@ func (ctx *AVFormatContext) AvDumpFormat(i int, url string, io int) {
 }
 
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (ctx *AVFormatContext) AvGuessSampleAspectRatio(st *Stream, fr *Frame) Rational {
-	return newRational(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (ctx *AVFormatContext) AvGuessSampleAspectRatio(st *Stream, f *Frame) Rational {
+	return newRational(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(f)))
 }
 
 //Guess the frame rate, based on both the container and codec information.
-func (ctx *AVFormatContext) AvGuessFrameRate(st *Stream, fr *Frame) Rational {
-	return newRational(C.av_guess_frame_rate((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (ctx *AVFormatContext) AvGuessFrameRate(st *Stream, f *Frame) Rational {
+	return newRational(C.av_guess_frame_rate((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(f)))
 }
 
 //Check if the stream st contained in s is matched by the stream specifier spec.

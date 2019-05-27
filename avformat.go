@@ -51,8 +51,6 @@ type (
 	//CodecId                    C.enum_AVCodecID
 )
 
-type File C.FILE
-
 //Allocate and read the payload of a packet and initialize its fields with default values.
 func (ctxt *AvIOContext) AvGetPacket(pkt *Packet, s int) int {
 	return int(C.av_get_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
@@ -116,7 +114,7 @@ func AvformatNetworkDeinit() int {
 }
 
 //Allocate an Context.
-func AvformatAllocContext() *Context {
+func AvformatAllocContext() *AvFormatContext {
 	return (*Context)(C.avformat_alloc_context())
 }
 

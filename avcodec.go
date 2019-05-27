@@ -26,23 +26,23 @@ type (
 	Parser        C.struct_AVCodecParser
 	ParserContext C.struct_AVCodecParserContext
 	//Dictionary             C.struct_AVDictionary
-	Frame                  C.struct_AVFrame
-	MediaType              C.enum_AVMediaType
+	//Frame                  C.struct_AVFrame
+	//MediaType              C.enum_AVMediaType
 	Packet                 C.struct_AVPacket
 	BitStreamFilter        C.struct_AVBitStreamFilter
 	BitStreamFilterContext C.struct_AVBitStreamFilterContext
-	Rational               C.struct_AVRational
+	//Rational               C.struct_AVRational
 	//Class                         C.struct_AVClass
-	AvCodecParameters             C.struct_AVCodecParameters
-	AvHWAccel                     C.struct_AVHWAccel
-	AvPacketSideData              C.struct_AVPacketSideData
-	AvPanScan                     C.struct_AVPanScan
-	Picture                       C.struct_AVPicture
-	AvProfile                     C.struct_AVProfile
-	AvSubtitle                    C.struct_AVSubtitle
-	AvSubtitleRect                C.struct_AVSubtitleRect
-	RcOverride                    C.struct_RcOverride
-	AvBufferRef                   C.struct_AVBufferRef
+	AvCodecParameters C.struct_AVCodecParameters
+	AvHWAccel         C.struct_AVHWAccel
+	AvPacketSideData  C.struct_AVPacketSideData
+	AvPanScan         C.struct_AVPanScan
+	Picture           C.struct_AVPicture
+	AvProfile         C.struct_AVProfile
+	AvSubtitle        C.struct_AVSubtitle
+	AvSubtitleRect    C.struct_AVSubtitleRect
+	RcOverride        C.struct_RcOverride
+	//AvBufferRef                   C.struct_AVBufferRef
 	AvAudioServiceType            C.enum_AVAudioServiceType
 	AvChromaLocation              C.enum_AVChromaLocation
 	CodecId                       C.enum_AVCodecID
@@ -53,8 +53,8 @@ type (
 	AvDiscard                     C.enum_AVDiscard
 	AvFieldOrder                  C.enum_AVFieldOrder
 	AvPacketSideDataType          C.enum_AVPacketSideDataType
-	PixelFormat                   C.enum_AVPixelFormat
-	AvSampleFormat                C.enum_AVSampleFormat
+	//PixelFormat                   C.enum_AVPixelFormat
+	AvSampleFormat C.enum_AVSampleFormat
 )
 
 func (cp *AvCodecParameters) AvCodecGetId() CodecId {

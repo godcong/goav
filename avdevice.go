@@ -23,7 +23,7 @@ type (
 	AvDeviceInfoList          C.struct_AVDeviceInfoList
 	//InputFormat               C.struct_AVInputFormat
 	//OutputFormat              C.struct_AVOutputFormat
-	AvFormatContext C.struct_AVFormatContext
+	//AVFormatContext C.struct_AVFormatContext
 	//Dictionary                C.struct_AVDictionary
 	AvAppToDevMessageType C.enum_AVAppToDevMessageType
 	AvDevToAppMessageType C.enum_AVDevToAppMessageType
@@ -50,28 +50,28 @@ func AvdeviceRegisterAll() {
 }
 
 //Send control message from application to device.
-func AvdeviceAppToDevControlMessage(s *AvFormatContext, m AvAppToDevMessageType, da int, d uintptr) int {
-	return int(C.avdevice_app_to_dev_control_message((*C.struct_AVFormatContext)(s), (C.enum_AVAppToDevMessageType)(m), unsafe.Pointer(&da), C.size_t(d)))
+func AvdeviceAppToDevControlMessage(ctx *AVFormatContext, m AvAppToDevMessageType, da int, d uintptr) int {
+	return int(C.avdevice_app_to_dev_control_message((*C.struct_AVFormatContext)(ctx), (C.enum_AVAppToDevMessageType)(m), unsafe.Pointer(&da), C.size_t(d)))
 }
 
 //Send control message from device to application.
-func AvdeviceDevToAppControlMessage(fcxt *AvFormatContext, m AvDevToAppMessageType, da int, d uintptr) int {
-	return int(C.avdevice_dev_to_app_control_message((*C.struct_AVFormatContext)(fcxt), (C.enum_AVDevToAppMessageType)(m), unsafe.Pointer(&da), C.size_t(d)))
+func AvdeviceDevToAppControlMessage(ctx *AVFormatContext, m AvDevToAppMessageType, da int, d uintptr) int {
+	return int(C.avdevice_dev_to_app_control_message((*C.struct_AVFormatContext)(ctx), (C.enum_AVDevToAppMessageType)(m), unsafe.Pointer(&da), C.size_t(d)))
 }
 
 //Initialize capabilities probing API based on AvOption API.
-func AvdeviceCapabilitiesCreate(c **AvDeviceCapabilitiesQuery, s *AvFormatContext, d **Dictionary) int {
-	return int(C.avdevice_capabilities_create((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(s), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
+func AvdeviceCapabilitiesCreate(c **AvDeviceCapabilitiesQuery, ctx *AVFormatContext, d **Dictionary) int {
+	return int(C.avdevice_capabilities_create((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
 //Free resources created by avdevice_capabilities_create()
-func AvdeviceCapabilitiesFree(c **AvDeviceCapabilitiesQuery, s *AvFormatContext) {
-	C.avdevice_capabilities_free((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(s))
+func AvdeviceCapabilitiesFree(c **AvDeviceCapabilitiesQuery, ctx *AVFormatContext) {
+	C.avdevice_capabilities_free((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(ctx))
 }
 
 //List devices.
-func AvdeviceListDevices(s *AvFormatContext, d **AvDeviceInfoList) int {
-	return int(C.avdevice_list_devices((*C.struct_AVFormatContext)(s), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(d))))
+func AvdeviceListDevices(ctx *AVFormatContext, d **AvDeviceInfoList) int {
+	return int(C.avdevice_list_devices((*C.struct_AVFormatContext)(ctx), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(d))))
 }
 
 //Convenient function to free result of avdeviceListDevices().
