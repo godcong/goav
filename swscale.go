@@ -19,7 +19,7 @@ import (
 )
 
 type (
-	Context     C.struct_SwsContext
+	//Context     C.struct_SwsContext
 	Filter      C.struct_SwsFilter
 	Vector      C.struct_SwsVector
 	Class       C.struct_AVClass

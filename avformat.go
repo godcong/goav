@@ -23,10 +23,10 @@ import (
 )
 
 type (
-	AvProbeData  C.struct_AVProbeData
-	InputFormat  C.struct_AVInputFormat
-	OutputFormat C.struct_AVOutputFormat
-	//Context                    C.struct_AVFormatContext
+	AvProbeData     C.struct_AVProbeData
+	InputFormat     C.struct_AVInputFormat
+	OutputFormat    C.struct_AVOutputFormat
+	AVFormatContext C.struct_AVFormatContext
 	//Frame                      C.struct_AVFrame
 	CodecContext       C.struct_AVCodecContext
 	AvIndexEntry       C.struct_AVIndexEntry
