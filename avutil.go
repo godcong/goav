@@ -15,16 +15,26 @@ import (
 	"unsafe"
 )
 
-// AVOptions ...
-type (
-	AVOptions     C.struct_AVOptions
-	AVTree        C.struct_AVTree
-	AVRational    C.struct_AVRational
-	AVMediaType   C.enum_AVMediaType
-	AVPictureType C.enum_AVPictureType
-	AVPixelFormat C.enum_AVPixelFormat
-	File          C.FILE
-)
+// Options ...
+type Options C.struct_AVOptions
+
+// Tree ...
+type Tree C.struct_AVTree
+
+// Rational ...
+type Rational C.struct_AVRational
+
+// MediaType ...
+type MediaType C.enum_AVMediaType
+
+// PictureType ...
+type PictureType C.enum_AVPictureType
+
+// PixelFormat ...
+type PixelFormat C.enum_AVPixelFormat
+
+// File ...
+type File C.FILE
 
 //AVUtilVersion Return the LIBAvUTIL_VERSION_INT constant.
 func AVUtilVersion() uint {
@@ -42,12 +52,12 @@ func AVUtilLicense() string {
 }
 
 //AVGetMediaTypeString Return a string describing the media_type enum, NULL if media_type is unknown.
-func AVGetMediaTypeString(mt AVMediaType) string {
+func AVGetMediaTypeString(mt MediaType) string {
 	return C.GoString(C.av_get_media_type_string((C.enum_AVMediaType)(mt)))
 }
 
 //AVGetPictureTypeChar Return a single letter to describe the given picture type pict_type.
-func AVGetPictureTypeChar(pt AVPictureType) string {
+func AVGetPictureTypeChar(pt PictureType) string {
 	return string(C.av_get_picture_type_char((C.enum_AVPictureType)(pt)))
 }
 
@@ -68,6 +78,6 @@ func AVFopenUtf8(p, m string) *File {
 }
 
 //AVGetTimeBaseQ Return the fractional representation of the internal time base.
-func AVGetTimeBaseQ() AVRational {
-	return (AVRational)(C.av_get_time_base_q())
+func AVGetTimeBaseQ() Rational {
+	return (Rational)(C.av_get_time_base_q())
 }

@@ -29,7 +29,7 @@ import (
 )
 
 // SaveFrame writes a single frame to disk as a PPM file
-func SaveFrame(frame *goav.Frame, width, height, frameNumber int) {
+func SaveFrame(frame *goav.AVFrame, width, height, frameNumber int) {
 	// Open file
 	fileName := fmt.Sprintf("frame%d.ppm", frameNumber)
 	file, err := os.Create(fileName)
@@ -85,7 +85,7 @@ func main() {
 			// Get a pointer to the codec context for the video stream
 			pCodecCtxOrig := pFormatContext.Streams()[i].Codec()
 			// Find the decoder for the video stream
-			pCodec := goav.AVCodecFindDecoder(goav.AVCodecID(pCodecCtxOrig.GetCodecID()))
+			pCodec := goav.AVCodecFindDecoder(goav.CodecID(pCodecCtxOrig.GetCodecID()))
 			if pCodec == nil {
 				fmt.Println("Unsupported codec!")
 				os.Exit(1)
@@ -109,7 +109,7 @@ func main() {
 			// Allocate an AVFrame structure
 			pFrameRGB := goav.AvFrameAlloc()
 			if pFrameRGB == nil {
-				fmt.Println("Unable to allocate RGB Frame")
+				fmt.Println("Unable to allocate RGB AVFrame")
 				os.Exit(1)
 			}
 
@@ -120,8 +120,8 @@ func main() {
 
 			// Assign appropriate parts of buffer to image planes in pFrameRGB
 			// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
-			// of AVPicture
-			avp := (*goav.AVPicture)(unsafe.Pointer(pFrameRGB))
+			// of Picture
+			avp := (*goav.Picture)(unsafe.Pointer(pFrameRGB))
 			avp.AvpictureFill((*uint8)(buffer), goav.AvPixFmtRgb24, pCodecCtx.Width(), pCodecCtx.Height())
 
 			// initialize SWS context for software scaling
@@ -150,7 +150,7 @@ func main() {
 						fmt.Printf("Error while sending a packet to the decoder: %s\n", goav.ErrorFromCode(response))
 					}
 					for response >= 0 {
-						response = pCodecCtx.AVCodecReceiveFrame((*goav.Frame)(unsafe.Pointer(pFrame)))
+						response = pCodecCtx.AVCodecReceiveFrame((*goav.AVFrame)(unsafe.Pointer(pFrame)))
 						if response == goav.AvErrorEAGAIN || response == goav.AvErrorEOF {
 							break
 						} else if response < 0 {

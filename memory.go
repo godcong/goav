@@ -14,8 +14,8 @@ import (
 	"unsafe"
 )
 
-//Allocate a block of size bytes with alignment suitable for all memory accesses (including vectors if available on the CPU).
-func AvMalloc(s uintptr) unsafe.Pointer {
+//AVMalloc Allocate a block of size bytes with alignment suitable for all memory accesses (including vectors if available on the CPU).
+func AVMalloc(s uintptr) unsafe.Pointer {
 	return unsafe.Pointer(C.av_malloc(C.size_t(s)))
 }
 
@@ -24,43 +24,43 @@ func AvMallocArray(n, s uintptr) unsafe.Pointer {
 	return C.av_malloc_array(C.size_t(n), C.size_t(s))
 }
 
-//Allocate or reallocate a block of memory.
-func AvRealloc(p *int, s uintptr) unsafe.Pointer {
+//AVRealloc Allocate or reallocate a block of memory.
+func AVRealloc(p *int, s uintptr) unsafe.Pointer {
 	return C.av_realloc(unsafe.Pointer(&p), C.size_t(s))
 }
 
-//Allocate or reallocate a block of memory.
-func AvReallocF(p int, n, e uintptr) unsafe.Pointer {
+//AVReallocF Allocate or reallocate a block of memory.
+func AVReallocF(p int, n, e uintptr) unsafe.Pointer {
 	return C.av_realloc_f(unsafe.Pointer(&p), C.size_t(n), C.size_t(e))
 }
 
-//Allocate or reallocate a block of memory.
-func AvReallocp(p int, s uintptr) int {
+//AVReallocp Allocate or reallocate a block of memory.
+func AVReallocp(p int, s uintptr) int {
 	return int(C.av_reallocp(unsafe.Pointer(&p), C.size_t(s)))
 }
 
-// AvReallocArray ...
-func AvReallocArray(p int, n, s uintptr) unsafe.Pointer {
+// AVReallocArray ...
+func AVReallocArray(p int, n, s uintptr) unsafe.Pointer {
 	return C.av_realloc_array(unsafe.Pointer(&p), C.size_t(n), C.size_t(s))
 }
 
-// AvReallocpArray ...
-func AvReallocpArray(p int, n, s uintptr) int {
+// AVReallocpArray ...
+func AVReallocpArray(p int, n, s uintptr) int {
 	return int(C.av_reallocp_array(unsafe.Pointer(&p), C.size_t(n), C.size_t(s)))
 }
 
-//Free a memory block which has been allocated with av_malloc(z)() or av_realloc().
-func AvFree(p unsafe.Pointer) {
+//AVFree Free a memory block which has been allocated with av_malloc(z)() or av_realloc().
+func AVFree(p unsafe.Pointer) {
 	C.av_free(p)
 }
 
-//Allocate a block of size bytes with alignment suitable for all memory accesses (including vectors if available on the CPU) and zero all the bytes of the block.
-func AvMallocz(s uintptr) unsafe.Pointer {
+//AVMallocz Allocate a block of size bytes with alignment suitable for all memory accesses (including vectors if available on the CPU) and zero all the bytes of the block.
+func AVMallocz(s uintptr) unsafe.Pointer {
 	return C.av_mallocz(C.size_t(s))
 }
 
-//Allocate a block of nmemb * size bytes with alignment suitable for all memory accesses (including vectors if available on the CPU) and zero all the bytes of the block.
-func AvCalloc(n, s uintptr) unsafe.Pointer {
+//AVCalloc Allocate a block of nmemb * size bytes with alignment suitable for all memory accesses (including vectors if available on the CPU) and zero all the bytes of the block.
+func AVCalloc(n, s uintptr) unsafe.Pointer {
 	return C.av_calloc(C.size_t(n), C.size_t(s))
 }
 
@@ -69,19 +69,19 @@ func AvMalloczArray(n, s uintptr) unsafe.Pointer {
 	return C.av_mallocz_array(C.size_t(n), C.size_t(s))
 }
 
-//Duplicate the string s.
-func AvStrdup(s string) string {
+//AVStrdup Duplicate the string s.
+func AVStrdup(s string) string {
 	return C.GoString(C.av_strdup(C.CString(s)))
 }
 
-//char * 	av_strndup (const char *s, size_t len) av_malloc_attrib
+//AVStrndup char * 	av_strndup (const char *s, size_t len) av_malloc_attrib
 //Duplicate a substring of the string s.
-func AvStrndup(s string, l uintptr) string {
+func AVStrndup(s string, l uintptr) string {
 	return C.GoString(C.av_strndup(C.CString(s), C.size_t(l)))
 }
 
-//Duplicate the buffer p.
-func AvMemdup(p *int, s uintptr) unsafe.Pointer {
+//AVMemdup Duplicate the buffer p.
+func AVMemdup(p *int, s uintptr) unsafe.Pointer {
 	return C.av_memdup(unsafe.Pointer(p), C.size_t(s))
 }
 
@@ -90,7 +90,7 @@ func AVFreep(p unsafe.Pointer) {
 	C.av_freep(p)
 }
 
-//Add an element to a dynamic array.
+//AVDynArrayAdd Add an element to a dynamic array.
 func AVDynArrayAdd(t unsafe.Pointer, n *int, e unsafe.Pointer) {
 	C.av_dynarray_add(t, (*C.int)(unsafe.Pointer(n)), e)
 }

@@ -16,75 +16,80 @@ import (
 )
 
 // Filter ...
-type (
-	Filter          C.struct_AVFilter
-	AVFilterContext C.struct_AVFilterContext
-	Link            C.struct_AVFilterLink
-	Graph           C.struct_AVFilterGraph
-	Input           C.struct_AVFilterInOut
-	Pad             C.struct_AVFilterPad
-	//Dictionary C.struct_AVDictionary
-	//Class      C.struct_AVClass
-	//AVMediaType  C.enum_AVMediaType
-)
+type Filter C.struct_AVFilter
 
-//Return the LIBAvFILTER_VERSION_INT constant.
+// FilterContext ...
+type FilterContext C.struct_AVFilterContext
+
+// FilterLink ...
+type FilterLink C.struct_AVFilterLink
+
+// FilterGraph ...
+type FilterGraph C.struct_AVFilterGraph
+
+// FilterInOut ...
+type FilterInOut C.struct_AVFilterInOut
+
+// FilterPad ...
+type FilterPad C.struct_AVFilterPad
+
+//AVFilterVersion AVFilterVersion Return the LIBAvFILTER_VERSION_INT constant.
 func AVFilterVersion() uint {
 	return uint(C.avfilter_version())
 }
 
-//Return the libavfilter build-time configuration.
+//AVFilterConfiguration Return the libavfilter build-time configuration.
 func AVFilterConfiguration() string {
 	return C.GoString(C.avfilter_configuration())
 }
 
-//Return the libavfilter license.
+//AVFilterLicense Return the libavfilter license.
 func AVFilterLicense() string {
 	return C.GoString(C.avfilter_license())
 }
 
 //AVFilterPadCount Get the number of elements in a NULL-terminated array of Pads (e.g.
-func AVFilterPadCount(p *Pad) int {
+func AVFilterPadCount(p *FilterPad) int {
 	return int(C.avfilter_pad_count((*C.struct_AVFilterPad)(p)))
 }
 
-//AVFilterPadGetName Get the name of an Pad.
-func AVFilterPadGetName(p *Pad, pi int) string {
+//AVFilterPadGetName Get the name of an FilterPad.
+func AVFilterPadGetName(p *FilterPad, pi int) string {
 	return C.GoString(C.avfilter_pad_get_name((*C.struct_AVFilterPad)(p), C.int(pi)))
 }
 
-//AVFilterPadGetType Get the type of an Pad.
-func AVFilterPadGetType(p *Pad, pi int) AVMediaType {
-	return (AVMediaType)(C.avfilter_pad_get_type((*C.struct_AVFilterPad)(p), C.int(pi)))
+//AVFilterPadGetType Get the type of an FilterPad.
+func AVFilterPadGetType(p *FilterPad, pi int) MediaType {
+	return (MediaType)(C.avfilter_pad_get_type((*C.struct_AVFilterPad)(p), C.int(pi)))
 }
 
-//AVFilterLink Link two filters together.
-func AVFilterLink(s *AVFilterContext, sp uint, d *AVFilterContext, dp uint) int {
+//AVFilterLink FilterLink two filters together.
+func AVFilterLink(s *FilterContext, sp uint, d *FilterContext, dp uint) int {
 	return int(C.avfilter_link((*C.struct_AVFilterContext)(s), C.uint(sp), (*C.struct_AVFilterContext)(d), C.uint(dp)))
 }
 
 //AVFilterLinkFree Free the link in *link, and set its pointer to NULL.
-func AVFilterLinkFree(l **Link) {
+func AVFilterLinkFree(l **FilterLink) {
 	C.avfilter_link_free((**C.struct_AVFilterLink)(unsafe.Pointer(l)))
 }
 
 //AVFilterLinkGetChannels Get the number of channels of a link.
-func AVFilterLinkGetChannels(l *Link) int {
+func AVFilterLinkGetChannels(l *FilterLink) int {
 	return int(C.avfilter_link_get_channels((*C.struct_AVFilterLink)(l)))
 }
 
 //AVFilterLinkSetClosed Set the closed field of a link.
-func AVFilterLinkSetClosed(l *Link, c int) {
+func AVFilterLinkSetClosed(l *FilterLink, c int) {
 	C.avfilter_link_set_closed((*C.struct_AVFilterLink)(l), C.int(c))
 }
 
 //AVFilterConfigLinks Negotiate the media format, dimensions, etc of all inputs to a filter.
-func AVFilterConfigLinks(f *AVFilterContext) int {
+func AVFilterConfigLinks(f *FilterContext) int {
 	return int(C.avfilter_config_links((*C.struct_AVFilterContext)(f)))
 }
 
 //AVFilterProcessCommand Make the filter instance process a command.
-func AVFilterProcessCommand(f *AVFilterContext, cmd, arg, res string, l, fl int) int {
+func AVFilterProcessCommand(f *FilterContext, cmd, arg, res string, l, fl int) int {
 	return int(C.avfilter_process_command((*C.struct_AVFilterContext)(f), C.CString(cmd), C.CString(arg), C.CString(res), C.int(l), C.int(fl)))
 }
 
@@ -94,22 +99,22 @@ func AVFilterRegisterAll() {
 }
 
 //AVFilterInitStr Initialize a filter with the supplied parameters.
-func (c *AVFilterContext) AVFilterInitStr(args string) int {
+func (c *FilterContext) AVFilterInitStr(args string) int {
 	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(c), C.CString(args)))
 }
 
 //AVFilterInitDict Initialize a filter with the supplied dictionary of options.
-func (c *AVFilterContext) AVFilterInitDict(o **Dictionary) int {
+func (c *FilterContext) AVFilterInitDict(o **AVDictionary) int {
 	return int(C.avfilter_init_dict((*C.struct_AVFilterContext)(c), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 
 //AVFilterFree Free a filter context.
-func (c *AVFilterContext) AVFilterFree() {
+func (c *FilterContext) AVFilterFree() {
 	C.avfilter_free((*C.struct_AVFilterContext)(c))
 }
 
 //AVFilterInsertFilter Insert a filter in the middle of an existing link.
-func AVFilterInsertFilter(l *Link, f *AVFilterContext, fsi, fdi uint) int {
+func AVFilterInsertFilter(l *FilterLink, f *FilterContext, fsi, fdi uint) int {
 	return int(C.avfilter_insert_filter((*C.struct_AVFilterLink)(l), (*C.struct_AVFilterContext)(f), C.uint(fsi), C.uint(fdi)))
 }
 
@@ -118,12 +123,12 @@ func AVFilterGetClass() *Class {
 	return (*Class)(C.avfilter_get_class())
 }
 
-//AVFilterInOutAlloc Allocate a single Input entry.
-func AVFilterInOutAlloc() *Input {
-	return (*Input)(C.avfilter_inout_alloc())
+//AVFilterInOutAlloc Allocate a single FilterInOut entry.
+func AVFilterInOutAlloc() *FilterInOut {
+	return (*FilterInOut)(C.avfilter_inout_alloc())
 }
 
-//AVFilterInOutFree Free the supplied list of Input and set *inout to NULL.
-func AVFilterInOutFree(i *Input) {
+//AVFilterInOutFree Free the supplied list of FilterInOut and set *inout to NULL.
+func AVFilterInOutFree(i *FilterInOut) {
 	C.avfilter_inout_free((**C.struct_AVFilterInOut)(unsafe.Pointer(i)))
 }

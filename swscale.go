@@ -19,50 +19,53 @@ import (
 )
 
 // SwsContext ...
-type (
-	SwsContext C.struct_SwsContext
-	//Filter     C.struct_SwsFilter
-	Vector C.struct_SwsVector
-	Class  C.struct_AVClass
-	//AVPixelFormat C.enum_AVPixelFormat
-)
+type SwsContext C.struct_SwsContext
 
-//Return the LIBSWSCALE_VERSION_INT constant.
+// SwsFilter ...
+type SwsFilter C.struct_SwsFilter
+
+// SwsVector ...
+type SwsVector C.struct_SwsVector
+
+// Class ...
+type Class C.struct_AVClass
+
+//SwscaleVersion Return the LIBSWSCALE_VERSION_INT constant.
 func SwscaleVersion() uint {
 	return uint(C.swscale_version())
 }
 
-//Return the libswscale build-time configuration.
+//SwscaleConfiguration Return the libswscale build-time configuration.
 func SwscaleConfiguration() string {
 	return C.GoString(C.swscale_configuration())
 }
 
-//Return the libswscale license.
+//SwscaleLicense Return the libswscale license.
 func SwscaleLicense() string {
 	return C.GoString(C.swscale_license())
 }
 
-//Return a pointer to yuv<->rgb coefficients for the given colorspace suitable for sws_setColorspaceDetails().
-func SwsGetcoefficients(c int) *int {
+//SwsGetCoefficients Return a pointer to yuv<->rgb coefficients for the given colorspace suitable for sws_setColorspaceDetails().
+func SwsGetCoefficients(c int) *int {
 	return (*int)(unsafe.Pointer(C.sws_getCoefficients(C.int(c))))
 }
 
-//Return a positive value if pix_fmt is a supported input format, 0 otherwise.
-func SwsIssupportedinput(p AVPixelFormat) int {
+//SwsIsSupportedInput Return a positive value if pix_fmt is a supported input format, 0 otherwise.
+func SwsIsSupportedInput(p PixelFormat) int {
 	return int(C.sws_isSupportedInput((C.enum_AVPixelFormat)(p)))
 }
 
-//Return a positive value if pix_fmt is a supported output format, 0 otherwise.
-func SwsIssupportedoutput(p AVPixelFormat) int {
+//SwsIsSupportedOutput Return a positive value if pix_fmt is a supported output format, 0 otherwise.
+func SwsIsSupportedOutput(p PixelFormat) int {
 	return int(C.sws_isSupportedOutput((C.enum_AVPixelFormat)(p)))
 }
 
 // SwsIssupportedendiannessconversion ...
-func SwsIssupportedendiannessconversion(p AVPixelFormat) int {
+func SwsIssupportedendiannessconversion(p PixelFormat) int {
 	return int(C.sws_isSupportedEndiannessConversion((C.enum_AVPixelFormat)(p)))
 }
 
-////Scale the image slice in srcSlice and put the resulting scaled slice in the image in dst.
+//SwsScale Scale the image slice in srcSlice and put the resulting scaled slice in the image in dst.
 func SwsScale(ctxt *SwsContext, src *uint8, str int, y, h int, d *uint8, ds int) int {
 	cctxt := (*C.struct_SwsContext)(unsafe.Pointer(ctxt))
 	csrc := (*C.uint8_t)(unsafe.Pointer(src))

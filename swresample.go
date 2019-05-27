@@ -14,32 +14,32 @@ import "C"
 // SwrContext ...
 type (
 	SwrContext C.struct_SwrContext
-	//Frame C.struct_AVFrame
+	//AVFrame C.struct_AVFrame
 	//Class C.struct_AVClass
 	//AvSampleFormat C.enum_AVSampleFormat
 )
 
-//Get the Class for SwrContext.
+//SwrGetClass Get the Class for SwrContext.
 func SwrGetClass() *Class {
 	return (*Class)(C.swr_get_class())
 }
 
-//SwrContext constructor functions.Allocate SwrContext.
+//SwrAlloc SwrContext constructor functions.Allocate SwrContext.
 func SwrAlloc() *SwrContext {
 	return (*SwrContext)(C.swr_alloc())
 }
 
-//Configuration accessors
-func SwresampleVersion() uint {
+//SwreSampleVersion Configuration accessors
+func SwreSampleVersion() uint {
 	return uint(C.swresample_version())
 }
 
-// SwresampleConfiguration ...
-func SwresampleConfiguration() string {
+// SwreSampleConfiguration ...
+func SwreSampleConfiguration() string {
 	return C.GoString(C.swresample_configuration())
 }
 
-// SwresampleLicense ...
-func SwresampleLicense() string {
+// SwreSampleLicense ...
+func SwreSampleLicense() string {
 	return C.GoString(C.swresample_license())
 }

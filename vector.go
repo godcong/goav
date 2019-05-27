@@ -10,67 +10,67 @@ import (
 	"unsafe"
 )
 
-//Allocate and return an uninitialized vector with length coefficients.
-func SwsAllocvec(l int) *Vector {
-	return (*Vector)(C.sws_allocVec(C.int(l)))
+//SwsAllocVec Allocate and return an uninitialized vector with length coefficients.
+func SwsAllocVec(l int) *SwsVector {
+	return (*SwsVector)(C.sws_allocVec(C.int(l)))
 }
 
-//Return a normalized Gaussian curve used to filter stuff quality = 3 is high quality, lower is lower quality.
-func SwsGetgaussianvec(v, q float64) *Vector {
-	return (*Vector)(unsafe.Pointer(C.sws_getGaussianVec(C.double(v), C.double(q))))
+//SwsGetGaussianVec Return a normalized Gaussian curve used to filter stuff quality = 3 is high quality, lower is lower quality.
+func SwsGetGaussianVec(v, q float64) *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_getGaussianVec(C.double(v), C.double(q))))
 }
 
-//Allocate and return a vector with length coefficients, all with the same value c.
-func SwsGetconstvec(c float64, l int) *Vector {
-	return (*Vector)(unsafe.Pointer(C.sws_getConstVec(C.double(c), C.int(l))))
+//SwsGetConstVec Allocate and return a vector with length coefficients, all with the same value c.
+func SwsGetConstVec(c float64, l int) *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_getConstVec(C.double(c), C.int(l))))
 }
 
-//Allocate and return a vector with just one coefficient, with value 1.0.
-func SwsGetidentityvec() *Vector {
-	return (*Vector)(unsafe.Pointer(C.sws_getIdentityVec()))
+//SwsGetIdentityVec Allocate and return a vector with just one coefficient, with value 1.0.
+func SwsGetIdentityVec() *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_getIdentityVec()))
 }
 
-//Scale all the coefficients of a by the scalar value.
-func (a *Vector) SwsScalevec(s float64) {
+//SwsScaleVec Scale all the coefficients of a by the scalar value.
+func (a *SwsVector) SwsScaleVec(s float64) {
 	C.sws_scaleVec((*C.struct_SwsVector)(unsafe.Pointer(a)), C.double(s))
 }
 
-//Scale all the coefficients of a so that their sum equals height.
-func (a *Vector) SwsNormalizevec(h float64) {
+//SwsNormalizeVec Scale all the coefficients of a so that their sum equals height.
+func (a *SwsVector) SwsNormalizeVec(h float64) {
 	C.sws_normalizeVec((*C.struct_SwsVector)(a), C.double(h))
 }
 
 // SwsConvvec ...
-func (a *Vector) SwsConvvec(b *Vector) {
+func (a *SwsVector) SwsConvvec(b *SwsVector) {
 	C.sws_convVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
 // SwsAddvec ...
-func (a *Vector) SwsAddvec(b *Vector) {
+func (a *SwsVector) SwsAddvec(b *SwsVector) {
 	C.sws_addVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
 // SwsSubvec ...
-func (a *Vector) SwsSubvec(b *Vector) {
+func (a *SwsVector) SwsSubvec(b *SwsVector) {
 	C.sws_subVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
-// SwsShiftvec ...
-func (a *Vector) SwsShiftvec(s int) {
+// SwsShiftVec ...
+func (a *SwsVector) SwsShiftVec(s int) {
 	C.sws_shiftVec((*C.struct_SwsVector)(a), C.int(s))
 }
 
-//Allocate and return a clone of the vector a, that is a vector with the same coefficients as a.
-func (a *Vector) SwsClonevec() *Vector {
-	return (*Vector)(unsafe.Pointer(C.sws_cloneVec((*C.struct_SwsVector)(a))))
+//SwsCloneVec Allocate and return a clone of the vector a, that is a vector with the same coefficients as a.
+func (a *SwsVector) SwsCloneVec() *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_cloneVec((*C.struct_SwsVector)(a))))
 }
 
 //SwsPrintVec2 Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
-func (a *Vector) SwsPrintVec2(lctx *Class, l int) {
+func (a *SwsVector) SwsPrintVec2(lctx *Class, l int) {
 	C.sws_printVec2((*C.struct_SwsVector)(a), (*C.struct_AVClass)(lctx), C.int(l))
 }
 
 // SwsFreevec ...
-func (a *Vector) SwsFreevec() {
+func (a *SwsVector) SwsFreevec() {
 	C.sws_freeVec((*C.struct_SwsVector)(a))
 }
