@@ -101,8 +101,8 @@ func (c *Codec) AvGetProfileName(p int) string {
 }
 
 //Allocate an Context and set its fields to default values.
-func (c *Codec) AvcodecAllocContext3() *Context {
-	return (*Context)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
+func (c *Codec) AvcodecAllocContext3() *AVCodecContext {
+	return (*AVCodecContext)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
 }
 
 func (c *Codec) AvCodecIsEncoder() int {
@@ -214,7 +214,7 @@ func AvGetCodecTagString(b string, bf uintptr, c uint) uintptr {
 	return uintptr(C.av_get_codec_tag_string(C.CString(b), C.size_t(bf), C.uint(c)))
 }
 
-func AvcodecString(b string, bs int, ctxt *Context, e int) {
+func AvcodecString(b string, bs int, ctxt *AVCodecContext, e int) {
 	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(ctxt), C.int(e))
 }
 

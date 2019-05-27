@@ -16,12 +16,12 @@ import (
 )
 
 type (
-	//Filter     C.struct_AVFilter
-	//Context    C.struct_AVFilterContext
-	Link  C.struct_AVFilterLink
-	Graph C.struct_AVFilterGraph
-	Input C.struct_AVFilterInOut
-	Pad   C.struct_AVFilterPad
+	Filter          C.struct_AVFilter
+	AVFilterContext C.struct_AVFilterContext
+	Link            C.struct_AVFilterLink
+	Graph           C.struct_AVFilterGraph
+	Input           C.struct_AVFilterInOut
+	Pad             C.struct_AVFilterPad
 	//Dictionary C.struct_AVDictionary
 	//Class      C.struct_AVClass
 	//MediaType  C.enum_AVMediaType
@@ -58,7 +58,7 @@ func AvfilterPadGetType(p *Pad, pi int) MediaType {
 }
 
 //Link two filters together.
-func AvfilterLink(s *Context, sp uint, d *Context, dp uint) int {
+func AvfilterLink(s *AVFilterContext, sp uint, d *AVFilterContext, dp uint) int {
 	return int(C.avfilter_link((*C.struct_AVFilterContext)(s), C.uint(sp), (*C.struct_AVFilterContext)(d), C.uint(dp)))
 }
 
@@ -78,12 +78,12 @@ func AvfilterLinkSetClosed(l *Link, c int) {
 }
 
 //Negotiate the media format, dimensions, etc of all inputs to a filter.
-func AvfilterConfigLinks(f *Context) int {
+func AvfilterConfigLinks(f *AVFilterContext) int {
 	return int(C.avfilter_config_links((*C.struct_AVFilterContext)(f)))
 }
 
 //Make the filter instance process a command.
-func AvfilterProcessCommand(f *Context, cmd, arg, res string, l, fl int) int {
+func AvfilterProcessCommand(f *AVFilterContext, cmd, arg, res string, l, fl int) int {
 	return int(C.avfilter_process_command((*C.struct_AVFilterContext)(f), C.CString(cmd), C.CString(arg), C.CString(res), C.int(l), C.int(fl)))
 }
 
@@ -93,22 +93,22 @@ func AvfilterRegisterAll() {
 }
 
 //Initialize a filter with the supplied parameters.
-func (c *Context) AvfilterInitStr(args string) int {
+func (c *AVFilterContext) AvfilterInitStr(args string) int {
 	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(c), C.CString(args)))
 }
 
 //Initialize a filter with the supplied dictionary of options.
-func (c *Context) AvfilterInitDict(o **Dictionary) int {
+func (c *AVFilterContext) AvfilterInitDict(o **Dictionary) int {
 	return int(C.avfilter_init_dict((*C.struct_AVFilterContext)(c), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 
 //Free a filter context.
-func (c *Context) AvfilterFree() {
+func (c *AVFilterContext) AvfilterFree() {
 	C.avfilter_free((*C.struct_AVFilterContext)(c))
 }
 
 //Insert a filter in the middle of an existing link.
-func AvfilterInsertFilter(l *Link, f *Context, fsi, fdi uint) int {
+func AvfilterInsertFilter(l *Link, f *AVFilterContext, fsi, fdi uint) int {
 	return int(C.avfilter_insert_filter((*C.struct_AVFilterLink)(l), (*C.struct_AVFilterContext)(f), C.uint(fsi), C.uint(fdi)))
 }
 

@@ -20,9 +20,9 @@ import (
 
 type (
 	SwsContext C.struct_SwsContext
-	Filter     C.struct_SwsFilter
-	Vector     C.struct_SwsVector
-	Class      C.struct_AVClass
+	//Filter     C.struct_SwsFilter
+	Vector C.struct_SwsVector
+	Class  C.struct_AVClass
 	//PixelFormat C.enum_AVPixelFormat
 )
 
