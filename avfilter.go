@@ -16,15 +16,15 @@ import (
 )
 
 type (
-	Filter     C.struct_AVFilter
-	Context    C.struct_AVFilterContext
-	Link       C.struct_AVFilterLink
-	Graph      C.struct_AVFilterGraph
-	Input      C.struct_AVFilterInOut
-	Pad        C.struct_AVFilterPad
-	Dictionary C.struct_AVDictionary
-	Class      C.struct_AVClass
-	MediaType  C.enum_AVMediaType
+	//Filter     C.struct_AVFilter
+	//Context    C.struct_AVFilterContext
+	Link  C.struct_AVFilterLink
+	Graph C.struct_AVFilterGraph
+	Input C.struct_AVFilterInOut
+	Pad   C.struct_AVFilterPad
+	//Dictionary C.struct_AVDictionary
+	//Class      C.struct_AVClass
+	//MediaType  C.enum_AVMediaType
 )
 
 //Return the LIBAvFILTER_VERSION_INT constant.
@@ -93,18 +93,18 @@ func AvfilterRegisterAll() {
 }
 
 //Initialize a filter with the supplied parameters.
-func (ctx *Context) AvfilterInitStr(args string) int {
-	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(ctx), C.CString(args)))
+func (c *Context) AvfilterInitStr(args string) int {
+	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(c), C.CString(args)))
 }
 
 //Initialize a filter with the supplied dictionary of options.
-func (ctx *Context) AvfilterInitDict(o **Dictionary) int {
-	return int(C.avfilter_init_dict((*C.struct_AVFilterContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
+func (c *Context) AvfilterInitDict(o **Dictionary) int {
+	return int(C.avfilter_init_dict((*C.struct_AVFilterContext)(c), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 
 //Free a filter context.
-func (ctx *Context) AvfilterFree() {
-	C.avfilter_free((*C.struct_AVFilterContext)(ctx))
+func (c *Context) AvfilterFree() {
+	C.avfilter_free((*C.struct_AVFilterContext)(c))
 }
 
 //Insert a filter in the middle of an existing link.

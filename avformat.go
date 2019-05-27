@@ -23,32 +23,32 @@ import (
 )
 
 type (
-	AvProbeData                C.struct_AVProbeData
-	InputFormat                C.struct_AVInputFormat
-	OutputFormat               C.struct_AVOutputFormat
-	Context                    C.struct_AVFormatContext
-	Frame                      C.struct_AVFrame
-	CodecContext               C.struct_AVCodecContext
-	AvIndexEntry               C.struct_AVIndexEntry
-	Stream                     C.struct_AVStream
-	AvProgram                  C.struct_AVProgram
-	AvChapter                  C.struct_AVChapter
-	AvPacketList               C.struct_AVPacketList
-	CodecParserContext         C.struct_AVCodecParserContext
-	AvIOContext                C.struct_AVIOContext
-	AvCodec                    C.struct_AVCodec
-	AvCodecTag                 C.struct_AVCodecTag
-	Class                      C.struct_AVClass
-	AvFormatInternal           C.struct_AVFormatInternal
-	AvIOInterruptCB            C.struct_AVIOInterruptCB
-	AvPacketSideData           C.struct_AVPacketSideData
-	FFFrac                     C.struct_FFFrac
-	AvStreamParseType          C.enum_AVStreamParseType
-	AvDiscard                  C.enum_AVDiscard
-	MediaType                  C.enum_AVMediaType
+	AvProbeData  C.struct_AVProbeData
+	InputFormat  C.struct_AVInputFormat
+	OutputFormat C.struct_AVOutputFormat
+	//Context                    C.struct_AVFormatContext
+	//Frame                      C.struct_AVFrame
+	CodecContext       C.struct_AVCodecContext
+	AvIndexEntry       C.struct_AVIndexEntry
+	Stream             C.struct_AVStream
+	AvProgram          C.struct_AVProgram
+	AvChapter          C.struct_AVChapter
+	AvPacketList       C.struct_AVPacketList
+	CodecParserContext C.struct_AVCodecParserContext
+	AvIOContext        C.struct_AVIOContext
+	AvCodec            C.struct_AVCodec
+	AvCodecTag         C.struct_AVCodecTag
+	//Class                      C.struct_AVClass
+	AvFormatInternal C.struct_AVFormatInternal
+	AvIOInterruptCB  C.struct_AVIOInterruptCB
+	//AvPacketSideData           C.struct_AVPacketSideData
+	FFFrac            C.struct_FFFrac
+	AvStreamParseType C.enum_AVStreamParseType
+	//AvDiscard                  C.enum_AVDiscard
+	//MediaType                  C.enum_AVMediaType
 	AvDurationEstimationMethod C.enum_AVDurationEstimationMethod
-	AvPacketSideDataType       C.enum_AVPacketSideDataType
-	CodecId                    C.enum_AVCodecID
+	//AvPacketSideDataType       C.enum_AVPacketSideDataType
+	//CodecId                    C.enum_AVCodecID
 )
 
 type File C.FILE

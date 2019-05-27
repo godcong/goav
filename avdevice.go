@@ -21,12 +21,12 @@ type (
 	AvDeviceCapabilitiesQuery C.struct_AVDeviceCapabilitiesQuery
 	AvDeviceInfo              C.struct_AVDeviceInfo
 	AvDeviceInfoList          C.struct_AVDeviceInfoList
-	InputFormat               C.struct_AVInputFormat
-	OutputFormat              C.struct_AVOutputFormat
-	AvFormatContext           C.struct_AVFormatContext
-	Dictionary                C.struct_AVDictionary
-	AvAppToDevMessageType     C.enum_AVAppToDevMessageType
-	AvDevToAppMessageType     C.enum_AVDevToAppMessageType
+	//InputFormat               C.struct_AVInputFormat
+	//OutputFormat              C.struct_AVOutputFormat
+	AvFormatContext C.struct_AVFormatContext
+	//Dictionary                C.struct_AVDictionary
+	AvAppToDevMessageType C.enum_AVAppToDevMessageType
+	AvDevToAppMessageType C.enum_AVDevToAppMessageType
 )
 
 //unsigned 	avdevice_version (void)

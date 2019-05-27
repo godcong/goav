@@ -20,12 +20,12 @@ import (
 )
 
 type (
-	Codec                  C.struct_AVCodec
-	Context                C.struct_AVCodecContext
-	Descriptor             C.struct_AVCodecDescriptor
-	Parser                 C.struct_AVCodecParser
-	ParserContext          C.struct_AVCodecParserContext
-	Dictionary             C.struct_AVDictionary
+	Codec C.struct_AVCodec
+
+	Descriptor    C.struct_AVCodecDescriptor
+	Parser        C.struct_AVCodecParser
+	ParserContext C.struct_AVCodecParserContext
+	//Dictionary             C.struct_AVDictionary
 	Frame                  C.struct_AVFrame
 	MediaType              C.enum_AVMediaType
 	Packet                 C.struct_AVPacket
