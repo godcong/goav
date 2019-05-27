@@ -10,21 +10,21 @@ package goav
 import "C"
 
 //Audio input devices iterator.
-func (f *InputFormat) AvInputAudioDeviceNext() *InputFormat {
-	return (*InputFormat)(C.av_input_audio_device_next((*C.struct_AVInputFormat)(f)))
+func (f *AVInputFormat) AvInputAudioDeviceNext() *AVInputFormat {
+	return (*AVInputFormat)(C.av_input_audio_device_next((*C.struct_AVInputFormat)(f)))
 }
 
 //Video input devices iterator.
-func (f *InputFormat) AvInputVideoDeviceNext() *InputFormat {
-	return (*InputFormat)(C.av_input_video_device_next((*C.struct_AVInputFormat)(f)))
+func (f *AVInputFormat) AvInputVideoDeviceNext() *AVInputFormat {
+	return (*AVInputFormat)(C.av_input_video_device_next((*C.struct_AVInputFormat)(f)))
 }
 
 //Audio output devices iterator.
-func (f *OutputFormat) AvOutputAudioDeviceNext() *OutputFormat {
-	return (*OutputFormat)(C.av_output_audio_device_next((*C.struct_AVOutputFormat)(f)))
+func (f *AVOutputFormat) AvOutputAudioDeviceNext() *AVOutputFormat {
+	return (*AVOutputFormat)(C.av_output_audio_device_next((*C.struct_AVOutputFormat)(f)))
 }
 
 //Video output devices iterator.
-func (f *OutputFormat) AvOutputVideoDeviceNext() *OutputFormat {
-	return (*OutputFormat)(C.av_output_video_device_next((*C.struct_AVOutputFormat)(f)))
+func (f *AVOutputFormat) AvOutputVideoDeviceNext() *AVOutputFormat {
+	return (*AVOutputFormat)(C.av_output_video_device_next((*C.struct_AVOutputFormat)(f)))
 }

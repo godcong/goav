@@ -627,13 +627,13 @@ func (ctx *AVCodecContext) CodecDescriptor() *AVCodecDescriptor {
 }
 
 // AVCodecID ...
-func (ctx *AVCodecContext) CodecID() AVCodecID {
+func (ctx *AVCodecContext) AVCodecID() AVCodecID {
 	return (AVCodecID)(ctx.codec_id)
 }
 
 // CodecType ...
-func (ctx *AVCodecContext) CodecType() MediaType {
-	return (MediaType)(ctx.codec_type)
+func (ctx *AVCodecContext) CodecType() AVMediaType {
+	return (AVMediaType)(ctx.codec_type)
 }
 
 // ColorPrimaries ...
@@ -662,8 +662,8 @@ func (ctx *AVCodecContext) FieldOrder() AVFieldOrder {
 }
 
 // PixFmt ...
-func (ctx *AVCodecContext) PixFmt() PixelFormat {
-	return (PixelFormat)(ctx.pix_fmt)
+func (ctx *AVCodecContext) PixFmt() AVPixelFormat {
+	return (AVPixelFormat)(ctx.pix_fmt)
 }
 
 // RequestSampleFmt ...
@@ -692,8 +692,8 @@ func (ctx *AVCodecContext) SkipLoopFilter() AVDiscard {
 }
 
 // Chapters ...
-func (ctx *AVFormatContext) Chapters() **AvChapter {
-	return (**AvChapter)(unsafe.Pointer(ctx.chapters))
+func (ctx *AVFormatContext) Chapters() **AVChapter {
+	return (**AVChapter)(unsafe.Pointer(ctx.chapters))
 }
 
 // AudioCodec ...
@@ -722,8 +722,8 @@ func (ctx *AVFormatContext) Internal() *AVFormatInternal {
 }
 
 // Pb ...
-func (ctx *AVFormatContext) Pb() *AvIOContext {
-	return (*AvIOContext)(unsafe.Pointer(ctx.pb))
+func (ctx *AVFormatContext) Pb() *AVIOContext {
+	return (*AVIOContext)(unsafe.Pointer(ctx.pb))
 }
 
 // InterruptCallback ...
@@ -732,25 +732,25 @@ func (ctx *AVFormatContext) InterruptCallback() AVIOInterruptCB {
 }
 
 // Programs ...
-func (ctx *AVFormatContext) Programs() []*AvProgram {
+func (ctx *AVFormatContext) Programs() []*AVProgram {
 	header := reflect.SliceHeader{
 		Data: uintptr(unsafe.Pointer(ctx.programs)),
 		Len:  int(ctx.NbPrograms()),
 		Cap:  int(ctx.NbPrograms()),
 	}
 
-	return *((*[]*AvProgram)(unsafe.Pointer(&header)))
+	return *((*[]*AVProgram)(unsafe.Pointer(&header)))
 }
 
 // Streams ...
-func (ctx *AVFormatContext) Streams() []*Stream {
+func (ctx *AVFormatContext) Streams() []*AVStream {
 	header := reflect.SliceHeader{
 		Data: uintptr(unsafe.Pointer(ctx.streams)),
 		Len:  int(ctx.NbStreams()),
 		Cap:  int(ctx.NbStreams()),
 	}
 
-	return *((*[]*Stream)(unsafe.Pointer(&header)))
+	return *((*[]*AVStream)(unsafe.Pointer(&header)))
 }
 
 // Filename ...
@@ -939,13 +939,13 @@ func (ctx *AVFormatContext) StartTimeRealtime() int64 {
 }
 
 // Iformat ...
-func (ctx *AVFormatContext) Iformat() *InputFormat {
-	return (*InputFormat)(unsafe.Pointer(ctx.iformat))
+func (ctx *AVFormatContext) Iformat() *AVInputFormat {
+	return (*AVInputFormat)(unsafe.Pointer(ctx.iformat))
 }
 
 // Oformat ...
-func (ctx *AVFormatContext) Oformat() *OutputFormat {
-	return (*OutputFormat)(unsafe.Pointer(ctx.oformat))
+func (ctx *AVFormatContext) Oformat() *AVOutputFormat {
+	return (*AVOutputFormat)(unsafe.Pointer(ctx.oformat))
 }
 
 // CorrectTsOverflow ...
@@ -989,11 +989,11 @@ func (ctx *AVFormatContext) Probesize() uint {
 }
 
 // SetPb ...
-func (ctx *AVFormatContext) SetPb(pb *AvIOContext) {
+func (ctx *AVFormatContext) SetPb(pb *AVIOContext) {
 	ctx.pb = (*C.struct_AVIOContext)(unsafe.Pointer(pb))
 }
 
 // Pb2 ...
-func (ctx *AVFormatContext) Pb2() **AvIOContext {
-	return (**AvIOContext)(unsafe.Pointer(&ctx.pb))
+func (ctx *AVFormatContext) Pb2() **AVIOContext {
+	return (**AVIOContext)(unsafe.Pointer(&ctx.pb))
 }

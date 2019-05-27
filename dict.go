@@ -24,13 +24,13 @@ type (
 
 // AV_DICT_MATCH_CASE ...
 const (
-	AV_DICT_MATCH_CASE      = int(C.AV_DICT_MATCH_CASE)
-	AV_DICT_IGNORE_SUFFIX   = int(C.AV_DICT_IGNORE_SUFFIX)
-	AV_DICT_DONT_STRDUP_KEY = int(C.AV_DICT_DONT_STRDUP_KEY)
-	AV_DICT_DONT_STRDUP_VAL = int(C.AV_DICT_DONT_STRDUP_VAL)
-	AV_DICT_DONT_OVERWRITE  = int(C.AV_DICT_DONT_OVERWRITE)
-	AV_DICT_APPEND          = int(C.AV_DICT_APPEND)
-	AV_DICT_MULTIKEY        = int(C.AV_DICT_MULTIKEY)
+	AVDictMatchCase     = int(C.AV_DICT_MATCH_CASE)
+	AVDictIgnoreSuffix  = int(C.AV_DICT_IGNORE_SUFFIX)
+	AVDictDontStrdupKey = int(C.AV_DICT_DONT_STRDUP_KEY)
+	AVDictDontStrdupVal = int(C.AV_DICT_DONT_STRDUP_VAL)
+	AVDictDontOverwrite = int(C.AV_DICT_DONT_OVERWRITE)
+	AVDictAppend        = int(C.AV_DICT_APPEND)
+	AVDictMultikey      = int(C.AV_DICT_MULTIKEY)
 )
 
 // AvDictGet ...
@@ -80,15 +80,15 @@ func (d *Dictionary) AvDictSetInt(key string, value int64, flags int) int {
 	))
 }
 
-// AvDictParseString ...
-func (d *Dictionary) AvDictParseString(str, key_val_sep, pairs_sep string, flags int) int {
+// AVDictParseString ...
+func (d *Dictionary) AVDictParseString(str, keyValSep, pairsSep string, flags int) int {
 	Cstr := C.CString(str)
 	defer C.free(unsafe.Pointer(Cstr))
 
-	CkeyValSep := C.CString(key_val_sep)
+	CkeyValSep := C.CString(keyValSep)
 	defer C.free(unsafe.Pointer(CkeyValSep))
 
-	CpairsSep := C.CString(pairs_sep)
+	CpairsSep := C.CString(pairsSep)
 	defer C.free(unsafe.Pointer(CpairsSep))
 
 	return int(C.av_dict_parse_string(

@@ -40,18 +40,22 @@ func (a *Vector) SwsNormalizevec(h float64) {
 	C.sws_normalizeVec((*C.struct_SwsVector)(a), C.double(h))
 }
 
+// SwsConvvec ...
 func (a *Vector) SwsConvvec(b *Vector) {
 	C.sws_convVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
+// SwsAddvec ...
 func (a *Vector) SwsAddvec(b *Vector) {
 	C.sws_addVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
+// SwsSubvec ...
 func (a *Vector) SwsSubvec(b *Vector) {
 	C.sws_subVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
+// SwsShiftvec ...
 func (a *Vector) SwsShiftvec(s int) {
 	C.sws_shiftVec((*C.struct_SwsVector)(a), C.int(s))
 }
@@ -61,11 +65,12 @@ func (a *Vector) SwsClonevec() *Vector {
 	return (*Vector)(unsafe.Pointer(C.sws_cloneVec((*C.struct_SwsVector)(a))))
 }
 
-//Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
-func (a *Vector) SwsPrintvec2(lctx *Class, l int) {
+//SwsPrintVec2 Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
+func (a *Vector) SwsPrintVec2(lctx *Class, l int) {
 	C.sws_printVec2((*C.struct_SwsVector)(a), (*C.struct_AVClass)(lctx), C.int(l))
 }
 
+// SwsFreevec ...
 func (a *Vector) SwsFreevec() {
 	C.sws_freeVec((*C.struct_SwsVector)(a))
 }

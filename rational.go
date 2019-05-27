@@ -18,38 +18,38 @@ import "C"
 import "fmt"
 
 // Num ...
-func (r Rational) Num() int {
+func (r AVRational) Num() int {
 	return int(r.num)
 }
 
 // Den ...
-func (r Rational) Den() int {
+func (r AVRational) Den() int {
 	return int(r.den)
 }
 
 // String ...
-func (r Rational) String() string {
+func (r AVRational) String() string {
 	return fmt.Sprintln("%d/%d", int(r.num), int(r.den))
 }
 
 // Assign ...
-func (r *Rational) Assign(o Rational) {
+func (r *AVRational) Assign(o AVRational) {
 	r.Set(o.Num(), o.Den())
 }
 
 // Set ...
-func (r *Rational) Set(num, den int) {
+func (r *AVRational) Set(num, den int) {
 	r.num, r.den = C.int(num), C.int(den)
 }
 
 // NewRational ...
-func NewRational(num, den int) Rational {
-	return Rational{
+func NewRational(num, den int) AVRational {
+	return AVRational{
 		num: C.int(num),
 		den: C.int(den),
 	}
 }
 
-func newRational(r C.struct_AVRational) Rational {
+func newRational(r C.struct_AVRational) AVRational {
 	return NewRational(int(r.num), int(r.den))
 }

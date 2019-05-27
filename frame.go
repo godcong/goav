@@ -51,60 +51,60 @@ func AvFrameFree(f *Frame) {
 	C.av_frame_free((**C.struct_AVFrame)(unsafe.Pointer(&f)))
 }
 
-//Allocate new buffer(s) for audio or video data.
+//AvFrameGetBuffer Allocate new buffer(s) for audio or video data.
 func AvFrameGetBuffer(f *Frame, a int) int {
 	return int(C.av_frame_get_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), C.int(a)))
 }
 
-//Setup a new reference to the data described by an given frame.
-func AvFrameRef(d, s *Frame) int {
+//AvFrameRef Setup a new reference to the data described by an given frame.
+func AVFrameRef(d, s *Frame) int {
 	return int(C.av_frame_ref((*C.struct_AVFrame)(unsafe.Pointer(d)), (*C.struct_AVFrame)(unsafe.Pointer(s))))
 }
 
-//Create a new frame that references the same data as src.
-func AvFrameClone(f *Frame) *Frame {
+//AVFrameClone Create a new frame that references the same data as src.
+func AVFrameClone(f *Frame) *Frame {
 	return (*Frame)(C.av_frame_clone((*C.struct_AVFrame)(unsafe.Pointer(f))))
 }
 
-//Unreference all the buffers referenced by frame and reset the frame fields.
-func AvFrameUnref(f *Frame) {
+//AVFrameUnref Unreference all the buffers referenced by frame and reset the frame fields.
+func AVFrameUnref(f *Frame) {
 	cf := (*C.struct_AVFrame)(unsafe.Pointer(f))
 	C.av_frame_unref(cf)
 }
 
-//Move everythnig contained in src to dst and reset src.
-func AvFrameMoveRef(d, s *Frame) {
+//AVFrameMoveRef Move everythnig contained in src to dst and reset src.
+func AVFrameMoveRef(d, s *Frame) {
 	C.av_frame_move_ref((*C.struct_AVFrame)(unsafe.Pointer(d)), (*C.struct_AVFrame)(unsafe.Pointer(s)))
 }
 
-//Check if the frame data is writable.
-func AvFrameIsWritable(f *Frame) int {
+//AVFrameIsWritable Check if the frame data is writable.
+func AVFrameIsWritable(f *Frame) int {
 	return int(C.av_frame_is_writable((*C.struct_AVFrame)(unsafe.Pointer(f))))
 }
 
-//Ensure that the frame data is writable, avoiding data copy if possible.
-func AvFrameMakeWritable(f *Frame) int {
+//AVFrameMakeWritable Ensure that the frame data is writable, avoiding data copy if possible.
+func AVFrameMakeWritable(f *Frame) int {
 	return int(C.av_frame_make_writable((*C.struct_AVFrame)(unsafe.Pointer(f))))
 }
 
-//Copy only "metadata" fields from src to dst.
-func AvFrameCopyProps(d, s *Frame) int {
+//AVFrameCopyProps Copy only "metadata" fields from src to dst.
+func AVFrameCopyProps(d, s *Frame) int {
 	return int(C.av_frame_copy_props((*C.struct_AVFrame)(unsafe.Pointer(d)), (*C.struct_AVFrame)(unsafe.Pointer(s))))
 }
 
-//Get the buffer reference a given data plane is stored in.
-func AvFrameGetPlaneBuffer(f *Frame, p int) *AvBufferRef {
+//AVFrameGetPlaneBuffer Get the buffer reference a given data plane is stored in.
+func AVFrameGetPlaneBuffer(f *Frame, p int) *AvBufferRef {
 	return (*AvBufferRef)(C.av_frame_get_plane_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), C.int(p)))
 }
 
-//Add a new side data to a frame.
-func AvFrameNewSideData(f *Frame, d AvFrameSideDataType, s int) *AvFrameSideData {
-	return (*AvFrameSideData)(C.av_frame_new_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(d), C.int(s)))
+//AVFrameNewSideData Add a new side data to a frame.
+func AVFrameNewSideData(f *Frame, d AVFrameSideDataType, s int) *AVFrameSideData {
+	return (*AVFrameSideData)(C.av_frame_new_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(d), C.int(s)))
 }
 
-// AvFrameGetSideData ...
-func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
-	return (*AvFrameSideData)(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t)))
+// AVFrameGetSideData ...
+func AVFrameGetSideData(f *Frame, t AVFrameSideDataType) *AVFrameSideData {
+	return (*AVFrameSideData)(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t)))
 }
 
 // Data ...
@@ -187,8 +187,8 @@ func AvSetFrame(f *Frame, w int, h int, pixFmt int) (err error) {
 	return
 }
 
-// AvFrameGetInfo ...
-func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8]*uint8) {
+// AVFrameGetInfo ...
+func AVFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8]*uint8) {
 	width = int(f.linesize[0])
 	height = int(f.height)
 	for i := range linesize {

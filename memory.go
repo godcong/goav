@@ -85,33 +85,33 @@ func AvMemdup(p *int, s uintptr) unsafe.Pointer {
 	return C.av_memdup(unsafe.Pointer(p), C.size_t(s))
 }
 
-//Free a memory block which has been allocated with av_malloc(z)() or av_realloc() and set the pointer pointing to it to NULL.
-func AvFreep(p unsafe.Pointer) {
+//AVFreep Free a memory block which has been allocated with av_malloc(z)() or av_realloc() and set the pointer pointing to it to NULL.
+func AVFreep(p unsafe.Pointer) {
 	C.av_freep(p)
 }
 
 //Add an element to a dynamic array.
-func AvDynarrayAdd(t unsafe.Pointer, n *int, e unsafe.Pointer) {
+func AVDynArrayAdd(t unsafe.Pointer, n *int, e unsafe.Pointer) {
 	C.av_dynarray_add(t, (*C.int)(unsafe.Pointer(n)), e)
 }
 
-//Add an element to a dynamic array.
-func AvDynarrayAddNofree(p unsafe.Pointer, n *int, e unsafe.Pointer) int {
+//AVDynArrayAddNofree Add an element to a dynamic array.
+func AVDynArrayAddNofree(p unsafe.Pointer, n *int, e unsafe.Pointer) int {
 	return int(C.av_dynarray_add_nofree(p, (*C.int)(unsafe.Pointer(&n)), e))
 }
 
-//Add an element of size elem_size to a dynamic array.
-func AvDynarray2Add(t *unsafe.Pointer, n *int, e uintptr, d uint8) unsafe.Pointer {
+//AVDynArray2Add Add an element of size elem_size to a dynamic array.
+func AVDynArray2Add(t *unsafe.Pointer, n *int, e uintptr, d uint8) unsafe.Pointer {
 	return C.av_dynarray2_add(t, (*C.int)(unsafe.Pointer(&n)), (C.size_t)(e), (*C.uint8_t)(unsafe.Pointer(&d)))
 }
 
-//Multiply two size_t values checking for overflow.
-func AvSizeMult(a, b uintptr, r *uintptr) int {
+//AVSizeMult Multiply two size_t values checking for overflow.
+func AVSizeMult(a, b uintptr, r *uintptr) int {
 	return int(C.av_size_mult((C.size_t)(a), (C.size_t)(b), (*C.size_t)(unsafe.Pointer(r))))
 }
 
-//Set the maximum size that may me allocated in one block.
-func AvMaxAlloc(m uintptr) {
+//AVMaxAlloc Set the maximum size that may me allocated in one block.
+func AVMaxAlloc(m uintptr) {
 	C.av_max_alloc(C.size_t(m))
 }
 

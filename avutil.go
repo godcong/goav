@@ -15,59 +15,59 @@ import (
 	"unsafe"
 )
 
-// Options ...
+// AVOptions ...
 type (
-	Options       C.struct_AVOptions
-	AvTree        C.struct_AVTree
-	Rational      C.struct_AVRational
-	MediaType     C.enum_AVMediaType
-	AvPictureType C.enum_AVPictureType
-	PixelFormat   C.enum_AVPixelFormat
+	AVOptions     C.struct_AVOptions
+	AVTree        C.struct_AVTree
+	AVRational    C.struct_AVRational
+	AVMediaType   C.enum_AVMediaType
+	AVPictureType C.enum_AVPictureType
+	AVPixelFormat C.enum_AVPixelFormat
 	File          C.FILE
 )
 
-//Return the LIBAvUTIL_VERSION_INT constant.
-func AvutilVersion() uint {
+//AVUtilVersion Return the LIBAvUTIL_VERSION_INT constant.
+func AVUtilVersion() uint {
 	return uint(C.avutil_version())
 }
 
-//Return the libavutil build-time configuration.
-func AvutilConfiguration() string {
+//AVUtilConfiguration Return the libavutil build-time configuration.
+func AVUtilConfiguration() string {
 	return C.GoString(C.avutil_configuration())
 }
 
-//Return the libavutil license.
-func AvutilLicense() string {
+//AVUtilLicense Return the libavutil license.
+func AVUtilLicense() string {
 	return C.GoString(C.avutil_license())
 }
 
-//Return a string describing the media_type enum, NULL if media_type is unknown.
-func AvGetMediaTypeString(mt MediaType) string {
+//AVGetMediaTypeString Return a string describing the media_type enum, NULL if media_type is unknown.
+func AVGetMediaTypeString(mt AVMediaType) string {
 	return C.GoString(C.av_get_media_type_string((C.enum_AVMediaType)(mt)))
 }
 
-//Return a single letter to describe the given picture type pict_type.
-func AvGetPictureTypeChar(pt AvPictureType) string {
+//AVGetPictureTypeChar Return a single letter to describe the given picture type pict_type.
+func AVGetPictureTypeChar(pt AVPictureType) string {
 	return string(C.av_get_picture_type_char((C.enum_AVPictureType)(pt)))
 }
 
-//Return x default pointer in case p is NULL.
-func AvXIfNull(p, x int) {
+//AVXIfNull Return x default pointer in case p is NULL.
+func AVXIfNull(p, x int) {
 	C.av_x_if_null(unsafe.Pointer(&p), unsafe.Pointer(&x))
 }
 
-//Compute the length of an integer list.
-func AvIntListLengthForSize(e uint, l int, t uint64) uint {
+//AVIntListLengthForSize Compute the length of an integer list.
+func AVIntListLengthForSize(e uint, l int, t uint64) uint {
 	return uint(C.av_int_list_length_for_size(C.uint(e), unsafe.Pointer(&l), (C.uint64_t)(t)))
 }
 
-//Open a file using a UTF-8 filename.
-func AvFopenUtf8(p, m string) *File {
+//AVFopenUtf8 Open a file using a UTF-8 filename.
+func AVFopenUtf8(p, m string) *File {
 	f := C.av_fopen_utf8(C.CString(p), C.CString(m))
 	return (*File)(f)
 }
 
-//Return the fractional representation of the internal time base.
-func AvGetTimeBaseQ() Rational {
-	return (Rational)(C.av_get_time_base_q())
+//AVGetTimeBaseQ Return the fractional representation of the internal time base.
+func AVGetTimeBaseQ() AVRational {
+	return (AVRational)(C.av_get_time_base_q())
 }

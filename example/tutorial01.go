@@ -80,7 +80,7 @@ func main() {
 	// Find the first video stream
 	for i := 0; i < int(pFormatContext.NbStreams()); i++ {
 		switch pFormatContext.Streams()[i].CodecParameters().AVCodecGetType() {
-		case goav.AVMEDIA_TYPE_VIDEO:
+		case goav.AVMediaTypeVideo:
 
 			// Get a pointer to the codec context for the video stream
 			pCodecCtxOrig := pFormatContext.Streams()[i].Codec()

@@ -62,22 +62,22 @@ func (g *Graph) AVFilterGraphSendCommand(t, cmd, arg, res string, resl, f int) i
 	return int(C.avfilter_graph_send_command((*C.struct_AVFilterGraph)(g), C.CString(t), C.CString(cmd), C.CString(arg), C.CString(res), C.int(resl), C.int(f)))
 }
 
-//Queue a command for one or more filter instances.
+//AVFilterGraphQueueCommand Queue a command for one or more filter instances.
 func (g *Graph) AVFilterGraphQueueCommand(t, cmd, arg string, f int, ts C.double) int {
 	return int(C.avfilter_graph_queue_command((*C.struct_AVFilterGraph)(g), C.CString(t), C.CString(cmd), C.CString(arg), C.int(f), ts))
 }
 
-//Dump a graph into a human-readable string representation.
+//AVFilterGraphDump Dump a graph into a human-readable string representation.
 func (g *Graph) AVFilterGraphDump(o string) string {
 	return C.GoString(C.avfilter_graph_dump((*C.struct_AVFilterGraph)(g), C.CString(o)))
 }
 
-//Request a frame on the oldest sink
-func (g *Graph) AVFilterGraphRequestOldestlink() int {
+//AVFilterGraphRequestOldest Request a frame on the oldest sink
+func (g *Graph) AVFilterGraphRequestOldest() int {
 	return int(C.avfilter_graph_request_oldest((*C.struct_AVFilterGraph)(g)))
 }
 
-//Create and add a filter instance into an existing graph.
-func AVFilterGraphCreateFilter(cx **Context, f *Filter, n, a string, o int, g *Graph) int {
+//AVFilterGraphCreateFilter Create and add a filter instance into an existing graph.
+func AVFilterGraphCreateFilter(cx **AVFilterContext, f *Filter, n, a string, o int, g *Graph) int {
 	return int(C.avfilter_graph_create_filter((**C.struct_AVFilterContext)(unsafe.Pointer(cx)), (*C.struct_AVFilter)(f), C.CString(n), C.CString(a), unsafe.Pointer(&o), (*C.struct_AVFilterGraph)(g)))
 }

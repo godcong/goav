@@ -20,36 +20,88 @@ import (
 )
 
 // AVCodec ...
-type (
-	AVCodec                       C.struct_AVCodec
-	AVCodecTag                    C.struct_AVCodecTag
-	AVCodecDescriptor             C.struct_AVCodecDescriptor
-	AVCodecParser                 C.struct_AVCodecParser
-	AVCodecParserContext          C.struct_AVCodecParserContext
-	AVPacket                      C.struct_AVPacket
-	AVBitStreamFilter             C.struct_AVBitStreamFilter
-	AVBitStreamFilterContext      C.struct_AVBitStreamFilterContext
-	AVCodecParameters             C.struct_AVCodecParameters
-	AVHWAccel                     C.struct_AVHWAccel
-	AVPacketSideData              C.struct_AVPacketSideData
-	AVPanScan                     C.struct_AVPanScan
-	AVPicture                     C.struct_AVPicture
-	AVProfile                     C.struct_AVProfile
-	AVSubtitle                    C.struct_AVSubtitle
-	AVSubtitleRect                C.struct_AVSubtitleRect
-	RcOverride                    C.struct_RcOverride
-	AVAudioServiceType            C.enum_AVAudioServiceType
-	AVChromaLocation              C.enum_AVChromaLocation
-	AVCodecID                     C.enum_AVCodecID
-	AVColorPrimaries              C.enum_AVColorPrimaries
-	AVColorRange                  C.enum_AVColorRange
-	AVColorSpace                  C.enum_AVColorSpace
-	AVColorTransferCharacteristic C.enum_AVColorTransferCharacteristic
-	AVDiscard                     C.enum_AVDiscard
-	AVFieldOrder                  C.enum_AVFieldOrder
-	AVPacketSideDataType          C.enum_AVPacketSideDataType
-	AVSampleFormat                C.enum_AVSampleFormat
-)
+type AVCodec C.struct_AVCodec
+
+// AVCodecTag ...
+type AVCodecTag C.struct_AVCodecTag
+
+// AVCodecDescriptor ...
+type AVCodecDescriptor C.struct_AVCodecDescriptor
+
+// AVCodecParser ...
+type AVCodecParser C.struct_AVCodecParser
+
+// AVCodecParserContext ...
+type AVCodecParserContext C.struct_AVCodecParserContext
+
+// AVPacket ...
+type AVPacket C.struct_AVPacket
+
+// AVBitStreamFilter ...
+type AVBitStreamFilter C.struct_AVBitStreamFilter
+
+// AVBitStreamFilterContext ...
+type AVBitStreamFilterContext C.struct_AVBitStreamFilterContext
+
+// AVCodecParameters ...
+type AVCodecParameters C.struct_AVCodecParameters
+
+// AVHWAccel ...
+type AVHWAccel C.struct_AVHWAccel
+
+// AVPacketSideData ...
+type AVPacketSideData C.struct_AVPacketSideData
+
+// AVPanScan ...
+type AVPanScan C.struct_AVPanScan
+
+// AVPicture ...
+type AVPicture C.struct_AVPicture
+
+// AVProfile ...
+type AVProfile C.struct_AVProfile
+
+// AVSubtitle ...
+type AVSubtitle C.struct_AVSubtitle
+
+// AVSubtitleRect ...
+type AVSubtitleRect C.struct_AVSubtitleRect
+
+// RcOverride ...
+type RcOverride C.struct_RcOverride
+
+// AVAudioServiceType ...
+type AVAudioServiceType C.enum_AVAudioServiceType
+
+// AVChromaLocation ...
+type AVChromaLocation C.enum_AVChromaLocation
+
+// AVCodecID ...
+type AVCodecID C.enum_AVCodecID
+
+// AVColorPrimaries ...
+type AVColorPrimaries C.enum_AVColorPrimaries
+
+// AVColorRange ...
+type AVColorRange C.enum_AVColorRange
+
+// AVColorSpace ...
+type AVColorSpace C.enum_AVColorSpace
+
+// AVColorTransferCharacteristic ...
+type AVColorTransferCharacteristic C.enum_AVColorTransferCharacteristic
+
+// AVDiscard ...
+type AVDiscard C.enum_AVDiscard
+
+// AVFieldOrder ...
+type AVFieldOrder C.enum_AVFieldOrder
+
+// AVPacketSideDataType ...
+type AVPacketSideDataType C.enum_AVPacketSideDataType
+
+// AVSampleFormat ...
+type AVSampleFormat C.enum_AVSampleFormat
 
 // AVCodecGetID ...
 func (cp *AVCodecParameters) AVCodecGetID() AVCodecID {
@@ -57,8 +109,8 @@ func (cp *AVCodecParameters) AVCodecGetID() AVCodecID {
 }
 
 // AVCodecGetType ...
-func (cp *AVCodecParameters) AVCodecGetType() MediaType {
-	return *((*MediaType)(unsafe.Pointer(&cp.codec_type)))
+func (cp *AVCodecParameters) AVCodecGetType() AVMediaType {
+	return *((*AVMediaType)(unsafe.Pointer(&cp.codec_type)))
 }
 
 // AVCodecGetWidth ...
@@ -261,8 +313,8 @@ func (a *AVHWAccel) AVHWAccelNext() *AVHWAccel {
 }
 
 //AVCodecGetType Get the type of the given codec.
-func AVCodecGetType(c AVCodecID) MediaType {
-	return (MediaType)(C.avcodec_get_type((C.enum_AVCodecID)(c)))
+func AVCodecGetType(c AVCodecID) AVMediaType {
+	return (AVMediaType)(C.avcodec_get_type((C.enum_AVCodecID)(c)))
 }
 
 //AVCodecGetName Get the name of a codec.
