@@ -19,11 +19,11 @@ import (
 )
 
 type (
-	//Context     C.struct_SwsContext
-	Filter      C.struct_SwsFilter
-	Vector      C.struct_SwsVector
-	Class       C.struct_AVClass
-	PixelFormat C.enum_AVPixelFormat
+	SwsContext C.struct_SwsContext
+	Filter     C.struct_SwsFilter
+	Vector     C.struct_SwsVector
+	Class      C.struct_AVClass
+	//PixelFormat C.enum_AVPixelFormat
 )
 
 //Return the LIBSWSCALE_VERSION_INT constant.
@@ -61,7 +61,7 @@ func SwsIssupportedendiannessconversion(p PixelFormat) int {
 }
 
 ////Scale the image slice in srcSlice and put the resulting scaled slice in the image in dst.
-func SwsScale(ctxt *Context, src *uint8, str int, y, h int, d *uint8, ds int) int {
+func SwsScale(ctxt *SwsContext, src *uint8, str int, y, h int, d *uint8, ds int) int {
 	cctxt := (*C.struct_SwsContext)(unsafe.Pointer(ctxt))
 	csrc := (*C.uint8_t)(unsafe.Pointer(src))
 	cstr := (*C.int)(unsafe.Pointer(&str))
@@ -70,7 +70,7 @@ func SwsScale(ctxt *Context, src *uint8, str int, y, h int, d *uint8, ds int) in
 	return int(C.sws_scale(cctxt, &csrc, cstr, C.int(y), C.int(h), &cd, cds))
 }
 
-func SwsScale2(ctxt *Context, srcData [8]*uint8, srcStride [8]int32, y, h int, dstData [8]*uint8, dstStride [8]int32) int {
+func SwsScale2(ctxt *SwsContext, srcData [8]*uint8, srcStride [8]int32, y, h int, dstData [8]*uint8, dstStride [8]int32) int {
 	cctxt := (*C.struct_SwsContext)(unsafe.Pointer(ctxt))
 	csrc := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
 	cstr := (*C.int)(unsafe.Pointer(&srcStride[0]))
@@ -79,13 +79,13 @@ func SwsScale2(ctxt *Context, srcData [8]*uint8, srcStride [8]int32, y, h int, d
 	return int(C.sws_scale(cctxt, csrc, cstr, C.int(y), C.int(h), cd, cds))
 }
 
-func SwsSetcolorspacedetails(ctxt *Context, it *int, sr int, t *int, dr, b, c, s int) int {
+func SwsSetcolorspacedetails(ctxt *SwsContext, it *int, sr int, t *int, dr, b, c, s int) int {
 	cit := (*C.int)(unsafe.Pointer(it))
 	ct := (*C.int)(unsafe.Pointer(t))
 	return int(C.sws_setColorspaceDetails((*C.struct_SwsContext)(ctxt), cit, C.int(sr), ct, C.int(dr), C.int(b), C.int(c), C.int(s)))
 }
 
-func SwsGetcolorspacedetails(ctxt *Context, it, sr, t, dr, b, c, s *int) int {
+func SwsGetcolorspacedetails(ctxt *SwsContext, it, sr, t, dr, b, c, s *int) int {
 	cit := (**C.int)(unsafe.Pointer(it))
 	csr := (*C.int)(unsafe.Pointer(sr))
 	ct := (**C.int)(unsafe.Pointer(t))

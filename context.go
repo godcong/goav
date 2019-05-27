@@ -285,7 +285,7 @@ func (ctx *AVFormatContext) AvNewProgram(id int) *AvProgram {
 }
 
 //Read packets of a media file to get stream information.
-func (ctx *AVFormatContext) AvformatFindStreamInfo(d **avutil.Dictionary) int {
+func (ctx *AVFormatContext) AvformatFindStreamInfo(d **Dictionary) int {
 	return int(C.avformat_find_stream_info((*C.struct_AVFormatContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
@@ -295,12 +295,12 @@ func (ctx *AVFormatContext) AvFindProgramFromStream(l *AvProgram, su int) *AvPro
 }
 
 //Find the "best" stream in the file.
-func AvFindBestStream(ic *Context, t MediaType, ws, rs int, c **AvCodec, f int) int {
+func AvFindBestStream(ic *AVFormatContext, t MediaType, ws, rs int, c **AvCodec, f int) int {
 	return int(C.av_find_best_stream((*C.struct_AVFormatContext)(ic), (C.enum_AVMediaType)(t), C.int(ws), C.int(rs), (**C.struct_AVCodec)(unsafe.Pointer(c)), C.int(f)))
 }
 
 //Return the next frame of a stream.
-func (ctx *AVFormatContext) AvReadFrame(pkt *avcodec.Packet) int {
+func (ctx *AVFormatContext) AvReadFrame(pkt *Packet) int {
 	return int(C.av_read_frame((*C.struct_AVFormatContext)(unsafe.Pointer(ctx)), toCPacket(pkt)))
 }
 
@@ -311,7 +311,7 @@ func (ctx *AVFormatContext) AvSeekFrame(st int, t int64, f int) int {
 
 // AvSeekFrameTime seeks to a specified time location.
 // |timebase| is codec specific and can be obtained by calling AvCodecGetPktTimebase2
-func (ctx *AVFormatContext) AvSeekFrameTime(st int, at time.Duration, timebase avcodec.Rational) int {
+func (ctx *AVFormatContext) AvSeekFrameTime(st int, at time.Duration, timebase Rational) int {
 	t2 := C.double(C.double(at.Seconds())*C.double(timebase.Den())) / (C.double(timebase.Num()))
 	// log.Printf("Seeking to time :%v TimebaseTime:%v ActualTimebase:%v", at, t2, timebase)
 	return int(C.av_seek_frame((*C.struct_AVFormatContext)(ctx), C.int(st), C.int64_t(t2), AvseekFlagBackward))
@@ -338,17 +338,17 @@ func (ctx *AVFormatContext) AvformatCloseInput() {
 }
 
 //Allocate the stream private data and write the stream header to an output media file.
-func (ctx *AVFormatContext) AvformatWriteHeader(o **avutil.Dictionary) int {
+func (ctx *AVFormatContext) AvformatWriteHeader(o **Dictionary) int {
 	return int(C.avformat_write_header((*C.struct_AVFormatContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 
 //Write a packet to an output media file.
-func (ctx *AVFormatContext) AvWriteFrame(pkt *avcodec.Packet) int {
+func (ctx *AVFormatContext) AvWriteFrame(pkt *Packet) int {
 	return int(C.av_write_frame((*C.struct_AVFormatContext)(ctx), toCPacket(pkt)))
 }
 
 //Write a packet to an output media file ensuring correct interleaving.
-func (ctx *AVFormatContext) AvInterleavedWriteFrame(pkt *avcodec.Packet) int {
+func (ctx *AVFormatContext) AvInterleavedWriteFrame(pkt *Packet) int {
 	return int(C.av_interleaved_write_frame((*C.struct_AVFormatContext)(ctx), toCPacket(pkt)))
 }
 
@@ -390,12 +390,12 @@ func (ctx *AVFormatContext) AvDumpFormat(i int, url string, io int) {
 }
 
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (ctx *AVFormatContext) AvGuessSampleAspectRatio(st *Stream, fr *Frame) avcodec.Rational {
+func (ctx *AVFormatContext) AvGuessSampleAspectRatio(st *Stream, fr *Frame) Rational {
 	return newRational(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
 }
 
 //Guess the frame rate, based on both the container and codec information.
-func (ctx *AVFormatContext) AvGuessFrameRate(st *Stream, fr *Frame) avcodec.Rational {
+func (ctx *AVFormatContext) AvGuessFrameRate(st *Stream, fr *Frame) Rational {
 	return newRational(C.av_guess_frame_rate((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
 }
 
@@ -413,7 +413,7 @@ func (ctx *AVFormatContext) AvformatQueueAttachedPictures() int {
 
 func (ctx *AVFormatContext) AvformatNewStream2(c *AvCodec) *Stream {
 	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
-	stream.codec.pix_fmt = int32(avcodec.AV_PIX_FMT_YUV)
+	stream.codec.pix_fmt = int32(AV_PIX_FMT_YUV)
 	stream.codec.width = 640
 	stream.codec.height = 480
 	stream.time_base.num = 1
