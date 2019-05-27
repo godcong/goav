@@ -7,48 +7,77 @@ package goav
 //#include <libavcodec/avcodec.h>
 import "C"
 
-func (p *Packet) Buf() *AvBufferRef {
+// Buf ...
+func (p *AVPacket) Buf() *AvBufferRef {
 	return (*AvBufferRef)(p.buf)
 }
-func (p *Packet) Duration() int {
+
+// Duration ...
+func (p *AVPacket) Duration() int {
 	return int(p.duration)
 }
-func (p *Packet) Flags() int {
+
+// Flags ...
+func (p *AVPacket) Flags() int {
 	return int(p.flags)
 }
-func (p *Packet) SetFlags(flags int) {
+
+// SetFlags ...
+func (p *AVPacket) SetFlags(flags int) {
 	p.flags = C.int(flags)
 }
-func (p *Packet) SideDataElems() int {
+
+// SideDataElems ...
+func (p *AVPacket) SideDataElems() int {
 	return int(p.side_data_elems)
 }
-func (p *Packet) Size() int {
+
+// Size ...
+func (p *AVPacket) Size() int {
 	return int(p.size)
 }
-func (p *Packet) StreamIndex() int {
+
+// StreamIndex ...
+func (p *AVPacket) StreamIndex() int {
 	return int(p.stream_index)
 }
-func (p *Packet) SetStreamIndex(idx int) {
+
+// SetStreamIndex ...
+func (p *AVPacket) SetStreamIndex(idx int) {
 	p.stream_index = C.int(idx)
 }
-func (p *Packet) ConvergenceDuration() int64 {
+
+// ConvergenceDuration ...
+func (p *AVPacket) ConvergenceDuration() int64 {
 	return int64(p.convergence_duration)
 }
-func (p *Packet) Dts() int64 {
+
+// Dts ...
+func (p *AVPacket) Dts() int64 {
 	return int64(p.dts)
 }
-func (p *Packet) SetDts(dts int64) {
+
+// SetDts ...
+func (p *AVPacket) SetDts(dts int64) {
 	p.dts = C.int64_t(dts)
 }
-func (p *Packet) Pos() int64 {
+
+// Pos ...
+func (p *AVPacket) Pos() int64 {
 	return int64(p.pos)
 }
-func (p *Packet) Pts() int64 {
+
+// Pts ...
+func (p *AVPacket) Pts() int64 {
 	return int64(p.pts)
 }
-func (p *Packet) SetPts(pts int64) {
+
+// SetPts ...
+func (p *AVPacket) SetPts(pts int64) {
 	p.dts = C.int64_t(pts)
 }
-func (p *Packet) Data() *uint8 {
+
+// Data ...
+func (p *AVPacket) Data() *uint8 {
 	return (*uint8)(p.data)
 }

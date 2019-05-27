@@ -10,7 +10,7 @@ func main() {
 	goav.AvRegisterAll()
 	goav.AVCodecRegisterAll()
 
-	log.Printf("AvFilter Version:\t%v", goav.AvfilterVersion())
+	log.Printf("AvFilter Version:\t%v", goav.AVFilterVersion())
 	log.Printf("AvDevice Version:\t%v", goav.AvdeviceVersion())
 	log.Printf("SWScale Version:\t%v", goav.SwscaleVersion())
 	log.Printf("AvUtil Version:\t%v", goav.AvutilVersion())

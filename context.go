@@ -34,12 +34,12 @@ func (ctx *AVCodecContext) AVCodecSetPktTimebase(r Rational) {
 }
 
 // AVCodecGetCodecDescriptor ...
-func (ctx *AVCodecContext) AVCodecGetCodecDescriptor() *Descriptor {
-	return (*Descriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(ctx)))
+func (ctx *AVCodecContext) AVCodecGetCodecDescriptor() *AVCodecDescriptor {
+	return (*AVCodecDescriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(ctx)))
 }
 
 // AVCodecSetCodecDescriptor ...
-func (ctx *AVCodecContext) AVCodecSetCodecDescriptor(d *Descriptor) {
+func (ctx *AVCodecContext) AVCodecSetCodecDescriptor(d *AVCodecDescriptor) {
 	C.av_codec_set_codec_descriptor((*C.struct_AVCodecContext)(ctx), (*C.struct_AVCodecDescriptor)(d))
 }
 
@@ -114,27 +114,27 @@ func (ctx *AVCodecContext) AVCodecAlignDimensions2(w, h *int, l int) {
 }
 
 //Decode the audio frame of size avpkt->size from avpkt->data into frame.
-func (ctx *AVCodecContext) AVCodecDecodeAudio4(f *Frame, g *int, a *Packet) int {
+func (ctx *AVCodecContext) AVCodecDecodeAudio4(f *Frame, g *int, a *AVPacket) int {
 	return int(C.avcodec_decode_audio4((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
 //Decode the video frame of size avpkt->size from avpkt->data into picture.
-func (ctx *AVCodecContext) AVCodecDecodeVideo2(f *Frame, g *int, a *Packet) int {
+func (ctx *AVCodecContext) AVCodecDecodeVideo2(f *Frame, g *int, a *AVPacket) int {
 	return int(C.avcodec_decode_video2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
 //Decode a subtitle message.
-func (ctx *AVCodecContext) AVCodecDecodeSubtitle2(s *AvSubtitle, g *int, a *Packet) int {
+func (ctx *AVCodecContext) AVCodecDecodeSubtitle2(s *AvSubtitle, g *int, a *AVPacket) int {
 	return int(C.avcodec_decode_subtitle2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVSubtitle)(s), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
 //Encode a frame of audio.
-func (ctx *AVCodecContext) AVCodecEncodeAudio2(p *Packet, f *Frame, gp *int) int {
+func (ctx *AVCodecContext) AVCodecEncodeAudio2(p *AVPacket, f *Frame, gp *int) int {
 	return int(C.avcodec_encode_audio2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
 //Encode a frame of video
-func (ctx *AVCodecContext) AVCodecEncodeVideo2(p *Packet, f *Frame, gp *int) int {
+func (ctx *AVCodecContext) AVCodecEncodeVideo2(p *AVPacket, f *Frame, gp *int) int {
 	return int(C.avcodec_encode_video2((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
@@ -164,32 +164,32 @@ func (ctx *AVCodecContext) AVCodecIsOpen() int {
 }
 
 //Parse a packet.
-func (ctx *AVCodecContext) AvParserParse2(ctxtp *ParserContext, p **uint8, ps *int, b *uint8, bs int, pt, dt, po int64) int {
+func (ctx *AVCodecContext) AvParserParse2(ctxtp *AVCodecParserContext, p **uint8, ps *int, b *uint8, bs int, pt, dt, po int64) int {
 	return int(C.av_parser_parse2((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctx), (**C.uint8_t)(unsafe.Pointer(p)), (*C.int)(unsafe.Pointer(ps)), (*C.uint8_t)(b), C.int(bs), (C.int64_t)(pt), (C.int64_t)(dt), (C.int64_t)(po)))
 }
 
 // AvParserChange ...
-func (ctx *AVCodecContext) AvParserChange(ctxtp *ParserContext, pb **uint8, pbs *int, b *uint8, bs, k int) int {
+func (ctx *AVCodecContext) AvParserChange(ctxtp *AVCodecParserContext, pb **uint8, pbs *int, b *uint8, bs, k int) int {
 	return int(C.av_parser_change((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctx), (**C.uint8_t)(unsafe.Pointer(pb)), (*C.int)(unsafe.Pointer(pbs)), (*C.uint8_t)(b), C.int(bs), C.int(k)))
 }
 
 // AvParserInit ...
-func AvParserInit(c int) *ParserContext {
-	return (*ParserContext)(C.av_parser_init(C.int(c)))
+func AvParserInit(c int) *AVCodecParserContext {
+	return (*AVCodecParserContext)(C.av_parser_init(C.int(c)))
 }
 
 // AvParserClose ...
-func AvParserClose(ctxtp *ParserContext) {
+func AvParserClose(ctxtp *AVCodecParserContext) {
 	C.av_parser_close((*C.struct_AVCodecParserContext)(ctxtp))
 }
 
 // AvParserNext ...
-func (p *Parser) AvParserNext() *Parser {
-	return (*Parser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
+func (p *AVCodecParser) AvParserNext() *AVCodecParser {
+	return (*AVCodecParser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
 }
 
 // AvRegisterCodecParser ...
-func (p *Parser) AvRegisterCodecParser() {
+func (p *AVCodecParser) AvRegisterCodecParser() {
 	C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
 }
 
@@ -224,7 +224,7 @@ func (ctx *AVCodecContext) SetEncodeParams(width int, height int, pxlFmt PixelFo
 }
 
 // AVCodecSendPacket ...
-func (ctx *AVCodecContext) AVCodecSendPacket(packet *Packet) int {
+func (ctx *AVCodecContext) AVCodecSendPacket(packet *AVPacket) int {
 	return (int)(C.avcodec_send_packet((*C.struct_AVCodecContext)(ctx), (*C.struct_AVPacket)(packet)))
 }
 
@@ -306,55 +306,55 @@ func (ctx *AVFormatContext) AvFmtCtxGetDurationEstimationMethod() AvDurationEsti
 	return (AvDurationEstimationMethod)(C.av_fmt_ctx_get_duration_estimation_method((*C.struct_AVFormatContext)(ctx)))
 }
 
-//Free an Context and all its streams.
+//AVFormatFreeContext Free an Context and all its streams.
 func (ctx *AVFormatContext) AVFormatFreeContext() {
 	C.avformat_free_context((*C.struct_AVFormatContext)(ctx))
 }
 
-//Add a new stream to a media file.
+//AVFormatNewStream Add a new stream to a media file.
 func (ctx *AVFormatContext) AVFormatNewStream(c *AVCodec) *Stream {
 	return (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c)))
 }
 
-// AvNewProgram ...
-func (ctx *AVFormatContext) AvNewProgram(id int) *AvProgram {
+// AVNewProgram ...
+func (ctx *AVFormatContext) AVNewProgram(id int) *AvProgram {
 	return (*AvProgram)(C.av_new_program((*C.struct_AVFormatContext)(ctx), C.int(id)))
 }
 
-//Read packets of a media file to get stream information.
+//AVFormatFindStreamInfo Read packets of a media file to get stream information.
 func (ctx *AVFormatContext) AVFormatFindStreamInfo(d **Dictionary) int {
 	return int(C.avformat_find_stream_info((*C.struct_AVFormatContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
-//Find the programs which belong to a given stream.
-func (ctx *AVFormatContext) AvFindProgramFromStream(l *AvProgram, su int) *AvProgram {
+//AVFindProgramFromStream Find the programs which belong to a given stream.
+func (ctx *AVFormatContext) AVFindProgramFromStream(l *AvProgram, su int) *AvProgram {
 	return (*AvProgram)(C.av_find_program_from_stream((*C.struct_AVFormatContext)(ctx), (*C.struct_AVProgram)(l), C.int(su)))
 }
 
-//Find the "best" stream in the file.
-func AvFindBestStream(ic *AVFormatContext, t MediaType, ws, rs int, c **AVCodec, f int) int {
+//AVFindBestStream Find the "best" stream in the file.
+func AVFindBestStream(ic *AVFormatContext, t MediaType, ws, rs int, c **AVCodec, f int) int {
 	return int(C.av_find_best_stream((*C.struct_AVFormatContext)(ic), (C.enum_AVMediaType)(t), C.int(ws), C.int(rs), (**C.struct_AVCodec)(unsafe.Pointer(c)), C.int(f)))
 }
 
-//Return the next frame of a stream.
-func (ctx *AVFormatContext) AvReadFrame(pkt *Packet) int {
+//AVReadFrame Return the next frame of a stream.
+func (ctx *AVFormatContext) AVReadFrame(pkt *AVPacket) int {
 	return int(C.av_read_frame((*C.struct_AVFormatContext)(unsafe.Pointer(ctx)), toCPacket(pkt)))
 }
 
-//Seek to the keyframe at timestamp.
-func (ctx *AVFormatContext) AvSeekFrame(st int, t int64, f int) int {
+//AVSeekFrame Seek to the keyframe at timestamp.
+func (ctx *AVFormatContext) AVSeekFrame(st int, t int64, f int) int {
 	return int(C.av_seek_frame((*C.struct_AVFormatContext)(ctx), C.int(st), C.int64_t(t), C.int(f)))
 }
 
-// AvSeekFrameTime seeks to a specified time location.
+// AVSeekFrameTime seeks to a specified time location.
 // |timebase| is codec specific and can be obtained by calling AvCodecGetPktTimebase2
-func (ctx *AVFormatContext) AvSeekFrameTime(st int, at time.Duration, timebase Rational) int {
+func (ctx *AVFormatContext) AVSeekFrameTime(st int, at time.Duration, timebase Rational) int {
 	t2 := C.double(C.double(at.Seconds())*C.double(timebase.Den())) / (C.double(timebase.Num()))
 	// log.Printf("Seeking to time :%v TimebaseTime:%v ActualTimebase:%v", at, t2, timebase)
 	return int(C.av_seek_frame((*C.struct_AVFormatContext)(ctx), C.int(st), C.int64_t(t2), AvseekFlagBackward))
 }
 
-//Seek to timestamp ts.
+//AVFormatSeekFile Seek to timestamp ts.
 func (ctx *AVFormatContext) AVFormatSeekFile(si int, mit, ts, mat int64, f int) int {
 	return int(C.avformat_seek_file((*C.struct_AVFormatContext)(ctx), C.int(si), C.int64_t(mit), C.int64_t(ts), C.int64_t(mat), C.int(f)))
 }
@@ -369,7 +369,7 @@ func (ctx *AVFormatContext) AVReadPause() int {
 	return int(C.av_read_pause((*C.struct_AVFormatContext)(ctx)))
 }
 
-//Close an opened input Context.
+//AVFormatCloseInput Close an opened input Context.
 func (ctx *AVFormatContext) AVFormatCloseInput() {
 	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(&ctx)))
 }
@@ -380,12 +380,12 @@ func (ctx *AVFormatContext) AVFormatWriteHeader(o **Dictionary) int {
 }
 
 //AVWriteFrame Write a packet to an output media file.
-func (ctx *AVFormatContext) AVWriteFrame(pkt *Packet) int {
+func (ctx *AVFormatContext) AVWriteFrame(pkt *AVPacket) int {
 	return int(C.av_write_frame((*C.struct_AVFormatContext)(ctx), toCPacket(pkt)))
 }
 
 //AVInterleavedWriteFrame Write a packet to an output media file ensuring correct interleaving.
-func (ctx *AVFormatContext) AVInterleavedWriteFrame(pkt *Packet) int {
+func (ctx *AVFormatContext) AVInterleavedWriteFrame(pkt *AVPacket) int {
 	return int(C.av_interleaved_write_frame((*C.struct_AVFormatContext)(ctx), toCPacket(pkt)))
 }
 

@@ -16,6 +16,7 @@ import (
 	"unsafe"
 )
 
+// AvBuffer ...
 type (
 	AvBuffer            C.struct_AVBuffer
 	AvBufferRef         C.struct_AVBufferRef
@@ -25,14 +26,17 @@ type (
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
 
+// AvprivFrameGetMetadatap ...
 func AvprivFrameGetMetadatap(f *Frame) *Dictionary {
 	return (*Dictionary)(unsafe.Pointer(f.metadata))
 }
 
+// AvFrameSetQpTable ...
 func AvFrameSetQpTable(f *Frame, b *AvBufferRef, s, q int) int {
 	return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
 }
 
+// AvFrameGetQpTable ...
 func AvFrameGetQpTable(f *Frame, s, t *int) int8 {
 	return int8(*C.av_frame_get_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.int)(unsafe.Pointer(s)), (*C.int)(unsafe.Pointer(t))))
 }
@@ -98,10 +102,12 @@ func AvFrameNewSideData(f *Frame, d AvFrameSideDataType, s int) *AvFrameSideData
 	return (*AvFrameSideData)(C.av_frame_new_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(d), C.int(s)))
 }
 
+// AvFrameGetSideData ...
 func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
 	return (*AvFrameSideData)(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t)))
 }
 
+// Data ...
 func Data(f *Frame) (data [8]*uint8) {
 	for i := range data {
 		data[i] = (*uint8)(f.data[i])
@@ -109,6 +115,7 @@ func Data(f *Frame) (data [8]*uint8) {
 	return
 }
 
+// Linesize ...
 func Linesize(f *Frame) (linesize [8]int32) {
 	for i := range linesize {
 		linesize[i] = int32(f.linesize[i])
@@ -154,6 +161,7 @@ func SetPicture(f *Frame, img *image.YCbCr) {
 	// d[1] = (*uint8)(unsafe.Pointer(&img.Cb[0]))
 }
 
+// GetPictureRGB ...
 func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
 	w := int(f.linesize[0])
 	h := int(f.height)
@@ -167,6 +175,7 @@ func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
 	return
 }
 
+// AvSetFrame ...
 func AvSetFrame(f *Frame, w int, h int, pixFmt int) (err error) {
 	f.width = C.int(w)
 	f.height = C.int(h)
@@ -178,6 +187,7 @@ func AvSetFrame(f *Frame, w int, h int, pixFmt int) (err error) {
 	return
 }
 
+// AvFrameGetInfo ...
 func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8]*uint8) {
 	width = int(f.linesize[0])
 	height = int(f.height)
@@ -191,6 +201,7 @@ func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8
 	return
 }
 
+// GetBestEffortTimestamp ...
 func GetBestEffortTimestamp(f *Frame) int64 {
 	return int64(f.best_effort_timestamp)
 }

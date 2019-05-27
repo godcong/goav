@@ -1,7 +1,7 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-//Package swscale performs highly optimized image scaling and colorspace and pixel format conversion operations.
+//Package goav performs highly optimized image scaling and colorspace and pixel format conversion operations.
 //Rescaling: is the process of changing the video size. Several rescaling options and algorithms are available.
 //Pixel format conversion: is the process of converting the image format and colorspace of the image.
 package goav
@@ -18,6 +18,7 @@ import (
 	"unsafe"
 )
 
+// SwsContext ...
 type (
 	SwsContext C.struct_SwsContext
 	//Filter     C.struct_SwsFilter
@@ -56,6 +57,7 @@ func SwsIssupportedoutput(p PixelFormat) int {
 	return int(C.sws_isSupportedOutput((C.enum_AVPixelFormat)(p)))
 }
 
+// SwsIssupportedendiannessconversion ...
 func SwsIssupportedendiannessconversion(p PixelFormat) int {
 	return int(C.sws_isSupportedEndiannessConversion((C.enum_AVPixelFormat)(p)))
 }
@@ -70,6 +72,7 @@ func SwsScale(ctxt *SwsContext, src *uint8, str int, y, h int, d *uint8, ds int)
 	return int(C.sws_scale(cctxt, &csrc, cstr, C.int(y), C.int(h), &cd, cds))
 }
 
+// SwsScale2 ...
 func SwsScale2(ctxt *SwsContext, srcData [8]*uint8, srcStride [8]int32, y, h int, dstData [8]*uint8, dstStride [8]int32) int {
 	cctxt := (*C.struct_SwsContext)(unsafe.Pointer(ctxt))
 	csrc := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
@@ -79,12 +82,14 @@ func SwsScale2(ctxt *SwsContext, srcData [8]*uint8, srcStride [8]int32, y, h int
 	return int(C.sws_scale(cctxt, csrc, cstr, C.int(y), C.int(h), cd, cds))
 }
 
+// SwsSetcolorspacedetails ...
 func SwsSetcolorspacedetails(ctxt *SwsContext, it *int, sr int, t *int, dr, b, c, s int) int {
 	cit := (*C.int)(unsafe.Pointer(it))
 	ct := (*C.int)(unsafe.Pointer(t))
 	return int(C.sws_setColorspaceDetails((*C.struct_SwsContext)(ctxt), cit, C.int(sr), ct, C.int(dr), C.int(b), C.int(c), C.int(s)))
 }
 
+// SwsGetcolorspacedetails ...
 func SwsGetcolorspacedetails(ctxt *SwsContext, it, sr, t, dr, b, c, s *int) int {
 	cit := (**C.int)(unsafe.Pointer(it))
 	csr := (*C.int)(unsafe.Pointer(sr))
@@ -96,10 +101,12 @@ func SwsGetcolorspacedetails(ctxt *SwsContext, it, sr, t, dr, b, c, s *int) int 
 	return int(C.sws_getColorspaceDetails((*C.struct_SwsContext)(ctxt), cit, csr, ct, cdr, cb, cc, cs))
 }
 
+// SwsGetdefaultfilter ...
 func SwsGetdefaultfilter(lb, cb, ls, cs, chs, cvs float32, v int) *Filter {
 	return (*Filter)(unsafe.Pointer(C.sws_getDefaultFilter(C.float(lb), C.float(cb), C.float(ls), C.float(cs), C.float(chs), C.float(cvs), C.int(v))))
 }
 
+// SwsFreefilter ...
 func SwsFreefilter(f *Filter) {
 	C.sws_freeFilter((*C.struct_SwsFilter)(f))
 }

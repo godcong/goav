@@ -31,7 +31,7 @@ func (s *Stream) IndexEntries() *AvIndexEntry {
 }
 
 // AttachedPic ...
-func (s *Stream) AttachedPic() Packet {
+func (s *Stream) AttachedPic() AVPacket {
 	return *fromCPacket(&s.attached_pic)
 }
 
@@ -66,8 +66,8 @@ func (s *Stream) TimeBase() Rational {
 }
 
 // Discard ...
-func (s *Stream) Discard() AvDiscard {
-	return AvDiscard(s.discard)
+func (s *Stream) Discard() AVDiscard {
+	return AVDiscard(s.discard)
 }
 
 // NeedParsing ...
@@ -225,7 +225,7 @@ func (s *Stream) StartTime() int64 {
 	return int64(s.start_time)
 }
 
-// Parser ...
+// AVCodecParser ...
 func (s *Stream) Parser() *CodecParserContext {
 	return (*CodecParserContext)(unsafe.Pointer(s.parser))
 }

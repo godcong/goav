@@ -612,23 +612,23 @@ func (ctx *AVCodecContext) WorkaroundBugs() int {
 }
 
 // AudioServiceType ...
-func (ctx *AVCodecContext) AudioServiceType() AvAudioServiceType {
-	return (AvAudioServiceType)(ctx.audio_service_type)
+func (ctx *AVCodecContext) AudioServiceType() AVAudioServiceType {
+	return (AVAudioServiceType)(ctx.audio_service_type)
 }
 
 // ChromaSampleLocation ...
-func (ctx *AVCodecContext) ChromaSampleLocation() AvChromaLocation {
-	return (AvChromaLocation)(ctx.chroma_sample_location)
+func (ctx *AVCodecContext) ChromaSampleLocation() AVChromaLocation {
+	return (AVChromaLocation)(ctx.chroma_sample_location)
 }
 
 // CodecDescriptor ...
-func (ctx *AVCodecContext) CodecDescriptor() *Descriptor {
-	return (*Descriptor)(ctx.codec_descriptor)
+func (ctx *AVCodecContext) CodecDescriptor() *AVCodecDescriptor {
+	return (*AVCodecDescriptor)(ctx.codec_descriptor)
 }
 
-// CodecID ...
-func (ctx *AVCodecContext) CodecID() CodecID {
-	return (CodecID)(ctx.codec_id)
+// AVCodecID ...
+func (ctx *AVCodecContext) CodecID() AVCodecID {
+	return (AVCodecID)(ctx.codec_id)
 }
 
 // CodecType ...
@@ -637,28 +637,28 @@ func (ctx *AVCodecContext) CodecType() MediaType {
 }
 
 // ColorPrimaries ...
-func (ctx *AVCodecContext) ColorPrimaries() AvColorPrimaries {
-	return (AvColorPrimaries)(ctx.color_primaries)
+func (ctx *AVCodecContext) ColorPrimaries() AVColorPrimaries {
+	return (AVColorPrimaries)(ctx.color_primaries)
 }
 
 // ColorRange ...
-func (ctx *AVCodecContext) ColorRange() AvColorRange {
-	return (AvColorRange)(ctx.color_range)
+func (ctx *AVCodecContext) ColorRange() AVColorRange {
+	return (AVColorRange)(ctx.color_range)
 }
 
 // ColorTrc ...
-func (ctx *AVCodecContext) ColorTrc() AvColorTransferCharacteristic {
-	return (AvColorTransferCharacteristic)(ctx.color_trc)
+func (ctx *AVCodecContext) ColorTrc() AVColorTransferCharacteristic {
+	return (AVColorTransferCharacteristic)(ctx.color_trc)
 }
 
 // Colorspace ...
-func (ctx *AVCodecContext) Colorspace() AvColorSpace {
-	return (AvColorSpace)(ctx.colorspace)
+func (ctx *AVCodecContext) Colorspace() AVColorSpace {
+	return (AVColorSpace)(ctx.colorspace)
 }
 
 // FieldOrder ...
-func (ctx *AVCodecContext) FieldOrder() AvFieldOrder {
-	return (AvFieldOrder)(ctx.field_order)
+func (ctx *AVCodecContext) FieldOrder() AVFieldOrder {
+	return (AVFieldOrder)(ctx.field_order)
 }
 
 // PixFmt ...
@@ -677,18 +677,18 @@ func (ctx *AVCodecContext) SampleFmt() AvSampleFormat {
 }
 
 // SkipFrame ...
-func (ctx *AVCodecContext) SkipFrame() AvDiscard {
-	return (AvDiscard)(ctx.skip_frame)
+func (ctx *AVCodecContext) SkipFrame() AVDiscard {
+	return (AVDiscard)(ctx.skip_frame)
 }
 
 // SkipIdct ...
-func (ctx *AVCodecContext) SkipIdct() AvDiscard {
-	return (AvDiscard)(ctx.skip_idct)
+func (ctx *AVCodecContext) SkipIdct() AVDiscard {
+	return (AVDiscard)(ctx.skip_idct)
 }
 
 // SkipLoopFilter ...
-func (ctx *AVCodecContext) SkipLoopFilter() AvDiscard {
-	return (AvDiscard)(ctx.skip_loop_filter)
+func (ctx *AVCodecContext) SkipLoopFilter() AVDiscard {
+	return (AVDiscard)(ctx.skip_loop_filter)
 }
 
 // Chapters ...
@@ -759,18 +759,18 @@ func (ctx *AVFormatContext) Filename() string {
 }
 
 // AudioCodecID ...
-func (ctx *AVFormatContext) AudioCodecID() CodecID {
-	return CodecID(ctx.audio_codec_id)
+func (ctx *AVFormatContext) AudioCodecID() AVCodecID {
+	return AVCodecID(ctx.audio_codec_id)
 }
 
 // SubtitleCodecID ...
-func (ctx *AVFormatContext) SubtitleCodecID() CodecID {
-	return CodecID(ctx.subtitle_codec_id)
+func (ctx *AVFormatContext) SubtitleCodecID() AVCodecID {
+	return AVCodecID(ctx.subtitle_codec_id)
 }
 
 // VideoCodecID ...
-func (ctx *AVFormatContext) VideoCodecID() CodecID {
-	return CodecID(ctx.video_codec_id)
+func (ctx *AVFormatContext) VideoCodecID() AVCodecID {
+	return AVCodecID(ctx.video_codec_id)
 }
 
 // DurationEstimationMethod ...

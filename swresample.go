@@ -1,7 +1,7 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-// Package swresample provides a high-level interface to the libswresample library audio resampling utilities
+// Package goav provides a high-level interface to the libswresample library audio resampling utilities
 // The process of changing the sampling rate of a discrete signal to obtain a new discrete representation of the underlying continuous signal.
 package goav
 
@@ -11,6 +11,7 @@ package goav
 */
 import "C"
 
+// SwrContext ...
 type (
 	SwrContext C.struct_SwrContext
 	//Frame C.struct_AVFrame
@@ -33,10 +34,12 @@ func SwresampleVersion() uint {
 	return uint(C.swresample_version())
 }
 
+// SwresampleConfiguration ...
 func SwresampleConfiguration() string {
 	return C.GoString(C.swresample_configuration())
 }
 
+// SwresampleLicense ...
 func SwresampleLicense() string {
 	return C.GoString(C.swresample_license())
 }

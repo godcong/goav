@@ -45,20 +45,20 @@ type (
 	//AvPacketSideData           C.struct_AVPacketSideData
 	FFFrac            C.struct_FFFrac
 	AvStreamParseType C.enum_AVStreamParseType
-	//AvDiscard                  C.enum_AVDiscard
+	//AVDiscard                  C.enum_AVDiscard
 	//MediaType                  C.enum_AVMediaType
 	AvDurationEstimationMethod C.enum_AVDurationEstimationMethod
-	//AvPacketSideDataType       C.enum_AVPacketSideDataType
-	//CodecID                    C.enum_AVCodecID
+	//AVPacketSideDataType       C.enum_AVPacketSideDataType
+	//AVCodecID                    C.enum_AVCodecID
 )
 
 //Allocate and read the payload of a packet and initialize its fields with default values.
-func (ctxt *AvIOContext) AvGetPacket(pkt *Packet, s int) int {
+func (ctxt *AvIOContext) AvGetPacket(pkt *AVPacket, s int) int {
 	return int(C.av_get_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
 }
 
-//Read data and append it to the current content of the Packet.
-func (ctxt *AvIOContext) AvAppendPacket(pkt *Packet, s int) int {
+//Read data and append it to the current content of the AVPacket.
+func (ctxt *AvIOContext) AvAppendPacket(pkt *AVPacket, s int) int {
 	return int(C.av_append_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
 }
 
@@ -128,7 +128,7 @@ func AVFormatGetClass() *Class {
 }
 
 //AVStreamGetSideData Get side information from stream.
-func (s *Stream) AVStreamGetSideData(t AvPacketSideDataType, z int) *uint8 {
+func (s *Stream) AVStreamGetSideData(t AVPacketSideDataType, z int) *uint8 {
 	return (*uint8)(C.av_stream_get_side_data((*C.struct_AVStream)(s), (C.enum_AVPacketSideDataType)(t), (*C.int)(unsafe.Pointer(&z))))
 }
 
@@ -205,7 +205,7 @@ func AVGuessFormat(sn, f, mt string) *OutputFormat {
 }
 
 //AVGuessCodec Guess the codec ID based upon muxer and filename.
-func AVGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecID {
+func AVGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) AVCodecID {
 	CshortName := C.CString(sn)
 	defer C.free(unsafe.Pointer(CshortName))
 
@@ -215,7 +215,7 @@ func AVGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecID {
 	CmimeType := C.CString(mt)
 	defer C.free(unsafe.Pointer(CmimeType))
 
-	return (CodecID)(C.av_guess_codec((*C.struct_AVOutputFormat)(fmt), CshortName, CfileName, CmimeType, (C.enum_AVMediaType)(t)))
+	return (AVCodecID)(C.av_guess_codec((*C.struct_AVOutputFormat)(fmt), CshortName, CfileName, CmimeType, (C.enum_AVMediaType)(t)))
 }
 
 //AVHexDump Send a nice hexadecimal dump of a buffer to the specified file stream.
@@ -229,28 +229,28 @@ func AVHexDumpLog(a, l int, b *uint8, s int) {
 }
 
 //AVPktDump2 Send a nice dump of a packet to the specified file stream.
-func AVPktDump2(f *File, pkt *Packet, dp int, st *Stream) {
+func AVPktDump2(f *File, pkt *AVPacket, dp int, st *Stream) {
 	C.av_pkt_dump2((*C.FILE)(f), toCPacket(pkt), C.int(dp), (*C.struct_AVStream)(st))
 }
 
 //AVPktDumpLog2 Send a nice dump of a packet to the log.
-func AVPktDumpLog2(a int, l int, pkt *Packet, dp int, st *Stream) {
+func AVPktDumpLog2(a int, l int, pkt *AVPacket, dp int, st *Stream) {
 	C.av_pkt_dump_log2(unsafe.Pointer(&a), C.int(l), toCPacket(pkt), C.int(dp), (*C.struct_AVStream)(st))
 }
 
-//AVCodecGetID enum CodecID av_codec_get_id (const struct AVCodecTag *const *tags, unsigned int tag)
-//Get the CodecID for the given codec tag tag.
-func AVCodecGetID(t **AVCodecTag, tag uint) CodecID {
-	return (CodecID)(C.av_codec_get_id((**C.struct_AVCodecTag)(unsafe.Pointer(t)), C.uint(tag)))
+//AVCodecGetID enum AVCodecID av_codec_get_id (const struct AVCodecTag *const *tags, unsigned int tag)
+//Get the AVCodecID for the given codec tag tag.
+func AVCodecGetID(t **AVCodecTag, tag uint) AVCodecID {
+	return (AVCodecID)(C.av_codec_get_id((**C.struct_AVCodecTag)(unsafe.Pointer(t)), C.uint(tag)))
 }
 
 //AVCodecGetTag Get the codec tag for the given codec id id.
-func AVCodecGetTag(t **AVCodecTag, id CodecID) uint {
+func AVCodecGetTag(t **AVCodecTag, id AVCodecID) uint {
 	return uint(C.av_codec_get_tag((**C.struct_AVCodecTag)(unsafe.Pointer(t)), (C.enum_AVCodecID)(id)))
 }
 
 //AVCodecGetTag2 Get the codec tag for the given codec id.
-func AVCodecGetTag2(t **AVCodecTag, id CodecID, tag *uint) int {
+func AVCodecGetTag2(t **AVCodecTag, id AVCodecID, tag *uint) int {
 	return int(C.av_codec_get_tag2((**C.struct_AVCodecTag)(unsafe.Pointer(t)), (C.enum_AVCodecID)(id), (*C.uint)(unsafe.Pointer(tag))))
 }
 
@@ -338,7 +338,7 @@ func AvMatchExt(filename, extensions string) int {
 }
 
 //AVFormatQueryCodec Test if the given container can store a codec.
-func AVFormatQueryCodec(o *OutputFormat, cd CodecID, sc int) int {
+func AVFormatQueryCodec(o *OutputFormat, cd AVCodecID, sc int) int {
 	return int(C.avformat_query_codec((*C.struct_AVOutputFormat)(o), (C.enum_AVCodecID)(cd), C.int(sc)))
 }
 

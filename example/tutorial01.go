@@ -85,7 +85,7 @@ func main() {
 			// Get a pointer to the codec context for the video stream
 			pCodecCtxOrig := pFormatContext.Streams()[i].Codec()
 			// Find the decoder for the video stream
-			pCodec := goav.AVCodecFindDecoder(goav.CodecID(pCodecCtxOrig.GetCodecID()))
+			pCodec := goav.AVCodecFindDecoder(goav.AVCodecID(pCodecCtxOrig.GetCodecID()))
 			if pCodec == nil {
 				fmt.Println("Unsupported codec!")
 				os.Exit(1)
@@ -121,7 +121,7 @@ func main() {
 			// Assign appropriate parts of buffer to image planes in pFrameRGB
 			// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
 			// of AVPicture
-			avp := (*goav.Picture)(unsafe.Pointer(pFrameRGB))
+			avp := (*goav.AVPicture)(unsafe.Pointer(pFrameRGB))
 			avp.AvpictureFill((*uint8)(buffer), goav.AvPixFmtRgb24, pCodecCtx.Width(), pCodecCtx.Height())
 
 			// initialize SWS context for software scaling

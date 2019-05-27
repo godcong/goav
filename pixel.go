@@ -1,7 +1,7 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-//Package avcodec contains the codecs (decoders and encoders) provided by the libavcodec library
+//Package goav contains the codecs (decoders and encoders) provided by the libavcodec library
 //Provides some generic global options, which can be set on all the encoders and decoders.
 package goav
 
