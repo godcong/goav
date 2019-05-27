@@ -307,7 +307,7 @@ func AvGetFrameFilename(bufSize int, path string, number int) (int, string) {
 	return ret, C.GoString(Cbuf)
 }
 
-//Check whether filename actually is a numbered sequence generator.
+//AvFilenameNumberTest Check whether filename actually is a numbered sequence generator.
 func AvFilenameNumberTest(filename string) int {
 	Cfilename := C.CString(filename)
 	defer C.free(unsafe.Pointer(Cfilename))

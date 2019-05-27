@@ -506,7 +506,7 @@ func (s *SwrContext) SwrFree() {
 	C.swr_free((**C.struct_SwrContext)(unsafe.Pointer(s)))
 }
 
-//Closes the context so that swr_is_initialized() returns 0.
+//SwrClose Closes the context so that swr_is_initialized() returns 0.
 func (s *SwrContext) SwrClose() {
 	C.swr_close((*C.struct_SwrContext)(s))
 }
@@ -521,7 +521,7 @@ func (s *SwrContext) SwrNextPts(pts int64) int64 {
 	return int64(C.swr_next_pts((*C.struct_SwrContext)(s), C.int64_t(pts)))
 }
 
-//Low-level option setting functions
+//SwrSetCompensation Low-level option setting functions
 //These functons provide a means to set low-level options that is not possible with the AvOption API.
 //Activate resampling compensation ("soft" compensation).
 func (s *SwrContext) SwrSetCompensation(sd, cd int) int {
@@ -538,7 +538,7 @@ func (s *SwrContext) SwrSetMatrix(m *int, t int) int {
 	return int(C.swr_set_matrix((*C.struct_SwrContext)(s), (*C.double)(unsafe.Pointer(m)), C.int(t)))
 }
 
-//Sample handling functions. Drops the specified number of output samples.
+//SwrDropOutput Sample handling functions. Drops the specified number of output samples.
 func (s *SwrContext) SwrDropOutput(c int) int {
 	return int(C.swr_drop_output((*C.struct_SwrContext)(s), C.int(c)))
 }
