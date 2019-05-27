@@ -9,16 +9,16 @@ A comprehensive binding to the ffmpeg video/audio manipulation library.
 
 `````go
 
-import "github.com/giorgisio/goav/avformat"
+import "github.com/giorgisio/goav"
 
 func main() {
 
 	filename := "sample.mp4"
 
 	// Register all formats and codecs
-	AvRegisterAll()
+	goav.AvRegisterAll()
 
-	ctx := AvformatAllocContext()
+	ctx := goav.AvformatAllocContext()
 
 	// Open video file
 	if AvformatOpenInput(&ctx, filename, nil, nil) != 0 {
