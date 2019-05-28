@@ -10,6 +10,33 @@ import (
 	"unsafe"
 )
 
+// PictureType ...
+type PictureType C.enum_AVPictureType
+
+// PictureTypeNone ...
+const PictureTypeNone PictureType = C.AV_PICTURE_TYPE_NONE
+
+// PictureTypeI ...
+const PictureTypeI PictureType = C.AV_PICTURE_TYPE_I
+
+// PictureTypeP ...
+const PictureTypeP PictureType = C.AV_PICTURE_TYPE_P
+
+// PictureTypeB ...
+const PictureTypeB PictureType = C.AV_PICTURE_TYPE_B
+
+// PictureTypeS ...
+const PictureTypeS PictureType = C.AV_PICTURE_TYPE_S
+
+// PictureTypeSI ...
+const PictureTypeSI PictureType = C.AV_PICTURE_TYPE_SI
+
+// PictureTypeSP ...
+const PictureTypeSP PictureType = C.AV_PICTURE_TYPE_SP
+
+// PictureTypeBI ...
+const PictureTypeBI PictureType = C.AV_PICTURE_TYPE_BI
+
 // AVPictureFill - Setup the picture fields based on the specified image parameters and the provided image data buffer.
 func (p *Picture) AVPictureFill(pt *uint8, pf PixelFormat, w, h int) int {
 	return int(C.avpicture_fill((*C.struct_AVPicture)(p), (*C.uint8_t)(pt), (C.enum_AVPixelFormat)(pf), C.int(w), C.int(h)))

@@ -24,14 +24,56 @@ type Tree C.struct_AVTree
 // Rational ...
 type Rational C.struct_AVRational
 
-// PictureType ...
-type PictureType C.enum_AVPictureType
-
 // PixelFormat ...
 type PixelFormat C.enum_AVPixelFormat
 
+// ChromaLocation ...
+type ChromaLocation C.enum_AVChromaLocation
+
+// ChromaLocationUnspecified ...
+const (
+	ChromaLocationUnspecified ChromaLocation = C.AVCHROMA_LOC_UNSPECIFIED
+	ChromaLocationLeft        ChromaLocation = C.AVCHROMA_LOC_LEFT
+	ChromaLocationCenter      ChromaLocation = C.AVCHROMA_LOC_CENTER
+	ChromaLocationTopLeft     ChromaLocation = C.AVCHROMA_LOC_TOPLEFT
+	ChromaLocationTop         ChromaLocation = C.AVCHROMA_LOC_TOP
+	ChromaLocationBottomLeft  ChromaLocation = C.AVCHROMA_LOC_BOTTOMLEFT
+	ChromaLocationBottom      ChromaLocation = C.AVCHROMA_LOC_BOTTOM
+)
+
+// ErrorCode ...
+type ErrorCode int
+
+// OptionSearchFlags ...
+type OptionSearchFlags int
+
+// OptionSearchChildren ...
+const (
+	OptionSearchChildren OptionSearchFlags = C.AV_OPT_SEARCH_CHILDREN
+	OptionSearchFakeObj  OptionSearchFlags = C.AV_OPT_SEARCH_FAKE_OBJ
+)
+
+// LossFlags ...
+type LossFlags int
+
+// LossFlagNone ...
+const (
+	LossFlagNone       LossFlags = 0
+	LossFlagResolution LossFlags = C.FF_LOSS_RESOLUTION
+	LossFlagDepth      LossFlags = C.FF_LOSS_DEPTH
+	LossFlagColorspace LossFlags = C.FF_LOSS_COLORSPACE
+	LossFlagAlpha      LossFlags = C.FF_LOSS_ALPHA
+	LossFlagColorquant LossFlags = C.FF_LOSS_COLORQUANT
+	LossFlagChroma     LossFlags = C.FF_LOSS_CHROMA
+	LossFlagAll        LossFlags = -1
+)
+
 // File ...
 type File C.FILE
+
+func init() {
+	AVLogSetLevel(LogLevelQuiet)
+}
 
 //AVUtilVersion Return the LIBAvUTIL_VERSION_INT constant.
 func AVUtilVersion() uint {
