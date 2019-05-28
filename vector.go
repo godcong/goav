@@ -55,7 +55,7 @@ func (a *SwsVector) SwsSubVec(b *SwsVector) {
 	C.sws_subVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
-// SwsShiftVec ...
+// Deprecated:SwsShiftVec ...
 func (a *SwsVector) SwsShiftVec(s int) {
 	C.sws_shiftVec((*C.struct_SwsVector)(a), C.int(s))
 }
@@ -65,7 +65,7 @@ func (a *SwsVector) SwsCloneVec() *SwsVector {
 	return (*SwsVector)(unsafe.Pointer(C.sws_cloneVec((*C.struct_SwsVector)(a))))
 }
 
-//SwsPrintVec2 Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
+//Deprecated:SwsPrintVec2 Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
 func (a *SwsVector) SwsPrintVec2(lctx *Class, l int) {
 	C.sws_printVec2((*C.struct_SwsVector)(a), (*C.struct_AVClass)(lctx), C.int(l))
 }
