@@ -82,31 +82,31 @@ const (
 type CodecFlag2 int
 
 // CodecFlag2Fast ...
-const CodecFlag2Fast CodecFlag2 = C.CODEC_FLAG2_FAST
+const CodecFlag2Fast CodecFlag2 = C.AV_CODEC_FLAG2_FAST
 
 // CodecFlag2NoOutput ...
-const CodecFlag2NoOutput CodecFlag2 = C.CODEC_FLAG2_NO_OUTPUT
+const CodecFlag2NoOutput CodecFlag2 = C.AV_CODEC_FLAG2_NO_OUTPUT
 
 // CodecFlag2LocalHeader ...
-const CodecFlag2LocalHeader CodecFlag2 = C.CODEC_FLAG2_LOCAL_HEADER
+const CodecFlag2LocalHeader CodecFlag2 = C.AV_CODEC_FLAG2_LOCAL_HEADER
 
 // CodecFlag2DropFrameTimecode ...
-const CodecFlag2DropFrameTimecode CodecFlag2 = C.CODEC_FLAG2_DROP_FRAME_TIMECODE
+const CodecFlag2DropFrameTimecode CodecFlag2 = C.AV_CODEC_FLAG2_DROP_FRAME_TIMECODE
 
 // CodecFlag2IgnoreCrop ...
-const CodecFlag2IgnoreCrop CodecFlag2 = C.CODEC_FLAG2_IGNORE_CROP
+const CodecFlag2IgnoreCrop CodecFlag2 = C.AV_CODEC_FLAG2_IGNORE_CROP
 
 // CodecFlag2Chunks ...
-const CodecFlag2Chunks CodecFlag2 = C.CODEC_FLAG2_CHUNKS
+const CodecFlag2Chunks CodecFlag2 = C.AV_CODEC_FLAG2_CHUNKS
 
 // CodecFlag2ShowAll ...
-const CodecFlag2ShowAll CodecFlag2 = C.CODEC_FLAG2_SHOW_ALL
+const CodecFlag2ShowAll CodecFlag2 = C.AV_CODEC_FLAG2_SHOW_ALL
 
 // CodecFlag2ExportMvs ...
-const CodecFlag2ExportMvs CodecFlag2 = C.CODEC_FLAG2_EXPORT_MVS
+const CodecFlag2ExportMvs CodecFlag2 = C.AV_CODEC_FLAG2_EXPORT_MVS
 
 // CodecFlag2SkipManual ...
-const CodecFlag2SkipManual CodecFlag2 = C.CODEC_FLAG2_SKIP_MANUAL
+const CodecFlag2SkipManual CodecFlag2 = C.AV_CODEC_FLAG2_SKIP_MANUAL
 
 // CodecFlag2RoFlushNoop ...
 const CodecFlag2RoFlushNoop CodecFlag = C.AV_CODEC_FLAG2_RO_FLUSH_NOOP

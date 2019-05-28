@@ -9,6 +9,8 @@ package goav
 
 //#cgo pkg-config: libavutil
 //#include <libavutil/avutil.h>
+//#include <libavutil/opt.h>
+//#include <libavutil/pixdesc.h>
 //#include <stdlib.h>
 import "C"
 import (
@@ -31,15 +33,25 @@ type PixelFormat C.enum_AVPixelFormat
 type ChromaLocation C.enum_AVChromaLocation
 
 // ChromaLocationUnspecified ...
-const (
-	ChromaLocationUnspecified ChromaLocation = C.AVCHROMA_LOC_UNSPECIFIED
-	ChromaLocationLeft        ChromaLocation = C.AVCHROMA_LOC_LEFT
-	ChromaLocationCenter      ChromaLocation = C.AVCHROMA_LOC_CENTER
-	ChromaLocationTopLeft     ChromaLocation = C.AVCHROMA_LOC_TOPLEFT
-	ChromaLocationTop         ChromaLocation = C.AVCHROMA_LOC_TOP
-	ChromaLocationBottomLeft  ChromaLocation = C.AVCHROMA_LOC_BOTTOMLEFT
-	ChromaLocationBottom      ChromaLocation = C.AVCHROMA_LOC_BOTTOM
-)
+const ChromaLocationUnspecified ChromaLocation = C.AVCHROMA_LOC_UNSPECIFIED
+
+// ChromaLocationLeft ...
+const ChromaLocationLeft ChromaLocation = C.AVCHROMA_LOC_LEFT
+
+// ChromaLocationCenter ...
+const ChromaLocationCenter ChromaLocation = C.AVCHROMA_LOC_CENTER
+
+// ChromaLocationTopLeft ...
+const ChromaLocationTopLeft ChromaLocation = C.AVCHROMA_LOC_TOPLEFT
+
+// ChromaLocationTop ...
+const ChromaLocationTop ChromaLocation = C.AVCHROMA_LOC_TOP
+
+// ChromaLocationBottomLeft ...
+const ChromaLocationBottomLeft ChromaLocation = C.AVCHROMA_LOC_BOTTOMLEFT
+
+// ChromaLocationBottom ...
+const ChromaLocationBottom ChromaLocation = C.AVCHROMA_LOC_BOTTOM
 
 // ErrorCode ...
 type ErrorCode int
@@ -57,16 +69,28 @@ const (
 type LossFlags int
 
 // LossFlagNone ...
-const (
-	LossFlagNone       LossFlags = 0
-	LossFlagResolution LossFlags = C.FF_LOSS_RESOLUTION
-	LossFlagDepth      LossFlags = C.FF_LOSS_DEPTH
-	LossFlagColorspace LossFlags = C.FF_LOSS_COLORSPACE
-	LossFlagAlpha      LossFlags = C.FF_LOSS_ALPHA
-	LossFlagColorquant LossFlags = C.FF_LOSS_COLORQUANT
-	LossFlagChroma     LossFlags = C.FF_LOSS_CHROMA
-	LossFlagAll        LossFlags = -1
-)
+const LossFlagNone LossFlags = 0
+
+// LossFlagResolution ...
+const LossFlagResolution LossFlags = C.FF_LOSS_RESOLUTION
+
+// LossFlagDepth ...
+const LossFlagDepth LossFlags = C.FF_LOSS_DEPTH
+
+// LossFlagColorspace ...
+const LossFlagColorspace LossFlags = C.FF_LOSS_COLORSPACE
+
+// LossFlagAlpha ...
+const LossFlagAlpha LossFlags = C.FF_LOSS_ALPHA
+
+// LossFlagColorquant ...
+const LossFlagColorquant LossFlags = C.FF_LOSS_COLORQUANT
+
+// LossFlagChroma ...
+const LossFlagChroma LossFlags = C.FF_LOSS_CHROMA
+
+// LossFlagAll ...
+const LossFlagAll LossFlags = -1
 
 // File ...
 type File C.FILE
