@@ -1,22 +1,25 @@
 # goav
 Golang binding for FFmpeg
 
-A comprehensive binding to the ffmpeg video/audio manipulation library.
+this project is forked from giorgisio/goav and changed lots of places.
 
-[![GoDoc](https://godoc.org/github.com/giorgisio/goav?status.svg)](https://godoc.org/github.com/giorgisio/goav)
+[![GoDoc](https://godoc.org/github.com/godcong/goav?status.svg)](https://godoc.org/github.com/godcong/goav)
+
+
+
 
 ## Usage
 
-`````go
+```go
 
-import "github.com/giorgisio/goav"
+import "github.com/godcong/goav"
 
 func main() {
 
 	filename := "sample.mp4"
 
 	// Register all formats and codecs
-	goav.AvRegisterAll()
+	goav.AVRegisterAll()
 
 	ctx := goav.AVFormatAllocContext()
 
