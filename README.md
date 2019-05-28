@@ -1,5 +1,5 @@
 # goav
-Golang binding for FFmpeg
+Go language bindings for ffmpeg libraries.
 
 this project is forked from giorgisio/goav and changed lots of places.
 

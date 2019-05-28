@@ -10,6 +10,20 @@ package goav
 */
 import "C"
 
+type LogLevel int
+
+const (
+	LogLevelQuiet   LogLevel = C.AV_LOG_QUIET
+	LogLevelPanic   LogLevel = C.AV_LOG_PANIC
+	LogLevelFatal   LogLevel = C.AV_LOG_FATAL
+	LogLevelError   LogLevel = C.AV_LOG_ERROR
+	LogLevelWarning LogLevel = C.AV_LOG_WARNING
+	LogLevelInfo    LogLevel = C.AV_LOG_INFO
+	LogLevelVerbose LogLevel = C.AV_LOG_VERBOSE
+	LogLevelDebug   LogLevel = C.AV_LOG_DEBUG
+	LogLevelTrace   LogLevel = C.AV_LOG_TRACE
+)
+
 // AVLogQuiet ...
 const (
 	AVLogQuiet   = -8
@@ -23,12 +37,12 @@ const (
 	AVLogTrace   = 56
 )
 
-// AvLogSetLevel ...
-func AvLogSetLevel(level int) {
+// AVLogSetLevel ...
+func AVLogSetLevel(level int) {
 	C.av_log_set_level(C.int(level))
 }
 
-// AvLogGetLevel ...
-func AvLogGetLevel() int {
+// AVLogGetLevel ...
+func AVLogGetLevel() int {
 	return int(C.av_log_get_level())
 }
