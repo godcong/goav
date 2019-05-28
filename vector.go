@@ -40,18 +40,18 @@ func (a *SwsVector) SwsNormalizeVec(h float64) {
 	C.sws_normalizeVec((*C.struct_SwsVector)(a), C.double(h))
 }
 
-// SwsConvvec ...
-func (a *SwsVector) SwsConvvec(b *SwsVector) {
+// SwsConvVec ...
+func (a *SwsVector) SwsConvVec(b *SwsVector) {
 	C.sws_convVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
-// SwsAddvec ...
-func (a *SwsVector) SwsAddvec(b *SwsVector) {
+// SwsAddVec ...
+func (a *SwsVector) SwsAddVec(b *SwsVector) {
 	C.sws_addVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
-// SwsSubvec ...
-func (a *SwsVector) SwsSubvec(b *SwsVector) {
+// Deprecated:SwsSubVec ...
+func (a *SwsVector) SwsSubVec(b *SwsVector) {
 	C.sws_subVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
@@ -70,7 +70,7 @@ func (a *SwsVector) SwsPrintVec2(lctx *Class, l int) {
 	C.sws_printVec2((*C.struct_SwsVector)(a), (*C.struct_AVClass)(lctx), C.int(l))
 }
 
-// SwsFreevec ...
-func (a *SwsVector) SwsFreevec() {
+// SwsFreeVec ...
+func (a *SwsVector) SwsFreeVec() {
 	C.sws_freeVec((*C.struct_SwsVector)(a))
 }
