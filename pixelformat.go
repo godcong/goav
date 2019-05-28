@@ -10,7 +10,7 @@ import (
 	"unsafe"
 )
 
-//Deprecated:AVCodecGetChromaSubSample Utility function to access log2_chroma_w log2_chroma_h from the pixel format AvPixFmtDescriptor.
+//AVCodecGetChromaSubSample Deprecated:Utility function to access log2_chroma_w log2_chroma_h from the pixel format AvPixFmtDescriptor.
 func (pf PixelFormat) AVCodecGetChromaSubSample(h, v *int) {
 	C.avcodec_get_chroma_sub_sample((C.enum_AVPixelFormat)(pf), (*C.int)(unsafe.Pointer(h)), (*C.int)(unsafe.Pointer(v)))
 }

@@ -10,39 +10,42 @@ package goav
 */
 import "C"
 
+// LogLevel ...
 type LogLevel int
 
-const (
-	LogLevelQuiet   LogLevel = C.AV_LOG_QUIET
-	LogLevelPanic   LogLevel = C.AV_LOG_PANIC
-	LogLevelFatal   LogLevel = C.AV_LOG_FATAL
-	LogLevelError   LogLevel = C.AV_LOG_ERROR
-	LogLevelWarning LogLevel = C.AV_LOG_WARNING
-	LogLevelInfo    LogLevel = C.AV_LOG_INFO
-	LogLevelVerbose LogLevel = C.AV_LOG_VERBOSE
-	LogLevelDebug   LogLevel = C.AV_LOG_DEBUG
-	LogLevelTrace   LogLevel = C.AV_LOG_TRACE
-)
+// LogLevelQuiet ...
+const LogLevelQuiet LogLevel = C.AV_LOG_QUIET
 
-// AVLogQuiet ...
-const (
-	AVLogQuiet   = -8
-	AVLogPanic   = 0
-	AVLogFatal   = 8
-	AVLogError   = 16
-	AVLogWarning = 24
-	AVLogInfo    = 32
-	AVLogVerbose = 40
-	AVLogDebug   = 48
-	AVLogTrace   = 56
-)
+// LogLevelPanic ...
+const LogLevelPanic LogLevel = C.AV_LOG_PANIC
+
+// LogLevelFatal ...
+const LogLevelFatal LogLevel = C.AV_LOG_FATAL
+
+// LogLevelError ...
+const LogLevelError LogLevel = C.AV_LOG_ERROR
+
+// LogLevelWarning ...
+const LogLevelWarning LogLevel = C.AV_LOG_WARNING
+
+// LogLevelInfo ...
+const LogLevelInfo LogLevel = C.AV_LOG_INFO
+
+// LogLevelVerbose ...
+const LogLevelVerbose LogLevel = C.AV_LOG_VERBOSE
+
+// LogLevelDebug ...
+const LogLevelDebug LogLevel = C.AV_LOG_DEBUG
+
+// LogLevelTrace ...
+const LogLevelTrace LogLevel = C.AV_LOG_TRACE
 
 // AVLogSetLevel ...
-func AVLogSetLevel(level int) {
+func AVLogSetLevel(level LogLevel) {
 	C.av_log_set_level(C.int(level))
 }
 
 // AVLogGetLevel ...
-func AVLogGetLevel() int {
-	return int(C.av_log_get_level())
+func AVLogGetLevel() LogLevel {
+	return (LogLevel)(C.av_log_get_level())
 }

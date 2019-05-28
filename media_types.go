@@ -6,23 +6,26 @@ package goav
 //#include <libavutil/avutil.h>
 import "C"
 
+// MediaType ...
+type MediaType C.enum_AVMediaType
+
 // AVMediaTypeUnknown ...
-const AVMediaTypeUnknown = C.AVMEDIA_TYPE_UNKNOWN
+const AVMediaTypeUnknown MediaType = C.AVMEDIA_TYPE_UNKNOWN
 
 // AVMediaTypeVideo ...
-const AVMediaTypeVideo = C.AVMEDIA_TYPE_VIDEO
+const AVMediaTypeVideo MediaType = C.AVMEDIA_TYPE_VIDEO
 
 // AVMediaTypeAudio ...
-const AVMediaTypeAudio = C.AVMEDIA_TYPE_AUDIO
+const AVMediaTypeAudio MediaType = C.AVMEDIA_TYPE_AUDIO
 
 // AVMediaTypeData ...
-const AVMediaTypeData = C.AVMEDIA_TYPE_DATA
+const AVMediaTypeData MediaType = C.AVMEDIA_TYPE_DATA
 
 // AVMediaTypeSubtitle ...
-const AVMediaTypeSubtitle = C.AVMEDIA_TYPE_SUBTITLE
+const AVMediaTypeSubtitle MediaType = C.AVMEDIA_TYPE_SUBTITLE
 
 // AVMediaTypeAttachment ...
-const AVMediaTypeAttachment = C.AVMEDIA_TYPE_ATTACHMENT
+const AVMediaTypeAttachment MediaType = C.AVMEDIA_TYPE_ATTACHMENT
 
 // AVMediaTypeNb ...
-const AVMediaTypeNb = C.AVMEDIA_TYPE_NB
+const AVMediaTypeNb MediaType = C.AVMEDIA_TYPE_NB

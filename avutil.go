@@ -24,9 +24,6 @@ type Tree C.struct_AVTree
 // Rational ...
 type Rational C.struct_AVRational
 
-// MediaType ...
-type MediaType C.enum_AVMediaType
-
 // PictureType ...
 type PictureType C.enum_AVPictureType
 
