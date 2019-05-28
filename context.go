@@ -463,7 +463,7 @@ func SwsAllocContext() *SwsContext {
 }
 
 //SwsInitContext Initialize the swscaler context sws_context.
-func SwsInitContext(ctx *SwsContext, sf, df *Filter) int {
+func SwsInitContext(ctx *SwsContext, sf, df *SwsFilter) int {
 	return int(C.sws_init_context((*C.struct_SwsContext)(ctx), (*C.struct_SwsFilter)(sf), (*C.struct_SwsFilter)(df)))
 }
 
@@ -473,12 +473,12 @@ func SwsFreecontext(ctx *SwsContext) {
 }
 
 //SwsGetcontext Allocate and return an Context.
-func SwsGetcontext(sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *int) *SwsContext {
+func SwsGetcontext(sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *SwsFilter, p *int) *SwsContext {
 	return (*SwsContext)(C.sws_getContext(C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(unsafe.Pointer(p))))
 }
 
 //SwsGetCachedContext Check if context can be reused, otherwise reallocate a new one.
-func SwsGetCachedContext(ctx *SwsContext, sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *float64) *SwsContext {
+func SwsGetCachedContext(ctx *SwsContext, sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *SwsFilter, p *float64) *SwsContext {
 	return (*SwsContext)(C.sws_getCachedContext((*C.struct_SwsContext)(ctx), C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(p)))
 }
 

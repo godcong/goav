@@ -85,15 +85,15 @@ func SwsScale2(ctxt *SwsContext, srcData [8]*uint8, srcStride [8]int32, y, h int
 	return int(C.sws_scale(cctxt, csrc, cstr, C.int(y), C.int(h), cd, cds))
 }
 
-// SwsSetcolorspacedetails ...
-func SwsSetcolorspacedetails(ctxt *SwsContext, it *int, sr int, t *int, dr, b, c, s int) int {
+// SwsSetColorspaceDetails ...
+func SwsSetColorspaceDetails(ctxt *SwsContext, it *int, sr int, t *int, dr, b, c, s int) int {
 	cit := (*C.int)(unsafe.Pointer(it))
 	ct := (*C.int)(unsafe.Pointer(t))
 	return int(C.sws_setColorspaceDetails((*C.struct_SwsContext)(ctxt), cit, C.int(sr), ct, C.int(dr), C.int(b), C.int(c), C.int(s)))
 }
 
-// SwsGetcolorspacedetails ...
-func SwsGetcolorspacedetails(ctxt *SwsContext, it, sr, t, dr, b, c, s *int) int {
+// SwsGetColorspaceDetails ...
+func SwsGetColorspaceDetails(ctxt *SwsContext, it, sr, t, dr, b, c, s *int) int {
 	cit := (**C.int)(unsafe.Pointer(it))
 	csr := (*C.int)(unsafe.Pointer(sr))
 	ct := (**C.int)(unsafe.Pointer(t))
@@ -104,13 +104,13 @@ func SwsGetcolorspacedetails(ctxt *SwsContext, it, sr, t, dr, b, c, s *int) int 
 	return int(C.sws_getColorspaceDetails((*C.struct_SwsContext)(ctxt), cit, csr, ct, cdr, cb, cc, cs))
 }
 
-// SwsGetdefaultfilter ...
-func SwsGetdefaultfilter(lb, cb, ls, cs, chs, cvs float32, v int) *Filter {
-	return (*Filter)(unsafe.Pointer(C.sws_getDefaultFilter(C.float(lb), C.float(cb), C.float(ls), C.float(cs), C.float(chs), C.float(cvs), C.int(v))))
+// SwsGetDefaultFilter ...
+func SwsGetDefaultFilter(lb, cb, ls, cs, chs, cvs float32, v int) *SwsFilter {
+	return (*SwsFilter)(unsafe.Pointer(C.sws_getDefaultFilter(C.float(lb), C.float(cb), C.float(ls), C.float(cs), C.float(chs), C.float(cvs), C.int(v))))
 }
 
 // SwsFreeFilter ...
-func SwsFreeFilter(f *Filter) {
+func SwsFreeFilter(f *SwsFilter) {
 	C.sws_freeFilter((*C.struct_SwsFilter)(f))
 }
 
