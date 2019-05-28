@@ -164,28 +164,28 @@ func (ctx *CodecContext) AVParserParse2(ctxtp *CodecParserContext, p **uint8, ps
 	return int(C.av_parser_parse2((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctx), (**C.uint8_t)(unsafe.Pointer(p)), (*C.int)(unsafe.Pointer(ps)), (*C.uint8_t)(b), C.int(bs), (C.int64_t)(pt), (C.int64_t)(dt), (C.int64_t)(po)))
 }
 
-// AvParserChange ...
-func (ctx *CodecContext) AvParserChange(ctxtp *CodecParserContext, pb **uint8, pbs *int, b *uint8, bs, k int) int {
+// AVParserChange ...
+func (ctx *CodecContext) AVParserChange(ctxtp *CodecParserContext, pb **uint8, pbs *int, b *uint8, bs, k int) int {
 	return int(C.av_parser_change((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctx), (**C.uint8_t)(unsafe.Pointer(pb)), (*C.int)(unsafe.Pointer(pbs)), (*C.uint8_t)(b), C.int(bs), C.int(k)))
 }
 
-// AvParserInit ...
-func AvParserInit(c int) *CodecParserContext {
+// AVParserInit ...
+func AVParserInit(c int) *CodecParserContext {
 	return (*CodecParserContext)(C.av_parser_init(C.int(c)))
 }
 
-// AvParserClose ...
-func AvParserClose(ctxtp *CodecParserContext) {
+// AVParserClose ...
+func AVParserClose(ctxtp *CodecParserContext) {
 	C.av_parser_close((*C.struct_AVCodecParserContext)(ctxtp))
 }
 
-// AvParserNext ...
-func (p *CodecParser) AvParserNext() *CodecParser {
+// AVParserNext ...
+func (p *CodecParser) AVParserNext() *CodecParser {
 	return (*CodecParser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
 }
 
-// AvRegisterCodecParser ...
-func (p *CodecParser) AvRegisterCodecParser() {
+// AVRegisterCodecParser ...
+func (p *CodecParser) AVRegisterCodecParser() {
 	C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
 }
 
@@ -237,58 +237,58 @@ const (
 	AvseekFlagFrame    = 8 ///< seeking based on frame number
 )
 
-// AvFormatGetProbeScore ...
-func (ctx *FormatContext) AvFormatGetProbeScore() int {
+// AVFormatGetProbeScore ...
+func (ctx *FormatContext) AVFormatGetProbeScore() int {
 	return int(C.av_format_get_probe_score((*C.struct_AVFormatContext)(ctx)))
 }
 
-// AvFormatGetVideoCodec ...
-func (ctx *FormatContext) AvFormatGetVideoCodec() *Codec {
+// AVFormatGetVideoCodec ...
+func (ctx *FormatContext) AVFormatGetVideoCodec() *Codec {
 	return (*Codec)(C.av_format_get_video_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
-// AvFormatSetVideoCodec ...
-func (ctx *FormatContext) AvFormatSetVideoCodec(c *Codec) {
+// AVFormatSetVideoCodec ...
+func (ctx *FormatContext) AVFormatSetVideoCodec(c *Codec) {
 	C.av_format_set_video_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
-// AvFormatGetAudioCodec ...
-func (ctx *FormatContext) AvFormatGetAudioCodec() *Codec {
+// AVFormatGetAudioCodec ...
+func (ctx *FormatContext) AVFormatGetAudioCodec() *Codec {
 	return (*Codec)(C.av_format_get_audio_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
-// AvFormatSetAudioCodec ...
-func (ctx *FormatContext) AvFormatSetAudioCodec(c *Codec) {
+// AVFormatSetAudioCodec ...
+func (ctx *FormatContext) AVFormatSetAudioCodec(c *Codec) {
 	C.av_format_set_audio_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
-// AvFormatGetSubtitleCodec ...
-func (ctx *FormatContext) AvFormatGetSubtitleCodec() *Codec {
+// AVFormatGetSubtitleCodec ...
+func (ctx *FormatContext) AVFormatGetSubtitleCodec() *Codec {
 	return (*Codec)(C.av_format_get_subtitle_codec((*C.struct_AVFormatContext)(ctx)))
 }
 
-// AvFormatSetSubtitleCodec ...
-func (ctx *FormatContext) AvFormatSetSubtitleCodec(c *Codec) {
+// AVFormatSetSubtitleCodec ...
+func (ctx *FormatContext) AVFormatSetSubtitleCodec(c *Codec) {
 	C.av_format_set_subtitle_codec((*C.struct_AVFormatContext)(ctx), (*C.struct_AVCodec)(c))
 }
 
-// AvFormatGetMetadataHeaderPadding ...
-func (ctx *FormatContext) AvFormatGetMetadataHeaderPadding() int {
+// AVFormatGetMetadataHeaderPadding ...
+func (ctx *FormatContext) AVFormatGetMetadataHeaderPadding() int {
 	return int(C.av_format_get_metadata_header_padding((*C.struct_AVFormatContext)(ctx)))
 }
 
-// AvFormatSetMetadataHeaderPadding ...
-func (ctx *FormatContext) AvFormatSetMetadataHeaderPadding(c int) {
+// AVFormatSetMetadataHeaderPadding ...
+func (ctx *FormatContext) AVFormatSetMetadataHeaderPadding(c int) {
 	C.av_format_set_metadata_header_padding((*C.struct_AVFormatContext)(ctx), C.int(c))
 }
 
-// AvFormatGetOpaque ...
-func (ctx *FormatContext) AvFormatGetOpaque() {
+// AVFormatGetOpaque ...
+func (ctx *FormatContext) AVFormatGetOpaque() {
 	C.av_format_get_opaque((*C.struct_AVFormatContext)(ctx))
 }
 
-// AvFormatSetOpaque ...
-func (ctx *FormatContext) AvFormatSetOpaque(o int) {
+// AVFormatSetOpaque ...
+func (ctx *FormatContext) AVFormatSetOpaque(o int) {
 	C.av_format_set_opaque((*C.struct_AVFormatContext)(ctx), unsafe.Pointer(&o))
 }
 

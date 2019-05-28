@@ -92,7 +92,7 @@ func main() {
 			}
 			// Copy context
 			pCodecCtx := pCodec.AVCodecAllocContext3()
-			if pCodecCtx.AVCodecCopyContext((*goav.Context)(unsafe.Pointer(pCodecCtxOrig))) != 0 {
+			if pCodecCtx.AVCodecCopyContext((*goav.CodecContext)(unsafe.Pointer(pCodecCtxOrig))) != 0 {
 				fmt.Println("Couldn't copy codec context")
 				os.Exit(1)
 			}
@@ -104,19 +104,19 @@ func main() {
 			}
 
 			// Allocate video frame
-			pFrame := goav.AvFrameAlloc()
+			pFrame := goav.AVFrameAlloc()
 
 			// Allocate an AVFrame structure
-			pFrameRGB := goav.AvFrameAlloc()
+			pFrameRGB := goav.AVFrameAlloc()
 			if pFrameRGB == nil {
 				fmt.Println("Unable to allocate RGB AVFrame")
 				os.Exit(1)
 			}
 
 			// Determine required buffer size and allocate buffer
-			numBytes := uintptr(goav.AvpictureGetSize(goav.AvPixFmtRgb24, pCodecCtx.Width(),
+			numBytes := uintptr(goav.AVPictureGetSize(goav.AvPixFmtRgb24, pCodecCtx.Width(),
 				pCodecCtx.Height()))
-			buffer := goav.AvMalloc(numBytes)
+			buffer := goav.AVMalloc(numBytes)
 
 			// Assign appropriate parts of buffer to image planes in pFrameRGB
 			// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
@@ -125,10 +125,10 @@ func main() {
 			avp.AvpictureFill((*uint8)(buffer), goav.AvPixFmtRgb24, pCodecCtx.Width(), pCodecCtx.Height())
 
 			// initialize SWS context for software scaling
-			swsCtx := swscale.SwsGetcontext(
+			swsCtx := goav.SwsGetcontext(
 				pCodecCtx.Width(),
 				pCodecCtx.Height(),
-				(swscale.PixelFormat)(pCodecCtx.PixFmt()),
+				(goav.PixelFormat)(pCodecCtx.PixFmt()),
 				pCodecCtx.Width(),
 				pCodecCtx.Height(),
 				goav.AvPixFmtRgb24,
@@ -160,7 +160,7 @@ func main() {
 
 						if frameNumber <= 5 {
 							// Convert the image from its native format to RGB
-							swscale.SwsScale2(swsCtx, goav.Data(pFrame),
+							goav.SwsScale2(swsCtx, goav.Data(pFrame),
 								goav.Linesize(pFrame), 0, pCodecCtx.Height(),
 								goav.Data(pFrameRGB), goav.Linesize(pFrameRGB))
 
@@ -179,7 +179,7 @@ func main() {
 			}
 
 			// Free the RGB image
-			goav.AvFree(buffer)
+			goav.AVFree(buffer)
 			goav.AvFrameFree(pFrameRGB)
 
 			// Free the YUV frame
@@ -187,7 +187,7 @@ func main() {
 
 			// Close the codecs
 			pCodecCtx.AVCodecClose()
-			(*goav.Context)(unsafe.Pointer(pCodecCtxOrig)).AVCodecClose()
+			(*goav.CodecContext)(unsafe.Pointer(pCodecCtxOrig)).AVCodecClose()
 
 			// Close the video file
 			pFormatContext.AVFormatCloseInput()
