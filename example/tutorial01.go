@@ -125,7 +125,7 @@ func main() {
 			avp.AvpictureFill((*uint8)(buffer), goav.AvPixFmtRgb24, pCodecCtx.Width(), pCodecCtx.Height())
 
 			// initialize SWS context for software scaling
-			swsCtx := goav.SwsGetcontext(
+			swsCtx := goav.SwsGetContext(
 				pCodecCtx.Width(),
 				pCodecCtx.Height(),
 				(goav.PixelFormat)(pCodecCtx.PixFmt()),

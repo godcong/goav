@@ -467,13 +467,13 @@ func SwsInitContext(ctx *SwsContext, sf, df *SwsFilter) int {
 	return int(C.sws_init_context((*C.struct_SwsContext)(ctx), (*C.struct_SwsFilter)(sf), (*C.struct_SwsFilter)(df)))
 }
 
-//SwsFreecontext Free the swscaler context swsContext.
-func SwsFreecontext(ctx *SwsContext) {
+//SwsFreeContext Free the swscaler context swsContext.
+func SwsFreeContext(ctx *SwsContext) {
 	C.sws_freeContext((*C.struct_SwsContext)(ctx))
 }
 
-//SwsGetcontext Allocate and return an Context.
-func SwsGetcontext(sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *SwsFilter, p *int) *SwsContext {
+//SwsGetContext Allocate and return an Context.
+func SwsGetContext(sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *SwsFilter, p *int) *SwsContext {
 	return (*SwsContext)(C.sws_getContext(C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(unsafe.Pointer(p))))
 }
 
