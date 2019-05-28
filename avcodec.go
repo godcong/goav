@@ -73,9 +73,6 @@ type RcOverride C.struct_RcOverride
 // AudioServiceType ...
 type AudioServiceType C.enum_AVAudioServiceType
 
-// CodecID ...
-type CodecID C.enum_AVCodecID
-
 // ColorPrimaries ...
 type ColorPrimaries C.enum_AVColorPrimaries
 
