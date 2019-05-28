@@ -3,10 +3,11 @@
 
 package goav
 
-//#cgo pkg-config: libavformat libavcodec libswscale libavutil
+//#cgo pkg-config: libavformat libavcodec libswresample libswscale libavutil
 //#include <libavformat/avformat.h>
 //#include <libavcodec/avcodec.h>
 //#include <libswscale/swscale.h>
+//#include <libswresample/swresample.h>
 import "C"
 import (
 	"time"
