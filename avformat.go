@@ -282,8 +282,8 @@ func AVAddIndexEntry(st *Stream, pos, t, int64, s, d, f int) int {
 	return int(C.av_add_index_entry((*C.struct_AVStream)(st), C.int64_t(pos), C.int64_t(t), C.int(s), C.int(d), C.int(f)))
 }
 
-//AvURLSplit Split a URL string into components.
-func AvURLSplit(protoSize, authorizationSize, hostnameSize int, pp *int, pathSize int, url string) (proto, authorization, hostname, path string) {
+//AVURLSplit Split a URL string into components.
+func AVURLSplit(protoSize, authorizationSize, hostnameSize int, pp *int, pathSize int, url string) (proto, authorization, hostname, path string) {
 	Cproto := (*C.char)(C.malloc(C.sizeof_char * C.ulong(protoSize)))
 	defer C.free(unsafe.Pointer(Cproto))
 

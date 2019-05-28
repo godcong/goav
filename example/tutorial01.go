@@ -25,7 +25,7 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/giorgisio/goav"
+	"github.com/godcong/goav"
 )
 
 // SaveFrame writes a single frame to disk as a PPM file
